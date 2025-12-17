@@ -104,7 +104,7 @@ For questions, contributions, or collaborations:
 
 **Mauricio Mardones**
 Fisheries Researcher – Marine Population Dynamics
-ICES / IEO – Spain & Chile
+IEO, Cádiz, Spain & Chile
 GitHub: [https://github.com/MauroMardones](https://github.com/MauroMardones)
 
 ---

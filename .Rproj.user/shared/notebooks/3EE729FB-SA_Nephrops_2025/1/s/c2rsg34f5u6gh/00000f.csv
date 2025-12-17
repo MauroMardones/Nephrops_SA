@@ -1,7 +1,0 @@
-"0","# Priors list"
-"0","list.possible.priors()"
-"1"," [1] ""logn""      ""logalpha""  ""logbeta""   ""logr""      ""logK""      ""logm""     
- [7] ""logq""      ""logqf""     ""logbkfrac"" ""logB""      ""logF""      ""logBBmsy"" 
-[13] ""logFFmsy""  ""logsdb""    ""logsdf""    ""logsdi""    ""logsde""    ""logsdc""   
-[19] ""logsdm""    ""logpsi""    ""mu""        ""BmsyB0""    ""logngamma""
-"
