@@ -1,0 +1,7 @@
+"0","resretro <- retro(res1, "
+"0","                  nretroyear = 4, "
+"0","                  mc.cores = 1)"
+"0","plotspict.retro(resretro)"
+"1","      FFmsy       BBmsy 
+-0.04507822  0.12282444 
+"

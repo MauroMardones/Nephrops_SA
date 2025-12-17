@@ -1,0 +1,2 @@
+"0","resbacres <- calc.osa.resid(res1)"
+"0","plotspict.diagnostic(resbacres, qlegend = F)"

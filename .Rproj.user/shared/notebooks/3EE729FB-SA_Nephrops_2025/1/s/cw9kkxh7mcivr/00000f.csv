@@ -1,0 +1,22 @@
+"0","sumspict.manage(resbro2) 
+"
+"1","SPiCT timeline:
+                                                  
+      Observations              Management        
+    1994.00 - 2024.00        2024.00 - 2025.00    
+ |-----------------------| ----------------------|
+
+Management evaluation: 2025.00
+
+Predicted catch for management period and states at management evaluation time:
+
+                            C B/Bmsy F/Fmsy
+1. Keep current catch    34.3   0.23   0.67
+2. Keep current F        32.9   0.23   0.64
+3. Fish at Fmsy          51.4   0.23   1.00
+4. No fishing             0.0   0.23   0.00
+5. Reduce F by 25%       24.7   0.23   0.48
+6. Increase F by 25%     41.1   0.23   0.80
+7. MSY hockey-stick rule 23.7   0.23   0.46
+8. ICES advice rule       0.0   0.23   0.00
+"

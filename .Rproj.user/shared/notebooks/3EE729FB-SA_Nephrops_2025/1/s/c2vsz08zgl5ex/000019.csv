@@ -1,0 +1,2 @@
+"0","bac<- read_excel(""data/inputdata_spict_fu30_2025.xlsx"")"
+"0","head(bac)"

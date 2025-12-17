@@ -1,0 +1,951 @@
+---
+title: "![](logo_ieo.png){width=4cm}"
+output:
+  pdf_document:
+    includes:
+      before_body: titulo.sty
+    keep_tex: yes
+    number_sections: no
+    toc: true
+    toc_depth: 3
+bibliography: bibliography.bib
+csl: apa.csl
+link-citations: yes
+linkcolor: blue
+indent: no
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhf{}
+- \lfoot[\thepage]{}
+- \rfoot[]{\thepage}
+---
+
+
+```{=tex}
+\fontsize{10}{18}
+\selectfont
+```
+
+```{r setup, include=FALSE, message=F}
+rm(list = ls())
+options(bitmapType = "cairo") 
+#XQuartz is a mess, put this in your onload to default to cairo instead (https://github.com/tidyverse/ggplot2/issues/2655)
+# Lo mapas se hacen mas rapido
+# solo para IOs
+knitr::opts_chunk$set(collapse = TRUE, 
+                      comment = "  ", 
+                      fig.align = 'center',
+                      cache=FALSE,
+                      warning = FALSE)
+```
+
+\pagebreak
+
+## Stock Assessment Tier 2 *Nephrops norvegicus* Gulf of Cádiz using SPiCT
+
+Based on the available data analysis and compilation the proposed models for depth-based  fisheries correspond to Tier 2, i.e., models of logistic growth for global population productivity, as described by @Paya2014.
+
+Accordingly, two alternatives are presented to model the population dynamics of Nephrops norvegicus in the Gulf of Cádiz, as well as to provide recommendations for resource management.
+
+### `SPiCT` @Pedersen2017
+
+Surplus production models have a long history as a method for managing fish populations with limited data. Recent advances have yielded surplus production models formulated as state-space models, which separate stochastic variability in stock dynamics from observation error in biomass indices. Pedersen & Berg (2016) present a stochastic, continuous-time surplus production model (SPiCT) that, in addition to stock dynamics, also models the fishery dynamics. This allows the process error in catches to be reflected in the uncertainty of estimated model parameters and management quantities.
+
+The continuous-time state-space formulation allows for estimation of exploitable biomass and fishing mortality at any point in time using data sampled at arbitrary and potentially irregular intervals.
+
+This guide provides an example of applying the model using the library data, but it also allows the use of your own data.
+
+Main assumptions and data requirements for SPiCT
+
+* Time series data that captures forcing changes in the population.
+* Contrast in the data (Hilborn & Walters, 1989).
+* Extreme observations or outliers in indices and catch data are common issues in fishery datasets (Chen et al., 1994).
+* Catch data should be representative of both landings and bycatch. It is also possible to use only catch data, but interpretation of the results changes accordingly. If available, seasonal catches should be used as input. Catches are recorded over time intervals (e.g., years or quarters), so the time vector in SPiCT `inp$timeC` must reflect the start of each catch interval (e.g., 2002.25 and 2002.75 for the second and fourth quarter catches, respectively). Similarly, the vector `inp$dtc` must reflect the duration of each time interval (e.g., 1 for annual and 0.25 for quarterly catches).
+* Abundance indices must be expressed in terms of biomass (not numbers) and be representative of the portion of the population vulnerable to commercial fleets, i.e., the exploitable stock biomass. Often, commercial and scientific selectivity differ, so the population size must be corrected to exclude individuals not represented in commercial fleets.
+* Biomass indices are assumed to be instantaneous observations at specific points in time. Therefore, the timing of survey indices `inp$timeI` should be expressed in decimal years to reflect the exact timing of the survey (e.g., 1995.5 for mid-year). Survey timing will be compared with the closest model time step, which depends on `inp$dteuler`. The commercial CPUE index should be associated with the midpoint of the corresponding catch interval, e.g., mid-year for annual aggregated catches and effort.
+
+All updates and improvements can be followed and obtained at the [SPiCT GitHub repository](https://github.com/DTUAqua/spict/commits/master). Bugs and issues can be reported via the [SPiCT Releases page](https://github.com/DTUAqua/spict/releases).
+
+\pagebreak
+
+## Methods 
+
+### Cargar librerias necesarias.Para `SPiCT`
+
+```{r  eval=FALSE, echo=TRUE}
+install.packages("devtools")
+install.packages("TMB")
+#si hay problemas, instalarlo desde el github
+devtools::install_github("kaskr/adcomp", subdir = "TMB")
+# SPiCT now
+devtools::install_github("DTUAqua/spict/spict")
+#devtools::install_github("DTUAqua/spict/spict", ref = "1.2.8")
+# aqui algunas dependencias tambien necesitan ser instaladas
+install.packages("Rcpp")
+install.packages("ellipse")
+```
+
+Aqui a veces hay problemas para acceder a GitHub por problemas en las credenciales. Para ello se debe obtener un token de GitHub (deben tener una cuenta) y hacer un proceso como lo planteado acá en [www.r-bloggers.com/](https://www.r-bloggers.com/using-travis-make-sure-you-use-a-github-pat/)
+
+
+```{r echo = TRUE, message = FALSE}
+library(usethis)
+library(devtools)
+library(ellipse)
+library(spict) #comprobar esta versión de spict_v1.2.8
+#library(MQMF) #Suprlus production models Malcom Haddon
+library(tidyverse)
+library(patchwork)
+library(knitr)
+library(egg) # ggarrange
+library(ggthemes)
+library(readxl)
+library(tidyverse)
+library(ggpubr)
+# Paquetes necesari
+library(GGally)
+library(flextable)
+library(officer)
+```
+
+\pagebreak
+
+### Study area
+
+```{r}
+image <- "~/IEO/MS_Reconstruction_Catch/Fig/Mapa_CCAA_4.png"
+knitr::include_graphics(image)
+```
+
+### Data loading and exploration
+
+```{r}
+bac<- read_excel("data/inputdata_spict_fu30_2025.xlsx")
+head(bac)
+```
+
+Graficos de series temporales de capturas e índices de abundancia disponibles. 
+
+```{r}
+bac_long <- bac %>%
+  pivot_longer(cols = -year, names_to = "variable", values_to = "value")
+# ---- Gráfico de capturas (barras) ----
+p_catch <- ggplot(filter(bac_long, variable == "catch"), 
+                  aes(x = year, y = value)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  geom_hline(yintercept = mean(bac$catch, na.rm = TRUE), 
+             linetype = "dashed", color = "black") +
+  theme_minimal(base_size = 12) +
+  labs(y = "Catch (tons)", x = "Year", title = "Catch time series")
+
+# ---- Gráficos para los índices (puntos + suavizado) ----
+plot_index <- function(var_name, ylab){
+  ggplot(filter(bac_long, variable == var_name), 
+         aes(x = year, y = value)) +
+    geom_point(color = "darkred", size = 2) +
+    geom_smooth(color = "darkred", 
+                se = TRUE, 
+                method = "loess", 
+                formula = y ~ x, 
+                linewidth = 0.8) +
+    theme_minimal(base_size = 12) +
+    labs(y = ylab, x = "Year", title = var_name)
+}
+
+p1 <- plot_index("arsaspr", "Index value")
+p2 <- plot_index("arsaautum", "Index value")
+p3 <- plot_index("isunepbio_2", "Index value")
+p4 <- plot_index("isunepabun", "Index value")
+p5 <- plot_index("rendiarsaspr", "Index value")
+p6 <- plot_index("LPUEcomercial", "Index value")
+
+# ---- Combinar todos los gráficos ----
+ggarrange(
+  p_catch,
+  ggarrange(p1, p2, p3, p4, p5, p6, 
+            ncol = 2, 
+            nrow = 3, labels = "AUTO")
+)
+```
+
+```{r}
+# Visual check
+str(data)
+summary(data)
+```
+
+Correlation analisys. Este analisis se realiza para identificar posibles indices redundantes, o bien seleccionar los que no tengan conlfictos. 
+
+```{r warning=FALSE, message=FALSE}
+data_log <- data %>%
+  select(-year, -catch) %>%                 
+  mutate(across(everything(), log))         
+
+cor_pearson  <- cor(data_log, use = "pairwise.complete.obs", method = "pearson")
+cor_spearman <- cor(data_log, use = "pairwise.complete.obs", method = "spearman")
+
+pheatmap(cor_pearson,
+         display_numbers = TRUE,
+         number_format = "%.2f",
+         main = "Correlation Heatmap (Pearson)",
+         color = colorRampPalette(c("blue", "white", "red"))(50))
+
+pheatmap(cor_spearman,
+         display_numbers = TRUE,
+         number_format = "%.2f",
+         main = "Correlation Heatmap (Spearman)",
+         color = colorRampPalette(c("blue", "white", "red"))(50))
+
+```
+
+| Índices                    | Correlación                |
+| -------------------------- | -------------------------- |
+| `arsaspr` – `rendiarsaspr` | 0.9579 ✅ **muy alta**      |
+| `arsaspr` – `isunepabun`   | 0.5000                     |
+| `arsaspr` – `isunepbio`    | 0.4286                     |
+
+### Prepare data for SPiCT model
+
+Ahora creo la estructura de `list()` que necesita SPiCT para correr el modelo.
+En principio usaré todos los indices disponibles. 
+
+```{r}
+data <- bac
+# Create Catch dataframe
+C_nep <- data.frame(
+  obsC = data$catch,
+  timeC = data$year
+)
+
+# Create abundance index dataframes
+
+I_arsa_spring <- data.frame(
+  obsI = data$arsaspr,
+  timeI = data$year + 0.25
+)
+
+I_arsa_autumn <- data.frame(
+  obsI = data$arsaautum,
+  timeI = data$year + 0.75
+)
+
+I_isunepbio <- data.frame(
+  obsI = data$isunepbio,
+  timeI = data$year + 0.5
+)
+
+I_isunepbio2 <- data.frame(
+  obsI = data$isunepbio_2,
+  timeI = data$year + 0.5
+)
+
+I_isunepabun <- data.frame(
+  obsI = data$isunepabun,
+  timeI = data$year + 0.5
+)
+
+I_rendiarsaspr <- data.frame(
+  obsI = data$rendiarsaspr,
+  timeI = data$year 
+)
+
+I_LPUEcom <- data.frame(
+  obsI = data$LPUEcomercial,
+  timeI = data$year 
+)
+```
+
+Define time range for model run (example: 1994–2024)
+
+```{r}
+ind  <- which(C_nep$timeC == 1994)
+ind2 <- which(C_nep$timeC == 2025)
+```
+
+Create `inp` object for SPiCT model (all 6 indices)
+
+```{r}
+
+inp1 <- list(
+  # ---- Capturas ----
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+  
+  timeI = list(
+    I_arsa_spring$timeI[ind:ind2],   # 1. ARSA spring
+    I_arsa_autumn$timeI[ind:ind2],   # 2. ARSA autumn
+    I_isunepbio$timeI[ind:ind2],     # 3. ISUNEP biomass
+    I_isunepabun$timeI[ind:ind2],    # 4. ISUNEP abundance
+    I_rendiarsaspr$timeI[ind:ind2],  # 5. Rendimiento ARSA spring
+    I_LPUEcom$timeI[ind:ind2]        # 6. LPUE comercial
+  ),
+  
+  obsI = list(
+    I_arsa_spring$obsI[ind:ind2],
+    I_arsa_autumn$obsI[ind:ind2],
+    I_isunepbio$obsI[ind:ind2],
+    I_isunepabun$obsI[ind:ind2],
+    I_rendiarsaspr$obsI[ind:ind2],
+    I_LPUEcom$obsI[ind:ind2]
+  )
+)
+
+```
+
+otro Escenario con solo tres indices: ISUNEP Bio y LPUE Comercial
+
+```{r}
+inp1 <- list(
+  # ---- Capturas ----
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+  
+  # ---- Índices de abundancia ----
+  timeI = list(
+   
+    
+    I_isunepbio$timeI[ind:ind2],     # 3. ISUNEP biomass
+   
+    
+    I_LPUEcom$timeI[ind:ind2]        # 6. LPUE comercial
+  ),
+  
+  obsI = list(
+    
+   
+    I_isunepbio$obsI[ind:ind2],
+    
+    
+    I_LPUEcom$obsI[ind:ind2]
+  )
+)
+```
+
+Otro Escenario con solo dos indices: ISUNEP Bio y ARSA Spring. Resultado de la correlación alta entre ARSA Spring y Rendimiento ARSA Spring en spearmnan y pearson.
+
+```{r}
+inp1 <- list(
+  # ---- Capturas ----
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+  
+  # ---- Índices de abundancia ----
+  timeI = list(
+    I_arsa_spring$timeI[ind:ind2],   # 1. ARSA spring
+    
+    I_isunepbio2$timeI[ind:ind2]     # 3. ISUNEP biomass
+   ),
+  
+  obsI = list(
+    I_arsa_spring$obsI[ind:ind2],
+   
+    I_isunepbio2$obsI[ind:ind2]
+  )
+)
+```
+
+Otro escenario solo con ISUNEP Abundance
+
+```{r}
+inp1 <- list(
+  # ---- Capturas ----
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+  
+  # ---- Índices de abundancia ----
+  timeI = list(
+    
+    I_isunepbio$timeI[ind:ind2]     # 3. ISUNEP biomass
+   ),
+  
+  obsI = list(
+   
+    I_isunepbio$obsI[ind:ind2]
+  )
+)
+```
+
+Set model time-step and check input
+
+```{r}
+inp1$dteuler <- 1/16  # must be set before check.inp
+inp1 <- check.inp(inp1)
+
+# Inspect
+inp1$dtc
+```
+\pagebreak
+
+### Scenarios
+
+Si bien la data disponible  para el presente ejercicio es escasa, proponeos configurar un set de escenarios relativos a los datos, así como tambien a la plataforma de modelación, com ose describe en la siguiente tabla;
+
+```{r}
+# hacer una tabla con los escenarios con los indices usados
+```
+
+
+
+### Plot input data
+
+```{r figwidth=8, fig.height=9}
+plotspict.data(inp1)
+plotspict.ci(inp1)
+guess.m(inp1) # solo probatina
+```
+
+
+### Tipos de Modelos de Produccion
+
+
+Un aspecto importate de ajuste, es otorgar conocimiento previo a los datos
+primero convierto la fincion logistica de Pella Tomilson, Fox o Shaefer a traves del cambio dee exponente de la ecuación de producción excedente.
+
+La estimación de todos los parámetros del modelo sólo es posible si los datos contienen suficiente información, lo que puede no ser el caso de series temporales cortas o series temporales con contraste limitado.
+
+
+Comparo los Modelos disponibles
+
+```{r}
+# Parámetros comunes
+r <- 1
+K <- 1
+B <- seq(0.001, K, length.out = 200)  # evita log(0) en Fox
+
+# Parámetro de Pella–Tomlinson
+n_pella <- 2
+
+# Funciones de producción
+P_schaefer <- r * B * (1 - B / K)             # n = 1 (Schaefer)
+P_pella    <- r * B * (1 - (B / K)^n_pella)   # n = 2 (Pella–Tomlinson)
+P_fox      <- r * B * log(K / B)              # Fox
+
+# Crear dataframe para graficar
+df <- data.frame(
+  B = rep(B, 3),
+  Production = c(P_schaefer, P_pella, P_fox),
+  Model = factor(rep(c("Schaefer (n=1)", 
+                       "Pella–Tomlinson (n=2)", 
+                       "Fox (log)"), each = length(B)))
+)
+
+# Graficar
+ggplot(df, aes(x = B/K, y = Production, color = Model)) +
+  geom_line(size = 1.2) +
+  theme_bw(base_size = 14) +
+  labs(
+    x = "Relative Biomass (B/K)",
+    y = "Relative Production (Y/K)",
+    title = "Comparison of Surplus Production Models: Fox, Schaefer, and Pella–Tomlinson"
+  ) +
+  scale_color_manual(values = c("blue", "red", "darkgreen")) +
+  theme(
+    legend.position = "top",
+    legend.title = element_blank()
+  )
+
+```
+
+### Ejemplos Modelos de producción excedente 
+
+1. Schaefer (n = 1)
+
+$$
+P = rB\left(1 - \frac{B}{K}\right)
+$$
+
+* Simétrico: el máximo rendimiento (MSY) ocurre en B = K/2.
+* Supone que la población crece rápido cuando está a media capacidad, y se reduce igual de rápido si sube o baja.
+* Implicancia biológica:
+
+  * Representa poblaciones “intermedias” en resiliencia.
+  * Adecuado cuando no hay evidencia de asimetría en la respuesta poblacional.
+  * Se asume que la tasa de crecimiento es máxima cuando la biomasa es el 50 % de K.
+
+
+ 2. Fox (n → 0)
+
+$$
+P = rB \ln\left(\frac{K}{B}\right)
+$$
+
+* Asimétrico hacia la izquierda: el MSY ocurre a biomasa menor que K/2.
+* Las poblaciones pueden mantenerse productivas a niveles bajos de biomasa.
+* Implicancia biológica:
+
+  * Representa especies resilientes o oportunistas, que siguen creciendo o reproduciéndose con poca biomasa (p. ej., pequeños pelágicos o invertebrados con alta fecundidad).
+  * Permite niveles de explotación más altos sin colapso inmediato.
+
+En dinámica temporal: recuperaciones rápidas, pero también más inestables; la biomasa puede fluctuar con más amplitud.
+
+ 3. Pella–Tomlinson (n > 1)
+
+$$
+P = rB \left(1 - \left(\frac{B}{K}\right)^{n-1}\right)
+$$
+
+* Asimétrico hacia la derecha: el MSY ocurre a biomasa mayor que K/2.
+* Producción máxima más “suave”: la población necesita mantener biomasa alta para sostener rendimientos.
+* Implicancia biológica:
+
+  * Representa especies más sensibles o longevas, con reclutamiento dependiente de stock.
+  * Se recuperan lentamente de la sobrepesca.
+  * El modelo penaliza los niveles bajos de biomasa: si B cae, la producción se desploma.
+
+En dinámica temporal: recuperaciones lentas, mayor riesgo de sobreexplotación si se pesca cerca del MSY.
+
+```{r}
+tab_modelos <- data.frame(
+  Modelo = c("Fox", "Schaefer", "Pella–Tomlinson (n=2)"),
+  `Forma de la curva` = c("Asimétrica izquierda", "Simétrica", "Asimétrica derecha"),
+  `BMSY/K` = c("~0.37", "0.5", "~0.6–0.7"),
+  `Tipo de especie` = c("Rápido crecimiento", "Intermedia", "Lenta, longeva"),
+  `Implicancia de manejo` = c(
+    "Alta explotación tolerable",
+    "Balanceado",
+    "Precaución, biomasa alta necesaria"
+  )
+)
+
+ft <- flextable(tab_modelos) |>
+  set_header_labels(
+    Modelo = "Modelo",
+    `Forma de la curva` = "Forma de la curva",
+    `BMSY/K` = "BMSY/K",
+    `Tipo de especie` = "Tipo de especie",
+    `Implicancia de manejo` = "Implicancia de manejo"
+  ) |>
+  theme_vanilla() |>
+  autofit() |>
+  bold(part = "header") |>
+  color(part = "header", color = "white") |>
+  bg(part = "header", bg = "#2E86C1") |>
+  fontsize(size = 11, part = "all") |>
+  align(align = "center", part = "all")
+
+ft
+```
+
+
+
+En *Nephrops norvegicus*, el modelo **Pella–Tomlinson** suele ser más realista porque:
+
+* Son especies de **reclutamiento dependiente**, con variabilidad ambiental fuerte.
+* Su productividad cae rápidamente si la biomasa desovante se reduce.
+
+Prior para tipo de modelo
+
+```{r}
+
+# # Convert model to Schaefer (set exponent n = 1)
+# inp1$ini$logn <- log(2)
+# inp1$phases$logn <- -1  # Fix it
+
+# # ---- Fox model ----
+# inp1$ini$logn <- log(1.01)  # n ~ 0, modelo tipo Fox
+# inp1$phases$logn <- -1      # fijar el exponente
+
+# 
+# # ---- Pella–Tomlinson (n = 2) ----
+inp1$ini$logn <- log(3)   # da n = 2 en la parametrización interna
+inp1$phases$logn <- -1    # fijar el exponente (no estimarlo)
+```
+
+### Set priors
+
+Ahora  genero los `priors` para el modelo SPiCT. Principalmente  los generaré para explotación previa y capturabilidad.
+
+Priors for SPiCT input 
+
+```{r}
+# Priors list
+list.possible.priors()
+```
+
+
+
+```{r}
+inp1$priors <- list()
+
+inp1$priors$logalpha <- c(1, 1, 0)
+inp1$priors$logbeta <- c(1, 1, 0)
+# --- Population dynamics priors ---
+
+# Intrinsic growth rate
+inp1$priors$logr <- c(log(0.8), 0.1, 0.3)      # Moderate productivity
+
+# Biomass relative to Bmsy
+inp1$priors$logBBmsy <- c(log(0.4), 0.3, 1, 1994)
+#Biomasa inicial igual a Bmsy. Priorizas estado de explotación neutral.
+
+
+# Exploitation prior -> high exploitation (low B0/K)
+inp1$priors$logbkfrac <- c(log(0.2), 0.5, 1)   # High exploitation (B0 ≈ 30% K)
+
+# o fijar
+# # Valor inicial (en escala log)
+# inp1$ini$logbkfrac <- log(0.2)
+# # Fase negativa => no se estima (parámetro fijo)
+# inp1$phases$logp1robfac <- -1
+
+# Fishing mortality relative to Fmsy
+inp1$priors$logFFmsy <- c(log(1.2), 0.4, 1, 1994)
+#F= Fmsy al inicio de la serie. Priorizas estado de explotación neutral.
+
+# --- Catchability priors (logq) ---
+# Surveys ≈ 1 (neutral scaling)
+# CPUE commercial ≈ 0.01 (much smaller)
+
+# inp1$priors$logq <- list(
+#   I_arsa_spring  = c(log(1),   0.9, 1.2),   # scientific survey
+#   I_arsa_autumn  = c(log(1),   0.9, 1.2),   # scientific survey
+#   I_isunepbio    = c(log(1),   0.9, 1.2),   # scientific survey
+#   I_isunepabun   = c(log(1),   0.9, 1.2), # commercial CPUE, much lower q
+#   I_rendiarsaspr = c(log(1),   0.9, 1.2),   # scientific survey
+#   I_LPUEcom     = c(log(0.0005), 0, 0.01)    # commercial CPUE, much lower q
+# )
+
+
+#prior solo con INSUPEC Bio,  Arsa Spring y LPUE Comercial
+
+# inp1$priors$logq <- list(
+#   I_arsa_spring  = c(log(1),   0.9, 1.2),   # scientific survey
+# 
+#   I_isunepbio    = c(log(1),   0.9, 1.2),   # scientific survey
+#   I_LPUEcom      = c(log(0.0005), 0, 0.01)    # commercial CPUE, much lower q
+# )
+
+# Prior solo para INSUPEC Bio y Arsa Spring
+# 
+# inp1$priors$logq <- list(
+#   I_arsa_spring  = c(log(5),   0.9, 1.2),   # scientific survey
+#   
+#   I_isunepbio    = c(log(5),   0.9, 1.2)   # scientific survey
+#   
+# )
+
+# # -- Fijar parámetros: colocar valor inicial (ini) y fase = -1 (no estimar) --
+# 
+# # Intrinsic growth rate (r)
+# inp1$ini$logr    <- log(0.8)
+# inp1$phases$logr <- -1
+# 
+# # Biomass relative to Bmsy (B0/Bmsy)
+# inp1$ini$logBBmsy    <- log(0.4)
+# inp1$phases$logBBmsy <- -1
+# 
+# # B0/K (bkfrac)
+# inp1$ini$logbkfrac    <- log(0.2)
+# inp1$phases$logbkfrac <- -1
+# 
+# # Fishing mortality relative to Fmsy (F0/Fmsy)
+# inp1$ini$logFFmsy    <- log(1.2)
+# inp1$phases$logFFmsy <- -1
+
+# (Opcional) Si tu estructura de objetos usa otra rama para fases/ini, ajusta los nombres en consecuencia.
+
+
+# Check input
+inp1 <- check.inp(inp1)
+```
+
+### Fit the model
+
+```{r}
+res1 <- fit.spict(inp1)
+```
+
+\pagebreak
+
+# Results
+
+Luego un resumen de los estimados en `res1`. 
+
+Línea 1: Convergencia del ajuste del modelo, que tiene código 0 si el ajuste fue exitoso. Si este no es el caso, no se obtuvo convergencia y los resultados reportados no deben usarse. En caso de que no haya convergencia, se informarán los resultados para ayudar al diagnóstico del problema.
+
+```{r}
+capture.output(summary(res1))
+```
+
+```{r figwidth=8, fig.height=9}
+plot(res1,CI = 0.8)
+
+a <-plotspict.bbmsy(res1)
+b <-  plotspict.ffmsy(res1)
+b<- plotspict.biomass(res1, qlegend = T, ylim=c(0, 15000))
+p <- plotspict.production(res1, n.plotyears = 60)
+c <- plotspict.f(res1, qlegend = F, rel.axes = F)
+d <- plotspict.fb(res1)
+f <- plotspict.ffmsy(res1, qlegend=T)
+g <- plotspict.catch(res1, qlegend=FALSE, ylim=c(0, 1000))
+check.ini(res1, ntrials=4)
+```
+
+
+Comprubo si las desviaciones son positivas
+
+```{r fig.width=7, fig.height=6}
+
+all(is.finite(res1$sd))
+```
+
+## Diagnosis
+
+### Realistic production curve (0.1-0.9)
+```{r}
+calc.bmsyk(res1)
+plotspict.production(res1)
+```
+
+### Diagnóstico a través de ajustes y residuos
+
+```{r fig.width=9, fig.height=7}
+resbacres <- calc.osa.resid(res1)
+plotspict.diagnostic(resbacres, qlegend = F)
+```
+
+### Retrospective analysis
+
+```{r}
+resretro <- retro(res1, 
+                  nretroyear = 4, 
+                  mc.cores = 1)
+plotspict.retro(resretro)
+```
+
+La función `plotspict.retro.fixed` hace un grafico de los parametros estimados con su respectivos intervalos de confianza (95%) para cada retro.
+
+```{r}
+plotspict.retro.fixed(resretro)
+```
+
+
+### AIC desempeño
+
+```{r}
+get.AIC(res1)
+```
+
+La estimación de FRMS se muestra con una línea negra horizontal y el IC del 95 % se muestra como una región gris.
+
+### Variables de interés
+
+primero identifico las variables que pueden ser leidas y extraidas. En este caso analizamos el `MSY` del ajuste del modelo.
+
+Extraigo B y su RMS
+```{r}
+bioest <- exp(as.data.frame(get.par('logB', 
+                                    res1)))
+year <- round(as.numeric(rownames(bioest)),0)
+bioest <- cbind(bioest, year)
+BIOEST <- bioest %>% 
+  group_by(year) %>% 
+  summarise(estimado=mean(est))%>% 
+  rename(BIOEST=estimado)
+```
+
+extraigo F
+```{r}
+fest <- exp(as.data.frame(get.par('logF', 
+                                  res1)))
+year <- round(as.numeric(rownames(fest)),0)
+fest <- cbind(fest, year)
+FEST <- fest %>% 
+  group_by(year) %>% 
+  summarise(estimado=mean(est))%>% 
+  rename(FEST=estimado)
+# uno
+estimadosFB <- cbind(BIOEST, FEST[,2]) 
+```
+
+```{r eval=FALSE}
+write_csv(estimadosFB, "estimadoSPICT.csv")
+```
+
+
+Extraigo variables para koble plot de `FFMSY`y `BBMSY` para constriur el diagrama de fase . Denbo hacer un arreglo, dado que los valores estan por cada dos meses y debemos obtener un valor por año.
+
+```{r}
+ffmsy <- exp(as.data.frame(get.par('logFFmsy', res1)))
+year <- round(as.numeric(rownames(ffmsy)),0)
+ffmsy <- cbind(ffmsy, year)
+FFMSY <- ffmsy %>% 
+  group_by(year) %>% 
+  summarise(estimado=mean(est))%>% 
+  rename(FFMSY=estimado)
+```
+
+
+```{r}
+bbmsy <- exp(as.data.frame(get.par('logBBmsy', res1)))
+year <- round(as.numeric(rownames(bbmsy)),0)
+bbmsy <- cbind(bbmsy, year)
+BBMSY <- bbmsy %>% 
+  group_by(year) %>% 
+  summarise(estimado=mean(est))%>% 
+  rename(BBMSY=estimado)
+```
+
+genero el vector con ambos parámetros
+```{r}
+kobebro <- cbind(FFMSY, BBMSY[,2]) 
+#write.csv(kobebro, "kobebro.csv", sep=",")
+```
+
+Genero el diagrama con lo disppuesto por el CCTRDAP (Subpesca, 2015)
+
+
+```{r}
+texto_coords <- data.frame(
+  x = c(0.2, 1, 2.5, 2.3),   # Coordenadas x para los textos
+  y = c(2, 2.5, 2.5, 0.2),   # Coordenadas y para los textos
+  etiqueta = c("Agotada", "Plena Explotación", "Sobrexplotación", "Subexplotación")  # Textos que se agregarán
+)
+```
+
+
+Gráfico ggplot con cuatro zonas de colores
+```{r fig.height=6, fig.width=6}
+ggplot()+
+  geom_point(aes(kobebro$BBMSY, kobebro$FFMSY),
+            lwd=2) +
+  #geom_line(aes(kobebro$BBMSY, kobebro$FFMSY)) +
+  geom_rect(aes(xmin = 0, xmax = 0.5, ymin = 0, ymax = 3), 
+            fill = "#E43338", alpha = 0.5) +
+  geom_rect(aes(xmin = 0.5, xmax = 0.75, ymin = 0, ymax = 3), 
+            fill = "#F2ED23", alpha = 0.5) +
+  geom_rect(aes(xmin = 0.75, xmax = 1.25, ymin = 0, ymax = 3), 
+            fill = "#ACC39A", alpha = 0.5) +
+  geom_rect(aes(xmin = 1.25, xmax = 3.5, ymin = 0, ymax = 1), 
+            fill = "#608D68", alpha = 0.5) +
+  geom_rect(aes(xmin = 1.25, xmax = 3.5, ymin = 1, ymax = 3), 
+            fill = "#808080", alpha = 0.5) +
+  geom_hline(yintercept = 1) + 
+  geom_vline(xintercept = c(0.5, 0.75, 1.75, 1, 1.25), linetype=2)+
+  theme_few()+
+  labs(x = expression("BD/BD"[RMS]), y = expression("F/F"[RMS]))+
+  # geom_text(data = texto_coords, aes(x = x, y = y, label = etiqueta), 
+  #            vjust = -0.5)+
+  geom_text(aes(x=kobebro$BBMSY,y=kobebro$FFMSY,label=kobebro$year),
+             nudge_y = 0.1,size = 3,
+               check_overlap = TRUE)
+```
+
+### Autocorrelación
+
+Otra forma para caclural la autocorrelacion entre las series
+
+```{r eval=FALSE}
+#cross correlation between cpue and catch in schaef Fig 7.2  
+parset(cex=0.85) #sets par parameters for a tidy base graphic  
+ccf(x=bacalaodata$obsC[20:38],y=bacalaodata$obsI[20:38],type="correlation",  
+    ylab="Correlation",plot=TRUE)  
+```
+Como antes, hay una indicación de que un desfase temporal = 0 es apenas significativo. Sin embargo, la significativa correlación negativa de la CPUE con la captura con un retraso de 5 años, Figura (7.2), sugiere que habría suficiente contraste en estos datos de atún de aleta amarilla para informar un modelo de producción excedente (también hay efectos significativos a 1 , 3 y 4 años). Esta correlación debería volverse más evidente si retrasamos físicamente los datos de CPUE dos años, Figura (7.3).
+
+### Covarianza
+
+Extracción de correlación entre estimaciones de parámetros. La covarianza entre los parámetros del modelo (efectos fijos) se puede extraer de la lista de resultados. Sin embargo, es más fácil interpretar la correlación que la covarianza. La matriz de correlación se puede calcular usando; 
+
+```{r}
+cov2cor(res1$cov.fixed)
+```
+Aca no se identifican parametros de crecimiento, dado quees un modelo de producción. Tampoco se consigna el de reclutamiento. Sin Embargo, existen parametros correlaciionados negativamente como `logq`, `logK`, y `logm`.
+
+
+Podemos identifcar de todas formas la correlación entre las varaables mas importantes de este modelo, que sonm `Bmsy` y `Fmsy`, en los cuales se comprueba su baja correlación (cercana a cero).
+
+```{r}
+cov2cor(get.cov(resbac1, 'logBmsy', 'logFmsy'))
+```
+
+
+
+### Escenarios de Manejo
+
+El paquete tiene una función que ejecuta varios escenarios de gestión predefinidos, que se pueden presentar en un tabla de predicción. Para realizar los cálculos necesarios para producir la ejecución de la tabla de pronóstico:
+
+Tambien se pueden usar mas indices que incorporaremos despues. Otro aspeto que se puede trabajar es datos estacionales
+
+
+```{r warning=FALSE, message=FALSE}
+resbro2 <- manage(resretro)
+```
+Lo primero es ver los  estimados en una lista
+
+```{r}
+mohns_rho(resbro2, what = c("FFmsy", "BBmsy"))
+```
+
+Visualizo las variables de cada escenario.
+
+
+```{r}
+sumspict.manage(resbro2) 
+```
+
+
+
+
+Ploteo de escenarios
+
+```{r}
+plotspict.bbmsy(resbro2, qlegend = F, ylim=c(0, 20))
+plotspict.ffmsy(resbro2, qlegend = F)
+plotspict.catch(resbro2, qlegend = F)
+plotspict.fb(resbro2)
+```
+Visualizamos las HCR
+
+
+```{r warning=FALSE, message=F}
+plotspict.hcr(resbro2, CI=0.95)
+```
+### CBA
+
+Pqra estimar el la desviación standar, obtuve los niveles superiores e inferoores de la estimación.
+
+```{r fig.width=5, fig.height=4}
+xsf <-rnorm(1000, mean = 1356.5 , sd = 387)
+xs1f  <-seq(min(xsf),max(xsf),5)
+ysf  <-dnorm(xs1f,  mean = 1356.5 , sd = 387)
+qsf <- as.data.frame(qnorm(c(0.1, 0.2, 0.3, 0.4,  0.5), 
+                          mean = 1356.5 , sd = 387))
+cbabac <- ggplot()+
+  geom_line(aes(xs1f, ysf))+
+  geom_vline(xintercept=qsf[1,1], col="#999999")+
+  geom_vline(xintercept=qsf[2,1], col="#E69F00")+
+  geom_vline(xintercept=qsf[3,1], col="#009E73")+
+  geom_vline(xintercept=qsf[4,1], col="#56B4E9")+
+  geom_vline(xintercept=qsf[5,1], col="#e66101")+
+   geom_text(aes(x=qsf[1,1]+50, 
+                label=round(qsf[1,1], 1),y=0.00040),
+             colour="#999999", angle=90)+
+   geom_text(aes(x=qsf[2,1]+50, 
+                label=round(qsf[2,1], 1),y=0.00040),
+             colour="#E69F00", angle=90)+
+   geom_text(aes(x=qsf[3,1]+50, 
+                label=round(qsf[3,1], 1),y=0.00040),
+             colour="#009E73", angle=90)+
+   geom_text(aes(x=qsf[4,1]+50, 
+                label=round(qsf[4,1], 1),y=0.00040),
+             colour="#56B4E9", angle=90)+
+   geom_text(aes(x=qsf[5,1]+50, 
+                label=round(qsf[5,1], 1),y=0.00040),
+             colour="#e66101", angle=90)+
+  ylab('')+
+  xlab('')+
+  ggtitle("")+
+  theme_few()
+cbabac
+```
+\pagebreak
+
+
+# COMPARACIÓN DE ESCENARIOS 
+
+\pagebreak
+
+
+# REFERENCIAS

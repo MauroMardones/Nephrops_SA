@@ -1,0 +1,37 @@
+"0","a <-plotspict.bbmsy(resbac1, qlegend = F)"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","b <-  plotspict.ffmsy(resbac1)"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","b<- plotspict.biomass(resbac1, qlegend = F, ylim=c(0, 500000))"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","p <- plotspict.production(resbac1, n.plotyears = 60)"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","c <- plotspict.f(resbac1, qlegend = F, rel.axes = F)"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","d <- plotspict.fb(resbac1)"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","f <- plotspict.ffmsy(resbac1, qlegend=FALSE)"
+"2","G1;H1;Errorh: object 'resbac1' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","#g <- plotspict.catch(resbac1, qlegend=FALSE, ylim=c(0, 15000))"
+"0","#ggarrange(a,b, c)"

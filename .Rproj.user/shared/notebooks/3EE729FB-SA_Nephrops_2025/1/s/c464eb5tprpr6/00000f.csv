@@ -1,0 +1,10 @@
+"0","inp1$dteuler <- 1/16  # must be set before check.inp"
+"0","inp1 <- check.inp(inp1)"
+"1","Removing zero, negative, and NAs in  C  series    
+Removing zero, negative, and NAs in  I  series  1  
+Removing zero, negative, and NAs in  I  series  2  
+"
+"0","# Inspect"
+"0","inp1$dtc"
+"1"," [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+"
