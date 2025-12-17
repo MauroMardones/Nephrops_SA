@@ -90,7 +90,7 @@ Bibliographic files for:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/YourUserName/YourRepoName.git
+   git clone https://github.com/MauroMardones/Nephrops_SA
    ```
 2. Open the project in RStudio or your preferred R environment.
 3. Run scripts in `code/` in the recommended order (see documentation inside each script).
