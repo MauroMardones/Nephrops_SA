@@ -1,0 +1,482 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage{pdflscape}
+\usepackage{fontspec}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\footnotesize WKMSYSPiCT Benchmark \\ Februery 2026 \\ Copenhagen (Denmark)}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot[\thepage]{}
+\rfoot[]{\thepage}
+\usepackage{fontspec}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{hhline}
+\newlength\Oldarrayrulewidth
+\newlength\Oldtabcolsep
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{\includegraphics[width=8cm,height=\textheight,keepaspectratio]{../figs/IEO-logo2.png}}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\pagenumbering{gobble}
+
+%\begin{titlepage}
+\begin{flushleft}
+\Large{\textbf{Working Report}}\\
+\vspace*{2\baselineskip}
+
+\LARGE{\textbf{Stochastic Surplus Production Model in Continuous Time (SPiCT) Explorations in Nephrops FU30 Stock (Gulf of Cadiz)}}\\
+\vspace*{2\baselineskip}
+
+\Large{Instituto Español de Oceanografía (IEO)}\\
+\vspace*{1\baselineskip}
+\end{flushleft}
+
+\begin{flushright}
+\large{\textbf{Benchmark WKMSYSPiCT Meeting}}\\
+\normalsize{Copenhagen, Denmark}\\
+February 8, 2025
+\end{flushright}
+\vspace*{0.5\baselineskip}
+\begin{flushright}
+\large{\textbf{Authors}}\\
+\vspace*{0.5\baselineskip}
+\normalsize{Yolanda Vila}\\
+\normalsize{María José Zuñiga}\\
+\normalsize{Mauricio Mardones}
+\end{flushright}
+
+% \end{titlepage}
+
+\hypersetup{linkcolor = black}
+\newpage
+\pagenumbering{roman}
+%\tableofcontents
+%\addcontentsline{toc}{section}{\contentsname}
+
+\newpage
+
+\pagenumbering{arabic}
+\hypersetup{linkcolor = blue}
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\pagebreak
+
+\subsection{Abstract}\label{abstract}
+
+\emph{Nephrops} stock in FU30 Division 9.a is considered a Category 3 stock. The advice is currently based on the 2-over-3 rule using the abundance index from UWTV surveys. The reference points for this stock are undefined and ICES cannot assess the stock and exploitation status relative to MSY or precautionary approach (PA) reference points. Stochastic surplus production model in continuous time (SPiCT) has been recommended by ICES for a number of data limited stocks to produce MSY advice. This WD shows some SPiCT explorations carried out in order to evaluate the potential of this model for Nephrops FU 30 assessment and propose this stock as possible candidate for the next WKMSYSPiCT benchmark. Results obtained are promising.
+
+\subsection{Introduction}\label{introduction}
+
+Nephrops stock in FU30 Division 9.a was benchmarked in October 2016 (\citeproc{ref-ICES2017WKNEP}{ICES, 2017}) and an approach based on UWTV surveys to generate catch options was proposed for this FU. However, reference points could not be derived according to methodologies used by Category 1 Nephrops stocks conducting UWTV surveys. Consequently, the stock was not upgraded to Category 1. Different assessment models developed for data-limited stocks (DLS), such as Length-Based Indicators (LBIs) or Mean Length--Z (MLZ) based on the WKLIFE V framework (\citeproc{ref-ICES2015}{Acom, 2015}), as well as the Separable Cohort Analysis (SCA; R package version 1.2.0; Bell (\citeproc{ref-Bell2019SCA}{2019})) and the Separable Length Cohort Analysis (SLCA--nepref; R package version 0.2.2; Dobby (\citeproc{ref-Dobby2019nepref}{2019})), which are used to calculate MSY reference points for Category 1 Nephrops stocks, were explored for this stock during WKNephrops in November 2019 (\citeproc{ref-ICES2020WKNephrops}{ICES, 2020}). However, MSY reference points could not be derived adequately. Therefore, Nephrops FU30 remains classified as a Category 3 stock.
+
+The SCA method was revisited during WGBIE 2023, following an update of the UWTV survey area and the geostatistical estimation of Nephrops burrow abundance in 2022. In addition, LBI, LBSPR and MLZ methods were also applied during that working group for this stock. However, results from LBI, LBSPR and MLZ should be interpreted with caution, as not all assumptions underlying these methods are met for Nephrops stocks. Key limitations include the assumption of equilibrium conditions, such as constant total mortality and recruitment, which have also been identified in other Nephrops stocks (\citeproc{ref-CousidoRocha2022}{Cousido-Rocha et al., 2022}). Furthermore, life-history parameters (M/k, L\textsubscript{inf}, L50, L95) are highly uncertain, as they have not been updated since the 1980s--1990s and are not specific to FU30. An additional limitation is that these approaches do not explicitly account for spatial structure, which is particularly relevant for Nephrops due to its burrow-dwelling behaviour and strong association with sediment type. Finally, length-composition data should be representative of the exploited population, but recent sampling has been inadequate, with reduced sampling intensity and incomplete quarterly coverage. Some of these considerations also apply when interpreting SCA results.
+
+According to the 2023 ICES guidelines for providing advice on data-limited stocks (\citeproc{ref-ICES2023a}{ICES, 2023b}), this stock should have been assessed using the ICES rfb rule (Method 2.1; ICES (\citeproc{ref-ICES2021SPiCT}{2021a})). However, given the limitations of these methods for this stock and the fishing pressure indicator (HR) accepted during the last benchmark (\citeproc{ref-ICES2017WKNEP}{ICES, 2017}), which provided more complete information than the indicator derived from the new rfb rule, the latter was not applied, following ACOM recommendations.
+
+The Stochastic Surplus Production Model in Continuous Time (SPiCT) has been proposed by ICES to produce MSY advice for several Category 3 stocks in benchmark workshops conducted since 2021. The SPiCT model has already been accepted as the assessment basis for three additional Nephrops functional units in Division 9.a (\citeproc{ref-GonzalezHerraiz2023}{González Herraiz et al., 2023}; \citeproc{ref-ICES2021WGBIE}{ICES, 2021b}), and for one additional Nephrops FU nominated for the next WKMSYSPiCT in 2023--2024.
+
+The purpose of this working document is to present a set of exploratory SPiCT model runs for Nephrops FU30, with the aim of evaluating its suitability for assessment and proposing this stock as a candidate for the next WKMSYSPiCT benchmark in 2026.
+
+\subsection{Methods}\label{methods}
+
+\subsubsection{Study Area}\label{study-area}
+
+The Gulf of Cádiz (FU30, Division 9.a) is located in the southwestern part of the Iberian Peninsula, bordered to the north by the Portuguese coast and to the south by the Strait of Gibraltar (Figure \ref{fig:areaconcept}). The area is characterised by a wide continental shelf that extends from the coast to depths of approximately 200 m, followed by a steep slope descending to depths exceeding 1 000 m. The seabed is predominantly composed of sandy and muddy sediments, which provide suitable habitats for Nephrops norvegicus.
+
+\subsubsection{Fishery description}\label{fishery-description}
+
+Nephrops in FU30 is mainly exploited by a single Spanish bottom otter trawl métier (OTB\_MCD \textgreater= 55\_0\_0) and, to a lesser extent, by the Portuguese fleet, operating at depths ranging approximately between 200 and 700 m. The fishery is considered multispecific, targeting a variety of crustaceans, cephalopods and demersal fish, including rose shrimp (\emph{Parapenaeus longirostris}), Nephrops, tiger shrimp, spottail shrimp, octopus, squids, cuttlefish, hake, mullets, sparids, wedge sole, sole and horse mackerel, using a minimum mesh size of 55 mm. Discards are considered negligible.
+
+The increasing abundance of other commercially valuable species in this fishery, particularly rose shrimp (\emph{Parapenaeus longirostris}), is believed to potentially influence fishing behaviour and objectives. Rose shrimp reaches higher market prices and is distributed at shallower depths (approximately 90--380 m) and closer to the coast, making its fishing grounds more accessible.
+
+Landings increased from 1994 to 2003, exceeding 300 t, followed by a sharp decline to 147 t in 2004, representing a reduction of more than 50\%. After a temporary recovery in 2005 (246 t), landings declined again to around 120 t in 2008 and stabilised at approximately 100 t until 2012.
+
+During the period 2013--2015, landings decreased dramatically as a result of a penalty imposed by the European Commission for exceeding the TAC in 2012 (\citeproc{ref-EU2023Reg194}{European Union, 2023}). The Nephrops fishery was closed for most of 2013, and a substantially reduced TAC (25 t per year) was applied during the subsequent three years. In 2016 and 2017, landings increased to 124 and 140 t, respectively, representing nearly a six-fold increase compared to the penalty period. However, in 2018, landings declined by approximately 46\% relative to the previous year, marking the onset of a sustained decreasing trend. This decline continued, with landings in 2023 estimated at 32.8 t.
+
+The progressive reduction of the TAC since 2020 may be constraining the fishery, as evidenced by the closure of the Nephrops fishery from 18 September to 4 December 2023 when landings approached the allocated quota, and the subsequent closure following the exhaustion of the 2023 quota, as established by Regulation (EU) 2024/225 (\citeproc{ref-EU2024Reg225}{European Union, 2024}).
+
+Nephrops fishing effort, estimated as the number of trips (fishing days) landing at least 10\% Nephrops, shows an increasing trend from 1994 to 2005, when it reached the maximum value of the time series (4 336 fishing days). From 2006 onwards, fishing effort gradually declined, stabilising at approximately 1 500 fishing days until 2012. This reduction in effort was mainly driven by the implementation of successive fishing plans for the Gulf of Cádiz by the Spanish Administration since 2004 (Orders APA/3423/2004, APA/2858/2005, APA/2883/2006, APA/2801/2007, ARM/2515/2009, ARM/58/2010, ARM/2457/2010, AAA/627/2013, AAA/1710/2014, AAA/1406/2016, APM/664/2017 and APM/453/2018).
+
+As a consequence of the sanction imposed in 2012, fishing effort dropped sharply during the period 2013--2015, reaching a mean value of approximately 283 fishing days. Subsequently, fishing effort increased from 2016 (443 fishing days) to 2019 (675 fishing days), remaining relatively stable at around 600 fishing days in 2020 and 2021. However, in 2022 and 2023, Nephrops-directed effort declined again, reaching a mean value of approximately 366 fishing days.
+
+The commercial Nephrops-directed LPUE shows a decreasing trend from 1994 to 2000, followed by fluctuating values for the remainder of the time series. The period 2013--2015 should be interpreted with caution due to the quota overrun penalty imposed in 2012, which increases uncertainty in the LPUE index. In addition, the vessel-level allocation of Nephrops quotas implemented in 2014 may have led to unreported landings, further contributing to uncertainty in the commercial LPUE index. Moreover, since 2016 the commercial LPUE has been estimated using officially reported landings rather than total landings estimated by the Working Group, potentially increasing uncertainty in the index.
+
+Based on the available data analysis and compilation the proposed models for depth-based fisheries correspond to Tier 3, i.e., models of logistic growth for global population productivity, as described by Payá et al. (\citeproc{ref-Paya2014}{2014}).
+
+Accordingly, two alternatives are presented to model the population dynamics of Nephrops norvegicus in the Gulf of Cádiz, as well as to provide recommendations for resource management.
+
+All updates and improvements can be followed and obtained at the \href{https://github.com/DTUAqua/spict/commits/master}{SPiCT GitHub repository}. Bugs and issues can be reported via the \href{https://github.com/DTUAqua/spict/releases}{SPiCT Releases page}.
+
+Time series of Nephrops stock indicators for FU30 (Division 9.a). The left panel shows annual landings (tons), with the dashed horizontal line indicating the long-term mean catch. In Figure \ref{fig:landindex}, panels A--F display the main abundance and productivity indices used in the assessment: (A) arsaspr, acoustic-based spring survey index; (B) arsaaautum, acoustic-based autumn survey index; (C) isunepbio\_2, UWTV-based burrow density biomass index; (D) isunepabun, UWTV-based burrow abundance index; (E) rendiarsspr, survey-based productivity indicator; and (F) LPUEcommercial, commercial landings per unit effort.
+
+\subsubsection{Abundances Index}\label{abundances-index}
+
+\paragraph{ISUNEPCA UWTV survey}\label{isunepca-uwtv-survey}
+
+\quad
+
+The ISUNEPCA UWTV survey (U9111) has been conducted annually in the Gulf of Cádiz (FU30) during spring--summer since 2014, although the first survey is considered exploratory. The survey was not carried out in 2020 due to the COVID-19 pandemic. The survey area used to estimate Nephrops abundance in FU30 was originally defined during the Benchmark Workshop on Nephrops stocks (WKNEP) in 2016 (\citeproc{ref-ICES2017WKNEP}{ICES, 2017}; \citeproc{ref-Vila2016}{Vila, Burgos, \& Soriano, 2016}) and subsequently modified during WGBIE 2022 (\citeproc{ref-ICES2022WGBIE}{ICES, 2022}; \citeproc{ref-VilaBurgos2022}{Vila \& Burgos, 2022}). The current area over which Nephrops is distributed covers 2 332.13 km².
+
+The survey follows a randomized isometric grid design, with stations spaced at 4 nautical miles from 2015 to 2021 and reduced to 3.5 nautical miles since 2022. Quantification of Nephrops burrows and the geostatistical estimation of abundance are conducted following ICES Cooperative Research standards (\citeproc{ref-Leocadio2018}{Leocádio, Weetman, \& Wieland, 2018}).
+
+The methodology described in ICES Cooperative Research Report No.~340 (\citeproc{ref-Leocadio2018}{Leocádio et al., 2018}) was used to derive biomass estimates from the UWTV survey. Annual Nephrops biomass was obtained by multiplying the yearly abundance estimates by the annual mean individual weight derived from commercial landings. ICES considers this approach the most appropriate method to obtain absolute biomass estimates for Nephrops stocks and recommends the preferential use of UWTV surveys as the basis for scientific advice for Nephrops (\citeproc{ref-ICES2009WKNEP}{ICES, 2009}).
+
+\paragraph{ARSA Surveys}\label{arsa-surveys}
+
+\quad
+
+Two bottom trawl ARSA surveys, the spring survey (SpSGFS-cspr-WIBTS-Q1) and the autumn survey (SpGFS-caut-WIBTS-Q4), are conducted annually in the southern part of ICES Division 9.a (Gulf of Cádiz), corresponding to FU30. The survey area covers approximately 7 224 km² and spans depths from 15 to 800 m. The sampling design follows a random stratified scheme with five depth strata: 15--30 m, 31--100 m, 101--200 m, 201--500 m and 501--800 m.
+
+These surveys collect information on the distribution, relative abundance and biological characteristics of commercial demersal species, although they are not specifically designed to estimate Nephrops abundance. Nevertheless, they can be used to analyse temporal trends. The Nephrops survey index is expressed as biomass in the two deepest strata (200--500 m and 501--800 m), as Nephrops is mainly distributed within these depth ranges, which approximately overlap with the ISUNEPCA UWTV survey area. For some years, data for one or both of these strata are unavailable, leading to the exclusion of the biomass index for those years from the analysis.
+
+The ARSA spring survey (SpSGFS-cspr-WIBTS-Q1) is usually conducted from late February to early March, while the ARSA autumn survey (SpGFS-caut-WIBTS-Q4) takes place in November (Figure \ref{fig:landindex}).
+
+\paragraph{CPUE Standarized}\label{cpue-standarized}
+
+\quad
+
+(working progress)
+
+\subsubsection{SPiCT explorations}\label{spict-explorations}
+
+The analyses were conducted using R version 4.3.2 and the SPiCT package (\citeproc{ref-PedersenBerg2017}{Pedersen \& Berg, 2017}), version 1.3.8, following the Handbook and Guidelines developed for this model (\citeproc{ref-Mildenberger2023SPiCT}{Mildenberger, Kokkalis, \& Berg, 2023}; \citeproc{ref-Pedersen2023SPiCTHandbook}{Pedersen, Kokkalis, Mildenberger, \& Berg, 2023}).
+
+The following Nephrops FU30 time series are available for the SPiCT runs:
+- Catches (1994--2023)
+- Nephrops fishing effort (1994--2023)
+- Nephrops LPUE (1994--2023)
+. Nephrops LPuE Standarized (2009-2024) (working progress)
+- ISUNEPCA UWTV survey index (2015--2023)
+- Spring ARSA survey index (1993--2023)
+- Autumn ARSA survey index (1998--2023)
+
+Explorations were conducted using data available up to 2023. Tables below summarise the different scenarios and model configurations tested. Fishing effort and LPUE were not included in any scenario, as survey-based indices are recommended when available. The autumn ARSA survey (SpGFS-caut-WIBTS-Q4) was also excluded from the analyses, as part of the stock is not accessible to the gear during this survey due to the reproductive behaviour of Nephrops. In November, ovigerous females remain inside their burrows and are therefore unavailable to bottom trawl sampling. For this reason, the autumn ARSA survey index has never been included in the FU30 WGBIE assessments.
+
+The ISUNEPCA UWTV survey index is considered the most reliable abundance index for Nephrops in FU30 and is currently used as the basis for assessment and advice (\citeproc{ref-ICES2023b}{ICES, 2023a}). This survey is conducted in the year of the assessment; for example, the UWTV survey planned for June 2024 will be used to inform the advice for 2025, delivered in October 2024. If the 2024 ISUNEPCA index were to be included in a SPiCT model, catch data for 2024 would not yet be available. This issue should be explicitly addressed if SPiCT is adopted as the assessment model for this stock in a future benchmark.
+
+\paragraph{SPiCT model configurations}\label{spict-model-configurations}
+
+Several SPiCT model configurations were explored for Nephrops FU30, varying in the inclusion of abundance indices, catch data, and model parameters. The scenarios tested are summarised in Table \ref{tab:spictscenarios}. The base case scenario (Scenario 1) included catch data from 1994 to 2023 and the ISUNEPCA UWTV survey index from 2015 to 2023. Additional scenarios were developed to assess the impact of including the spring ARSA survey index (Scenario 2), as well as variations in model parameters such as process error, observation error, and prior distributions for key parameters (Scenarios 3--5).
+
+\begin{landscape}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.50in}|p{3.00in}|p{2.00in}|p{3.00in}}
+
+\caption{Summary\ of\ SPiCT\ scenarios\ and\ input\ data\ used\ for\ Nephrops\ FU30.}\label{tab:spictscenarios}\\
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Input\ data}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Priors}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Description\ of\ priors}}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endfirsthead \caption[]{Summary\ of\ SPiCT\ scenarios\ and\ input\ data\ used\ for\ Nephrops\ FU30.}\label{tab:spictscenarios}\\
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Input\ data}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Priors}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Description\ of\ priors}}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 1}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ARSA\ spring\ index;\ ARSA\ autumn\ index;\ ISUNEPCA\ UWTV\ biomass\ index;\ ISUNEPCA\ UWTV\ abundance\ index;\ ARSA\ spring\ productivity\ index;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ <-c(log(0.5),0.2,1)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Baseline\ configuration\ using\ all\ available\ survey\ and\ fishery-dependent\ indices.\ Default\ SPiCT\ priors\ applied\ to\ evaluate\ model\ behaviour\ under\ maximum\ data\ availability.}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 2}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ISUNEPCA\ UWTV\ biomass\ index;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Default}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Reduced\ configuration\ focusing\ on\ the\ UWTV\ biomass\ index\ combined\ with\ commercial\ LPUE\ to\ assess\ robustness\ under\ limited\ survey\ information.}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 3}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ARSA\ spring\ index;\ ISUNEPCA\ UWTV\ biomass\ index\ (ISUNEPBIO2)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Default}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Intermediate\ configuration\ combining\ the\ long\ ARSA\ spring\ time\ series\ with\ the\ UWTV\ biomass\ index\ to\ evaluate\ consistency\ between\ fishery-independent\ surveys.}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 4}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ISUNEPCA\ UWTV\ biomass\ index}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ <-c(log(0.5),0.2,1)\ ;\ }}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\ \ \ \ logn\ <-\ c(log(2),0.5,1);}}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\ \ \ \ logr\ <-c(log(0.2),0.2,1)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Minimal\ data\ configuration\ using\ only\ catches\ and\ the\ UWTV\ biomass\ index,\ representing\ a\ conservative\ assessment\ approach\ for\ data-limited\ stocks.}}}} \\
+
+\ascline{1.5pt}{666666}{1-4}
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\end{landscape}
+
+\newpage
+
+\subsection{Results}\label{results}
+
+\newpage
+
+\subsection{Conclusions}\label{conclusions}
+
+WGBIE considered the results obtained for Nephrops FU 30 stock promising and will propose it as possible candidate for the next WKMSYSPiCT benchmark. However, further work should be conducted to improve the model according to the most recent SPiCT guidelines (\citeproc{ref-Mildenberger2023SPiCT}{Mildenberger et al., 2023}). The WKMSYSPiCT benchmark, where a close contact with SPiCT expert is possible, could help to find the best model configuration to provide the assessment for this stock.
+Further work is needed to improve the model, including:
+
+\begin{itemize}
+\tightlist
+\item
+  Extend the time series of landings to earlier years in order to improve the stability and robustness of the model
+\item
+  Add uncertainty in some years of the biomass indices time series or catches
+\item
+  Fine-tune model configuration.
+\end{itemize}
+
+\newpage
+
+\subsection{Figures and Tables}\label{figures-and-tables}
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=0.6\linewidth]{../figs/studyarea} 
+
+}
+
+\caption{Map of the Gulf of Cádiz (FU30, Division 9.a) showing the main fishing grounds for Nephrops norvegicus.}\label{fig:areaconcept}
+\end{figure}
+
+\begin{landscape}
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=1\linewidth]{../figs/land_index} 
+
+}
+
+\caption{Time series of Nephrops stock indicators for FU30 (Division 9.a). The left panel shows annual landings (tons), with the dashed horizontal line indicating the long-term mean catch. Panels A–F display the main abundance indices used in the assessment. Points represent observed annual values, while solid lines correspond to smoothed trends with associated uncertainty envelopes.}\label{fig:landindex}
+\end{figure}
+
+\end{landscape}
+
+\newpage
+
+\subsection*{References}\label{references}
+\addcontentsline{toc}{subsection}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-ICES2015}
+Acom, I. C. M. (2015). \emph{{ICES WKLIFE V REPORT 2015 Methodologies based on Life-history Traits , Development of Quantitative Assessment Exploitation Characteristics and other Report of the Fifth Workshop on the Relevant Parameters for Data-limited Stocks ( WKLIFE V ) Lisbon , Port}}. (October), 5--9.
+
+\bibitem[\citeproctext]{ref-Bell2019SCA}
+Bell, E. (2019). Separable length cohort method (SCA). \emph{Length-Based Reference Point Estimation}.
+
+\bibitem[\citeproctext]{ref-CousidoRocha2022}
+Cousido-Rocha, M., Cerviño, S., Alonso-Fernández, A., Gil, J., González-Herraiz, I., Rincón, M. M., \ldots{} Pennino, M. G. (2022). Applying length-based assessment methods to fishery resources in the bay of biscay and iberian coast ecoregion: Stock status and parameter sensitivity. \emph{Fisheries Research}, \emph{248}, 106197. \url{https://doi.org/10.1016/j.fishres.2021.106197}
+
+\bibitem[\citeproctext]{ref-Dobby2019nepref}
+Dobby, H. (2019). \emph{Nepref: Calculates per-recruit reference points for nephrops}.
+
+\bibitem[\citeproctext]{ref-EU2023Reg194}
+European Union. (2023). \emph{Regulation (EU) 2023/194 fixing fishing opportunities for 2023}.
+
+\bibitem[\citeproctext]{ref-EU2024Reg225}
+European Union. (2024). \emph{Regulation (EU) 2024/225 establishing a fisheries closure for norway lobster in FU 30}.
+
+\bibitem[\citeproctext]{ref-GonzalezHerraiz2023}
+González Herraiz, I., Vila, Y., Cardinale, M., Berg, C. W., Winker, H., Azevedo, M., \ldots{} Pennino, M. G. (2023). First maximum sustainable yield advice for the nephrops norvegicus stocks of the northwest iberian coast using stochastic surplus production model in continuous time (SPiCT). \emph{Frontiers in Marine Science}, \emph{10}, 1062078. \url{https://doi.org/10.3389/fmars.2023.1062078}
+
+\bibitem[\citeproctext]{ref-ICES2009WKNEP}
+ICES. (2009). \emph{Report of the benchmark workshop on nephrops (WKNEP), 2--6 march 2009, aberdeen, UK} (No. CM 2009/ACOM:33). International Council for the Exploration of the Sea.
+
+\bibitem[\citeproctext]{ref-ICES2017WKNEP}
+ICES. (2017). \emph{Report of the benchmark workshop on nephrops stocks (WKNEP)} (No. CM 2016/ACOM:38). ICES.
+
+\bibitem[\citeproctext]{ref-ICES2020WKNephrops}
+ICES. (2020). \emph{Workshop on methodologies for nephrops reference points (WKNephrops)} (No. 3; Vol. 2). ICES Scientific Reports. \url{https://doi.org/10.17895/ices.pub.5981}
+
+\bibitem[\citeproctext]{ref-ICES2021SPiCT}
+ICES. (2021a). \emph{Benchmark workshop on the development of MSY advice for category 3 stocks using SPiCT (WKMSYSPiCT)} (No. 20; Vol. 3). ICES Scientific Reports. \url{https://doi.org/10.17895/ices.pub.7919}
+
+\bibitem[\citeproctext]{ref-ICES2021WGBIE}
+ICES. (2021b). \emph{Working group for the bay of biscay and the iberian waters ecoregion (WGBIE)} (No. 48; Vol. 3). ICES Scientific Reports. \url{https://doi.org/10.17895/ices.pub.8212}
+
+\bibitem[\citeproctext]{ref-ICES2022WGBIE}
+ICES. (2022). \emph{Working group for the bay of biscay and the iberian waters ecoregion (WGBIE)} (No. 52; Vol. 4). ICES Scientific Reports. \url{https://doi.org/10.17895/ices.pub.20068988}
+
+\bibitem[\citeproctext]{ref-ICES2023b}
+ICES. (2023a). \emph{Advice on fishing opportunities}. International Council for the Exploration of the Sea. \url{https://doi.org/10.17895/ices.advice.22240624}
+
+\bibitem[\citeproctext]{ref-ICES2023a}
+ICES. (2023b). \emph{ICES guidance for completing single-stock advice 2023} (p. 64). International Council for the Exploration of the Sea.
+
+\bibitem[\citeproctext]{ref-Leocadio2018}
+Leocádio, A., Weetman, A., \& Wieland, K. (Eds.). (2018). \emph{Using UWTV surveys to assess and advise on nephrops stocks} (No. 340; p. 49). International Council for the Exploration of the Sea. \url{https://doi.org/10.17895/ices.pub.4370}
+
+\bibitem[\citeproctext]{ref-Mildenberger2023SPiCT}
+Mildenberger, T. K., Kokkalis, A., \& Berg, C. W. (2023). \emph{Guidelines for the stochastic production model in continuous time (SPiCT)}. Retrieved from \url{https://github.com/DTUAqua/spict/raw/master/spict/inst/doc/spict_guidelines.pdf}
+
+\bibitem[\citeproctext]{ref-Paya2014}
+Payá, I., Cristian, C. R. D. B., Andrades, M. C., Faúndez, F. C. M. E. L., Rubio, R. T. O. A. Y., \& Basualto, M. J. Z. (2014). \emph{{INFORME FINAL Convenio II: Estatus y posibilidades de explotaci{ó}n biol{ó}gicamente sustentables de los principales recursos pesqueros nacionales 2014 Proyecto 2.16: Revisi{ó}n de los puntos biol{ó}gicos de referencia (Rendimiento M{á}ximo Sostenible) en las pesqu}} (p. 855). Retrieved from \url{https://www.estadonacion.or.cr/files/biblioteca\%7B/_\%7Dvirtual/021/politica/Alvarado\%7B/_\%7DConflicto\%7B/_\%7DMoin}
+
+\bibitem[\citeproctext]{ref-PedersenBerg2017}
+Pedersen, M. W., \& Berg, C. W. (2017). A stochastic surplus production model in continuous time. \emph{Fish and Fisheries}, \emph{18}, 226--243.
+
+\bibitem[\citeproctext]{ref-Pedersen2023SPiCTHandbook}
+Pedersen, M. W., Kokkalis, A., Mildenberger, T. K., \& Berg, C. W. (2023). \emph{Handbook for the stochastic production model in continuous time (SPiCT)}. Retrieved from \url{https://github.com/DTUAqua/spict/blob/master/spict/inst/doc/spict_handbook.pdf}
+
+\bibitem[\citeproctext]{ref-VilaBurgos2022}
+Vila, Y., \& Burgos, C. (2022). \emph{New area proposed for the ISUNEPCA UWTV survey in the gulf of cadiz (FU 30)} (No. 52; p. 847). International Council for the Exploration of the Sea. \url{https://doi.org/10.17895/ices.pub.20068988}
+
+\bibitem[\citeproctext]{ref-Vila2016}
+Vila, Y., Burgos, C., \& Soriano, M. M. (2016). \emph{Nephrops (FU 30) UWTV survey on the gulf of cadiz grounds}. International Council for the Exploration of the Sea.
+
+\end{CSLReferences}
+
+\end{document}
