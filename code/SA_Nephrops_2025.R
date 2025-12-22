@@ -43,6 +43,8 @@ library(GGally)
 library(flextable)
 library(officer)
 library(here)
+# para pheatmap
+library(pheatmap)
 # definir un directorio para guardar plott "figs"
 
 fig.path <- here("figs")
@@ -52,10 +54,15 @@ if (!dir.exists(fig.path)) {
 
 
 
-
+# Por ahora no tengo Effort ni LPUE standar
 ## --------------------------------------------------------------------------------
 bac <- read_excel(here("data",
-                           "inputdata_spict_fu30_2025.xlsx"))
+                           "inputdata_spict_fu30_2025_Rev.xlsx")) %>%
+  mutate(
+    Effort = if_else(is.na(catch), NA_real_, 1),
+    LPUE_std = catch / Effort
+  )
+
 
 
 ## --------------------------------------------------------------------------------
@@ -93,19 +100,21 @@ plot_index <- function(var_name, ylab){
 
 p1 <- plot_index("arsaspr", "Index value")
 p2 <- plot_index("arsaautum", "Index value")
-p3 <- plot_index("isunepbio_2", "Index value")
-p4 <- plot_index("isunepabun", "Index value")
+p3 <- plot_index("isunepbioREV", "Index value")
+p4 <- plot_index("isunepabunREV", "Index value")
 p5 <- plot_index("rendiarsaspr", "Index value")
 p6 <- plot_index("LPUEcomercial", "Index value")
+p7 <- plot_index("Effort", "Index value")
+p8 <- plot_index("LPUE_std", "Index value")
 
 # ---- Combinar todos los gráficos ----
 # y guuardar en "figs"
 fig_indices <- ggarrange(
   p_catch,
   ggarrange(
-    p1, p2, p3, p4, p5, p6,
+    p1, p2, p3, p4, p5, p6, p7, p8,
     ncol = 2,
-    nrow = 3,
+    nrow = 4,
     labels = "AUTO"
   )
 )
@@ -119,35 +128,32 @@ ggsave(
   dpi = 300
 )
 
+###
 
-
-## --------------------------------------------------------------------------------
-# Visual check
-str(data)
-summary(data)
-
+# Correlation
 
 ## ----warning=FALSE, message=FALSE------------------------------------------------
-data_log <- data %>%
+data_log <- bac %>%
   select(-year, -catch) %>%
   mutate(across(everything(), log))
 
 cor_pearson  <- cor(data_log, use = "pairwise.complete.obs", method = "pearson")
 cor_spearman <- cor(data_log, use = "pairwise.complete.obs", method = "spearman")
 
-pheatmap(cor_pearson,
+ph1 <- pheatmap(cor_pearson,
          display_numbers = TRUE,
          number_format = "%.2f",
          main = "Correlation Heatmap (Pearson)",
          color = colorRampPalette(c("blue", "white", "red"))(50))
 
-pheatmap(cor_spearman,
+ph2 <- pheatmap(cor_spearman,
          display_numbers = TRUE,
          number_format = "%.2f",
          main = "Correlation Heatmap (Spearman)",
          color = colorRampPalette(c("blue", "white", "red"))(50))
 
 
+# Preparing Data for Splitc
 
 ## --------------------------------------------------------------------------------
 data <- bac
@@ -170,7 +176,7 @@ I_arsa_autumn <- data.frame(
 )
 
 I_isunepbio <- data.frame(
-  obsI = data$isunepbio,
+  obsI = data$isunepbioREV,
   timeI = data$year + 0.5
 )
 
@@ -180,7 +186,7 @@ I_isunepbio2 <- data.frame(
 )
 
 I_isunepabun <- data.frame(
-  obsI = data$isunepabun,
+  obsI = data$isunepabunREV,
   timeI = data$year + 0.5
 )
 
@@ -193,6 +199,16 @@ I_LPUEcom <- data.frame(
   obsI = data$LPUEcomercial,
   timeI = data$year
 )
+# work in progress
+I_Effort <- data.frame(
+  obsI = data$Effort,
+  timeI = data$year
+)
+# work in progress
+I_LPUEstd <- data.frame(
+  obsI = data$LPUE_std,
+  timeI = data$year
+)
 
 
 ## --------------------------------------------------------------------------------
@@ -200,9 +216,109 @@ ind  <- which(C_nep$timeC == 1994)
 ind2 <- which(C_nep$timeC == 2025)
 
 
-## --------------------------------------------------------------------------------
+## Scenarios for SPiCT model
 
+## ----------
+# Scenario 0 -- only ISUNEP abundance index
+
+inp0 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunepabun$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunepabun$obsI[ind:ind2]
+  )
+)
+
+
+## --------------------------------------------------------------------------------
+# Scenario 1 -- Landings + ISUNEPCA TV Survey + IBTS ARSA Survey
 inp1 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunepabun$timeI[ind:ind2],   # ISUNEPCA TV
+    I_arsa_spring$timeI[ind:ind2]  # ARSA spring
+  ),
+
+  obsI = list(
+    I_isunepabun$obsI[ind:ind2],
+    I_arsa_spring$obsI[ind:ind2]
+  )
+)
+
+
+
+## --------------------------------------------------------------------------------
+# SCENARIO 2 # Landings + ISUNEPCA TV Survey + Directed LPUE
+inp2 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunepabun$timeI[ind:ind2],   # ISUNEPCA TV
+    I_LPUEcom$timeI[ind:ind2]       # Directed LPUE
+  ),
+
+  obsI = list(
+    I_isunepabun$obsI[ind:ind2],
+    I_LPUEcom$obsI[ind:ind2]
+  )
+)
+
+
+
+## --------------------------------------------------------------------------------
+# Scenario 3 -- Landings + ISUNEPCA TV Survey + Directed Effort
+
+I_effort <- data.frame(
+  obsI  = data$Effort,
+  timeI = data$year
+)
+
+inp3 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunepabun$timeI[ind:ind2],
+    I_effort$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunepabun$obsI[ind:ind2],
+    I_effort$obsI[ind:ind2]
+  )
+)
+
+
+## --------------------------------------------------------------------------------
+# Scenario 4 -- Catches, ISUNEPCA LPUE Std
+
+inp4 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunepabun$timeI[ind:ind2],   # ISUNEPCA TV
+    I_LPUEstd$timeI[ind:ind2]       # Directed LPUE
+  ),
+
+  obsI = list(
+    I_isunepabun$obsI[ind:ind2],
+    I_LPUEstd$obsI[ind:ind2]
+  )
+)
+
+
+## --------------------------------------------------------------------------------
+# Scenario 5 -- All Indices
+inp5 <- list(
   # ---- Capturas ----
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
@@ -226,75 +342,6 @@ inp1 <- list(
   )
 )
 
-
-
-## --------------------------------------------------------------------------------
-inp1 <- list(
-  # ---- Capturas ----
-  timeC = C_nep$timeC[ind:ind2],
-  obsC  = C_nep$obsC[ind:ind2],
-
-  # ---- Índices de abundancia ----
-  timeI = list(
-
-
-    I_isunepbio$timeI[ind:ind2],     # 3. ISUNEP biomass
-
-
-    I_LPUEcom$timeI[ind:ind2]        # 6. LPUE comercial
-  ),
-
-  obsI = list(
-
-
-    I_isunepbio$obsI[ind:ind2],
-
-
-    I_LPUEcom$obsI[ind:ind2]
-  )
-)
-
-
-## --------------------------------------------------------------------------------
-inp1 <- list(
-  # ---- Capturas ----
-  timeC = C_nep$timeC[ind:ind2],
-  obsC  = C_nep$obsC[ind:ind2],
-
-  # ---- Índices de abundancia ----
-  timeI = list(
-    I_arsa_spring$timeI[ind:ind2],   # 1. ARSA spring
-
-    I_isunepbio2$timeI[ind:ind2]     # 3. ISUNEP biomass
-   ),
-
-  obsI = list(
-    I_arsa_spring$obsI[ind:ind2],
-
-    I_isunepbio2$obsI[ind:ind2]
-  )
-)
-
-
-## --------------------------------------------------------------------------------
-inp1 <- list(
-  # ---- Capturas ----
-  timeC = C_nep$timeC[ind:ind2],
-  obsC  = C_nep$obsC[ind:ind2],
-
-  # ---- Índices de abundancia ----
-  timeI = list(
-
-    I_isunepbio$timeI[ind:ind2]     # 3. ISUNEP biomass
-   ),
-
-  obsI = list(
-
-    I_isunepbio$obsI[ind:ind2]
-  )
-)
-
-
 ## --------------------------------------------------------------------------------
 inp1$dteuler <- 1/16  # must be set before check.inp
 inp1 <- check.inp(inp1)
@@ -303,89 +350,278 @@ inp1 <- check.inp(inp1)
 inp1$dtc
 
 
-## --------------------------------------------------------------------------------
-# hacer una tabla con los escenarios con los indices usados
+## PRIORS AND INITIAL VALUES buy Scenario regarding last WG
 
+# ------------------------------
+# Priors configurations
+# ------------------------------
 
-## ----figwidth=8, fig.height=9----------------------------------------------------
-plotspict.data(inp1)
-plotspict.ci(inp1)
-guess.m(inp1) # solo probatina
-
-
-## --------------------------------------------------------------------------------
-# Parámetros comunes
-r <- 1
-K <- 1
-B <- seq(0.001, K, length.out = 200)  # evita log(0) en Fox
-
-# Parámetro de Pella–Tomlinson
-n_pella <- 2
-
-# Funciones de producción
-P_schaefer <- r * B * (1 - B / K)             # n = 1 (Schaefer)
-P_pella    <- r * B * (1 - (B / K)^n_pella)   # n = 2 (Pella–Tomlinson)
-P_fox      <- r * B * log(K / B)              # Fox
-
-# Crear dataframe para graficar
-df <- data.frame(
-  B = rep(B, 3),
-  Production = c(P_schaefer, P_pella, P_fox),
-  Model = factor(rep(c("Schaefer (n=1)",
-                       "Pella–Tomlinson (n=2)",
-                       "Fox (log)"), each = length(B)))
+priors_run1 <- list(
+  name = "RUN1_default",
+  priors = NULL
 )
 
-# Graficar
-ggplot(df, aes(x = B/K, y = Production, color = Model)) +
-  geom_line(size = 1.2) +
-  theme_bw(base_size = 14) +
-  labs(
-    x = "Relative Biomass (B/K)",
-    y = "Relative Production (Y/K)",
-    title = "Comparison of Surplus Production Models: Fox, Schaefer, and Pella–Tomlinson"
-  ) +
-  scale_color_manual(values = c("blue", "red", "darkgreen")) +
-  theme(
-    legend.position = "top",
-    legend.title = element_blank()
-  )
-
-
-
-## --------------------------------------------------------------------------------
-tab_modelos <- data.frame(
-  Modelo = c("Fox", "Schaefer", "Pella–Tomlinson (n=2)"),
-  `Forma de la curva` = c("Asimétrica izquierda", "Simétrica", "Asimétrica derecha"),
-  `BMSY/K` = c("~0.37", "0.5", "~0.6–0.7"),
-  `Tipo de especie` = c("Rápido crecimiento", "Intermedia", "Lenta, longeva"),
-  `Implicancia de manejo` = c(
-    "Alta explotación tolerable",
-    "Balanceado",
-    "Precaución, biomasa alta necesaria"
+priors_run2 <- list(
+  name = "RUN2_logbkfrac",
+  priors = list(
+    logbkfrac = c(log(0.5), 0.2, 1)
   )
 )
 
-ft <- flextable(tab_modelos) |>
-  set_header_labels(
-    Modelo = "Modelo",
-    `Forma de la curva` = "Forma de la curva",
-    `BMSY/K` = "BMSY/K",
-    `Tipo de especie` = "Tipo de especie",
-    `Implicancia de manejo` = "Implicancia de manejo"
-  ) |>
-  theme_vanilla() |>
-  autofit() |>
-  bold(part = "header") |>
-  color(part = "header", color = "white") |>
-  bg(part = "header", bg = "#2E86C1") |>
-  fontsize(size = 11, part = "all") |>
-  align(align = "center", part = "all")
+priors_run3 <- list(
+  name = "RUN3_logbkfrac_logn",
+  priors = list(
+    logbkfrac = c(log(0.5), 0.2, 1),
+    logn      = c(log(2),   0.5, 1)
+  )
+)
 
-ft
+priors_run4 <- list(
+  name = "RUN4_logbkfrac_logn_logr",
+  priors = list(
+    logbkfrac = c(log(0.5), 0.2, 1),
+    logn      = c(log(2),   0.5, 1),
+    logr      = c(log(0.2), 0.2, 1)
+  )
+)
 
+# Grouped Scenarios
+
+scenarios_data <- list(
+  SC0 = inp0,
+  SC1 = inp1,
+  SC2 = inp2,
+  SC3 = inp3,
+  SC4 = inp4,
+  SC5 = inp5
+)
+scenarios_priors <- list(
+  RUN1 = priors_run1,
+  RUN2 = priors_run2,
+  RUN3 = priors_run3,
+  RUN4 = priors_run4
+)
+
+###
+
+spict_scenarios <- list()
+
+for (sc_name in names(scenarios_data)) {
+  for (run_name in names(scenarios_priors)) {
+
+    spict_scenarios[[paste(sc_name, run_name, sep = "_")]] <- list(
+      scenario = sc_name,
+      run      = run_name,
+      input    = scenarios_data[[sc_name]],
+      priors   = scenarios_priors[[run_name]]$priors
+    )
+  }
+}
+# Now spict_scenarios contains all combinations of data scenarios and prior configurations
 
 ## --------------------------------------------------------------------------------
+# Run SPICT
+
+
+results_by_scenario <- list()
+
+for (sc_name in names(scenarios_data)) {
+
+  cat("\nRunning Scenario:", sc_name, "\n")
+  results_by_scenario[[sc_name]] <- list()
+
+  for (run_name in names(scenarios_priors)) {
+
+    cat("  - Run:", run_name, "\n")
+
+    # Copia limpia del input
+    current_input <- scenarios_data[[sc_name]]
+
+    # Añadir priors SOLO si existen
+    if (!is.null(scenarios_priors[[run_name]]$priors)) {
+      current_input$priors <- scenarios_priors[[run_name]]$priors
+    }
+
+    fit <- tryCatch(
+      {
+        fit.spict(
+          inp = current_input,
+          verbose = FALSE
+        )
+      },
+      error = function(e) {
+        message("    ❌ Error in ", sc_name, " ", run_name, ": ", e$message)
+        return(NULL)
+      }
+    )
+
+    results_by_scenario[[sc_name]][[run_name]] <- fit
+  }
+}
+
+# Example access to results
+
+# Qué escenarios se corrieron
+names(results_by_scenario)
+
+# Qué RUNs tiene un escenario
+names(results_by_scenario$SC1)
+
+# Ver un modelo concreto
+results_by_scenario$SC0$RUN4
+
+## --------------------------------------------------------------------------------
+## Extraigo Valores
+
+extract_spict_diagnostics <- function(fit) {
+
+  if (is.null(fit)) {
+    return(list(
+      convergence = FALSE,
+      pdHess = NA,
+      osa_bias_p = NA,
+      osa_acf_p = NA,
+      shapiro_p = NA,
+      mohn_bbmsy = NA,
+      mohn_ffmsy = NA,
+      prod_curve = NA,
+      uncertainty_bbmsy = NA,
+      uncertainty_ffmsy = NA,
+      aic = NA_real_
+    ))
+  }
+
+  # AIC seguro
+  aic_val <- NA_real_
+  if (!is.null(fit$aic) && is.numeric(fit$aic)) {
+    aic_val <- fit$aic
+  }
+
+  list(
+    convergence = fit$opt$convergence == 0,
+
+    pdHess = if (!is.null(fit$sdrep))
+      isTRUE(fit$sdrep$pdHess) else NA,
+
+    osa_bias_p = if (!is.null(fit$diagnostics$osa_bias_p))
+      fit$diagnostics$osa_bias_p else NA,
+
+    osa_acf_p = if (!is.null(fit$diagnostics$osa_acf_p))
+      fit$diagnostics$osa_acf_p else NA,
+
+    shapiro_p = if (!is.null(fit$diagnostics$shapiro_p))
+      fit$diagnostics$shapiro_p else NA,
+
+    mohn_bbmsy = if (!is.null(fit$retro$mohn$bbmsy))
+      fit$retro$mohn$bbmsy else NA,
+
+    mohn_ffmsy = if (!is.null(fit$retro$mohn$ffmsy))
+      fit$retro$mohn$ffmsy else NA,
+
+    prod_curve = if (!is.null(fit$par$n))
+      fit$par$n else NA,
+
+    uncertainty_bbmsy = if (!is.null(fit$sdrep))
+      sd(fit$sdrep$value[grep("bbmsy", names(fit$sdrep$value))],
+         na.rm = TRUE) else NA,
+
+    uncertainty_ffmsy = if (!is.null(fit$sdrep))
+      sd(fit$sdrep$value[grep("ffmsy", names(fit$sdrep$value))],
+         na.rm = TRUE) else NA,
+
+    aic = aic_val
+  )
+}
+
+
+# round function
+round_safe <- function(x, digits = 2) {
+  if (is.numeric(x) && length(x) == 1 && !is.na(x)) {
+    round(x, digits)
+  } else {
+    NA
+  }
+}
+
+# made table
+
+library(flextable)
+library(dplyr)
+
+build_diagnostic_table <- function(results_scenario, scenario_name) {
+
+  runs <- names(results_scenario)
+
+  diag_list <- lapply(results_scenario, extract_spict_diagnostics)
+
+  diag_df <- tibble(
+    Diagnostic = c(
+      "Convergence",
+      "Parameters variance finite (pdHess)",
+      "OSA residuals – Bias p-value",
+      "OSA residuals – ACF Ljung-Box p-value",
+      "OSA residuals – Sample quantiles (Shapiro p-value)",
+      "Mohn's rho (B/BMSY)",
+      "Mohn's rho (F/FMSY)",
+      "Production curve parameter (n)",
+      "Uncertainty order of magnitude (B/BMSY)",
+      "Uncertainty order of magnitude (F/FMSY)",
+      "AIC"
+    )
+  )
+
+  for (run in runs) {
+    d <- diag_list[[run]]
+
+    diag_df[[run]] <- c(
+      ifelse(isTRUE(d$convergence), "✓", "✗"),
+      ifelse(isTRUE(d$pdHess), "TRUE", "FALSE"),
+      round_safe(d$osa_bias_p, 3),
+      round_safe(d$osa_acf_p, 3),
+      round_safe(d$shapiro_p, 3),
+      round_safe(d$mohn_bbmsy, 3),
+      round_safe(d$mohn_ffmsy, 3),
+      round_safe(d$prod_curve, 3),
+      round_safe(d$uncertainty_bbmsy, 3),
+      round_safe(d$uncertainty_ffmsy, 3),
+      round_safe(d$aic, 2)
+    )
+  }
+
+  flextable(diag_df) |>
+    bold(part = "header") |>
+    fontsize(size = 9, part = "all") |>
+    align(j = 2:ncol(diag_df), align = "center", part = "all") |>
+    align(j = 1, align = "left", part = "all") |>
+    valign(valign = "top", part = "all") |>
+    theme_booktabs() |>
+    autofit() |>
+    set_caption(
+      paste0(
+        scenario_name,
+        ": summary of convergence, diagnostics, uncertainty and model performance across prior configurations."
+      )
+    )
+}
+
+
+
+# Tabla por escenario
+
+ft_SC1 <- build_diagnostic_table(results_by_scenario$SC1, "Scenario 1")
+ft_SC2 <- build_diagnostic_table(results_by_scenario$SC2, "Scenario 2")
+ft_SC3 <- build_diagnostic_table(results_by_scenario$SC3, "Scenario 3")
+ft_SC4 <- build_diagnostic_table(results_by_scenario$SC4, "Scenario 4")
+ft_SC5 <- build_diagnostic_table(results_by_scenario$SC5, "Scenario 5")
+
+
+##  --------------------------------------------------------------------------------
+
+
+## Plots
+
+
+
 
 # # Convert model to Schaefer (set exponent n = 1)
 # inp1$ini$logn <- log(2)

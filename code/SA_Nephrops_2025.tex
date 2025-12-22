@@ -283,9 +283,13 @@ Explorations were conducted using data available up to 2023. Tables below summar
 
 The ISUNEPCA UWTV survey index is considered the most reliable abundance index for Nephrops in FU30 and is currently used as the basis for assessment and advice (\citeproc{ref-ICES2023b}{ICES, 2023a}). This survey is conducted in the year of the assessment; for example, the UWTV survey planned for June 2024 will be used to inform the advice for 2025, delivered in October 2024. If the 2024 ISUNEPCA index were to be included in a SPiCT model, catch data for 2024 would not yet be available. This issue should be explicitly addressed if SPiCT is adopted as the assessment model for this stock in a future benchmark.
 
-\paragraph{SPiCT model configurations}\label{spict-model-configurations}
+\subsubsection{SPiCT model configurations}\label{spict-model-configurations}
 
 Several SPiCT model configurations were explored for Nephrops FU30, varying in the inclusion of abundance indices, catch data, and model parameters. The scenarios tested are summarised in Table \ref{tab:spictscenarios}. The base case scenario (Scenario 1) included catch data from 1994 to 2023 and the ISUNEPCA UWTV survey index from 2015 to 2023. Additional scenarios were developed to assess the impact of including the spring ARSA survey index (Scenario 2), as well as variations in model parameters such as process error, observation error, and prior distributions for key parameters (Scenarios 3--5).
+
+The different SPiCT model configurations explored in this study are summarized in
+Table @ref(tab:spict\_scenarios), including the input data used in each scenario and
+the corresponding prior configurations.
 
 \begin{landscape}
 
@@ -301,45 +305,59 @@ Several SPiCT model configurations were explored for Nephrops FU30, varying in t
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{|p{0.50in}|p{3.00in}|p{2.00in}|p{3.00in}}
+\begin{longtable}[c]{ccccc}
 
-\caption{Summary\ of\ SPiCT\ scenarios\ and\ input\ data\ used\ for\ Nephrops\ FU30.}\label{tab:spictscenarios}\\
+\caption{Summary\ of\ SPiCT\ model\ configurations\ (scenarios)\ explored\ for\ Nephrops\ FU30.\ 
+\ \ \ \ All\ scenarios\ were\ tested\ under\ four\ alternative\ prior\ configurations\ (RUN1–RUN4).}\label{tab:unnamed-chunk-2}\\
 
-\ascline{1.5pt}{666666}{1-4}
+\ascline{1.5pt}{666666}{1-5}
 
-\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Input\ data}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Priors}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Description\ of\ priors}}}} \\
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Scenario}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Input\ data}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Time\ span}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Prior\ configurations}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Methodological\ description}}}}} \\
 
-\ascline{1.5pt}{666666}{1-4}\endfirsthead \caption[]{Summary\ of\ SPiCT\ scenarios\ and\ input\ data\ used\ for\ Nephrops\ FU30.}\label{tab:spictscenarios}\\
+\ascline{1.5pt}{666666}{1-5}\endfirsthead \caption[]{Summary\ of\ SPiCT\ model\ configurations\ (scenarios)\ explored\ for\ Nephrops\ FU30.\ 
+\ \ \ \ All\ scenarios\ were\ tested\ under\ four\ alternative\ prior\ configurations\ (RUN1–RUN4).}\label{tab:unnamed-chunk-2}\\
 
-\ascline{1.5pt}{666666}{1-4}
+\ascline{1.5pt}{666666}{1-5}
 
-\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Input\ data}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Priors}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Description\ of\ priors}}}} \\
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Scenario}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Input\ data}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Time\ span}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Prior\ configurations}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Methodological\ description}}}}} \\
 
-\ascline{1.5pt}{666666}{1-4}\endhead
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 1}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ARSA\ spring\ index;\ ARSA\ autumn\ index;\ ISUNEPCA\ UWTV\ biomass\ index;\ ISUNEPCA\ UWTV\ abundance\ index;\ ARSA\ spring\ productivity\ index;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ <-c(log(0.5),0.2,1)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Baseline\ configuration\ using\ all\ available\ survey\ and\ fishery-dependent\ indices.\ Default\ SPiCT\ priors\ applied\ to\ evaluate\ model\ behaviour\ under\ maximum\ data\ availability.}}}} \\
+\ascline{1.5pt}{666666}{1-5}\endhead
 
 
 
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC0}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance\ index}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Baseline\ configuration\ using\ only\ the\ UWTV\ survey\ as\ absolute\ abundance\ index.}}}} \\
 
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 2}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ISUNEPCA\ UWTV\ biomass\ index;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Default}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Reduced\ configuration\ focusing\ on\ the\ UWTV\ biomass\ index\ combined\ with\ commercial\ LPUE\ to\ assess\ robustness\ under\ limited\ survey\ information.}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 3}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ARSA\ spring\ index;\ ISUNEPCA\ UWTV\ biomass\ index\ (ISUNEPBIO2)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Default}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Intermediate\ configuration\ combining\ the\ long\ ARSA\ spring\ time\ series\ with\ the\ UWTV\ biomass\ index\ to\ evaluate\ consistency\ between\ fishery-independent\ surveys.}}}} \\
+\ascline{0.75pt}{666666}{1-5}
 
 
 
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC1}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ ARSA\ spring\ survey}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ combining\ UWTV\ and\ ARSA\ spring\ surveys\ to\ assess\ consistency\ between\ fishery-independent\ indices.}}}} \\
+
+\ascline{0.75pt}{666666}{1-5}
 
 
-\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Scenario\ 4}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Catches\ (1994–2023);\ ISUNEPCA\ UWTV\ biomass\ index}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ <-c(log(0.5),0.2,1)\ ;\ }}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\ \ \ \ logn\ <-\ c(log(2),0.5,1);}}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{\ \ \ \ logr\ <-c(log(0.2),0.2,1)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{7}{7}\selectfont{\global\setmainfont{Helvetica}{Minimal\ data\ configuration\ using\ only\ catches\ and\ the\ UWTV\ biomass\ index,\ representing\ a\ conservative\ assessment\ approach\ for\ data-limited\ stocks.}}}} \\
 
-\ascline{1.5pt}{666666}{1-4}
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC2}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Directed\ commercial\ LPUE}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ including\ fishery-dependent\ information\ through\ directed\ LPUE.}}}} \\
+
+\ascline{0.75pt}{666666}{1-5}
+
+
+
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC3}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Directed\ fishing\ effort}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ using\ directed\ fishing\ effort\ as\ a\ proxy\ of\ stock\ dynamics.}}}} \\
+
+\ascline{0.75pt}{666666}{1-5}
+
+
+
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Standardized\ LPUE}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ testing\ the\ use\ of\ standardized\ LPUE\ instead\ of\ raw\ commercial\ indices.}}}} \\
+
+\ascline{0.75pt}{666666}{1-5}
+
+
+
+\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC5}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ARSA\ spring;\ ARSA\ autumn;\ ISUNEPCA\ biomass;\ ISUNEPCA\ abundance;\ ARSA\ productivity;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Full\ configuration\ including\ all\ available\ survey\ and\ fishery-dependent\ indices\ to\ explore\ model\ behaviour\ under\ maximum\ data\ availability.}}}} \\
+
+\ascline{1.5pt}{666666}{1-5}
 
 
 
@@ -356,6 +374,78 @@ Several SPiCT model configurations were explored for Nephrops FU30, varying in t
 \renewcommand*{\arraystretch}{1}
 
 \end{landscape}
+
+\begin{center}\includegraphics{SA_Nephrops_2025_files/figure-latex/unnamed-chunk-3-1} \end{center}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{1.82in}|p{1.66in}|p{0.88in}|p{1.59in}|p{2.71in}}
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Modelo}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Forma.de.la.curva}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{BMSY.K}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Tipo.de.especie}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Implicancia.de.manejo}}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}\endfirsthead 
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}
+
+\multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Modelo}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Forma.de.la.curva}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{BMSY.K}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Tipo.de.especie}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Implicancia.de.manejo}}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}\endhead
+
+
+
+\multicolumn{1}{>{\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Fox}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Asimétrica\ izquierda}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textasciitilde 0.37}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Rápido\ crecimiento}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Alta\ explotación\ tolerable}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
+
+
+
+\multicolumn{1}{>{\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Schaefer}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Simétrica}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.5}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Intermedia}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Balanceado}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
+
+
+
+\multicolumn{1}{>{\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Pella–Tomlinson\ (n=2)}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Asimétrica\ derecha}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textasciitilde 0.6–0.7}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Lenta,\ longeva}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Precaución,\ biomasa\ alta\ necesaria}}}} \\
+
+\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
 
 \newpage
 
@@ -377,6 +467,12 @@ Further work is needed to improve the model, including:
 \item
   Fine-tune model configuration.
 \end{itemize}
+
+\newpage
+
+\subsection{Code Repositories}\label{code-repositories}
+
+All this work has been developed using R language. The code and data used for the SPiCT explorations for Nephrops FU30 can be found in the following GitHub repository:
 
 \newpage
 

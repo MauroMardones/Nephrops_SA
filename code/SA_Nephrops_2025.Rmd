@@ -169,70 +169,173 @@ Explorations were conducted using data available up to 2023. Tables below summar
 
 The ISUNEPCA UWTV survey index is considered the most reliable abundance index for Nephrops in FU30 and is currently used as the basis for assessment and advice [@ICES2023b]. This survey is conducted in the year of the assessment; for example, the UWTV survey planned for June 2024 will be used to inform the advice for 2025, delivered in October 2024. If the 2024 ISUNEPCA index were to be included in a SPiCT model, catch data for 2024 would not yet be available. This issue should be explicitly addressed if SPiCT is adopted as the assessment model for this stock in a future benchmark.
 
-#### SPiCT model configurations
+### SPiCT model configurations
 
 Several SPiCT model configurations were explored for Nephrops FU30, varying in the inclusion of abundance indices, catch data, and model parameters. The scenarios tested are summarised in Table \@ref(tab:spictscenarios). The base case scenario (Scenario 1) included catch data from 1994 to 2023 and the ISUNEPCA UWTV survey index from 2015 to 2023. Additional scenarios were developed to assess the impact of including the spring ARSA survey index (Scenario 2), as well as variations in model parameters such as process error, observation error, and prior distributions for key parameters (Scenarios 3–5).
+
+The different SPiCT model configurations explored in this study are summarized in 
+Table \@ref(tab:spict_scenarios), including the input data used in each scenario and 
+the corresponding prior configurations.
+
 
 
 ```{=latex}
 \begin{landscape}
 ```
 
-```{r spictscenarios, echo=FALSE, message=FALSE, results='asis'}
-tab_scenarios <- data.frame(
-  Scenario = c("Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4"),
-  
+```{r}
+scenarios_df <- data.frame(
+  Scenario = c(
+    "SC0",
+    "SC1",
+    "SC2",
+    "SC3",
+    "SC4",
+    "SC5"
+  ),
+
   Input_Data = c(
-    "Catches (1994–2023); ARSA spring index; ARSA autumn index; ISUNEPCA UWTV biomass index; ISUNEPCA UWTV abundance index; ARSA spring productivity index; Commercial LPUE",
-    "Catches (1994–2023); ISUNEPCA UWTV biomass index; Commercial LPUE",
-    "Catches (1994–2023); ARSA spring index; ISUNEPCA UWTV biomass index (ISUNEPBIO2)",
-    "Catches (1994–2023); ISUNEPCA UWTV biomass index"
+    "Catches; ISUNEPCA UWTV abundance index",
+    "Catches; ISUNEPCA UWTV abundance; ARSA spring survey",
+    "Catches; ISUNEPCA UWTV abundance; Directed commercial LPUE",
+    "Catches; ISUNEPCA UWTV abundance; Directed fishing effort",
+    "Catches; ISUNEPCA UWTV abundance; Standardized LPUE",
+    "Catches; ARSA spring; ARSA autumn; ISUNEPCA biomass; ISUNEPCA abundance; ARSA productivity; Commercial LPUE"
   ),
-  
-  Priors = c(
-    "logbkfrac <-c(log(0.5),0.2,1)",
-    "Default",
-    "Default",
-    "logbkfrac <-c(log(0.5),0.2,1) ; 
-    logn <- c(log(2),0.5,1);
-    logr <-c(log(0.2),0.2,1)"
+
+  Time_Span = c(
+    "1994–2025",
+    "1994–2025",
+    "1994–2025",
+    "1994–2025",
+    "1994–2025",
+    "1994–2025"
   ),
-  
-  Description_Priors = c(
-    "Baseline configuration using all available survey and fishery-dependent indices. Default SPiCT priors applied to evaluate model behaviour under maximum data availability.",
-    "Reduced configuration focusing on the UWTV biomass index combined with commercial LPUE to assess robustness under limited survey information.",
-    "Intermediate configuration combining the long ARSA spring time series with the UWTV biomass index to evaluate consistency between fishery-independent surveys.",
-    "Minimal data configuration using only catches and the UWTV biomass index, representing a conservative assessment approach for data-limited stocks."
+
+  Priors_Runs = c(
+    "RUN1–RUN4",
+    "RUN1–RUN4",
+    "RUN1–RUN4",
+    "RUN1–RUN4",
+    "RUN1–RUN4",
+    "RUN1–RUN4"
   ),
-  
+
+  Description = c(
+    "Baseline configuration using only the UWTV survey as absolute abundance index.",
+    "Configuration combining UWTV and ARSA spring surveys to assess consistency between fishery-independent indices.",
+    "Configuration including fishery-dependent information through directed LPUE.",
+    "Configuration using directed fishing effort as a proxy of stock dynamics.",
+    "Configuration testing the use of standardized LPUE instead of raw commercial indices.",
+    "Full configuration including all available survey and fishery-dependent indices to explore model behaviour under maximum data availability."
+  ),
+
   stringsAsFactors = FALSE
 )
-
-ft_scenarios <- flextable(tab_scenarios) |>
+ft_scenarios_method <- flextable(scenarios_df) |>
   set_header_labels(
     Scenario = "Scenario",
     Input_Data = "Input data",
-    Priors = "Priors",
-    Description_Priors = "Description of priors"
+    Time_Span = "Time span",
+    Priors_Runs = "Prior configurations",
+    Description = "Methodological description"
   ) |>
-  fontsize(size = 7, part = "all") |>
+  theme_vanilla() |>
+  fontsize(size = 9, part = "all") |>
   bold(part = "header") |>
-  align(j = 1, align = "center", part = "all") |>
-  align(j = 2:4, align = "left", part = "all") |>
+  align(align = "left", part = "all") |>
   valign(valign = "top", part = "all") |>
-  theme_booktabs() |>
-  width(j = 1, width = 0.5) |>
-  width(j = 2, width = 3) |>
-  width(j = 3, width = 2) |>
-  width(j = 4, width = 3) |>
-  set_caption("Summary of SPiCT scenarios and input data used for Nephrops FU30.")
+  autofit() |>
+  set_table_properties(width = 1, layout = "autofit") |>
+  set_caption(
+    "Summary of SPiCT model configurations (scenarios) explored for Nephrops FU30. 
+    All scenarios were tested under four alternative prior configurations (RUN1–RUN4)."
+  )
 
-ft_scenarios
+ft_scenarios_method
+
 ```
+
 ```{=latex}
 \end{landscape}
 ```
 
+
+
+```{r}
+## --------------------------------------------------------------------------------
+# Parámetros comunes
+r <- 1
+K <- 1
+B <- seq(0.001, K, length.out = 200)  # evita log(0) en Fox
+
+# Parámetro de Pella–Tomlinson
+n_pella <- 2
+
+# Funciones de producción
+P_schaefer <- r * B * (1 - B / K)             # n = 1 (Schaefer)
+P_pella    <- r * B * (1 - (B / K)^n_pella)   # n = 2 (Pella–Tomlinson)
+P_fox      <- r * B * log(K / B)              # Fox
+
+# Crear dataframe para graficar
+df <- data.frame(
+  B = rep(B, 3),
+  Production = c(P_schaefer, P_pella, P_fox),
+  Model = factor(rep(c("Schaefer (n=1)",
+                       "Pella–Tomlinson (n=2)",
+                       "Fox (log)"), each = length(B)))
+)
+
+# Graficar
+surplusplot <- ggplot(df, aes(x = B/K, y = Production, color = Model)) +
+  geom_line(size = 1.2) +
+  theme_bw(base_size = 14) +
+  labs(
+    x = "Relative Biomass (B/K)",
+    y = "Relative Production (Y/K)",
+    title = "Comparison of Surplus Production Models: Fox, Schaefer, and Pella–Tomlinson"
+  ) +
+  scale_color_manual(values = c("blue", "red", "darkgreen")) +
+  theme(
+    legend.position = "top",
+    legend.title = element_blank()
+  )
+surplusplot 
+```
+
+
+```{r}
+## --------------------------------------------------------------------------------
+tab_modelos <- data.frame(
+  Modelo = c("Fox", "Schaefer", "Pella–Tomlinson (n=2)"),
+  `Forma de la curva` = c("Asimétrica izquierda", "Simétrica", "Asimétrica derecha"),
+  `BMSY/K` = c("~0.37", "0.5", "~0.6–0.7"),
+  `Tipo de especie` = c("Rápido crecimiento", "Intermedia", "Lenta, longeva"),
+  `Implicancia de manejo` = c(
+    "Alta explotación tolerable",
+    "Balanceado",
+    "Precaución, biomasa alta necesaria"
+  )
+)
+
+ft <- flextable(tab_modelos) |>
+  set_header_labels(
+    Modelo = "Modelo",
+    `Forma de la curva` = "Forma de la curva",
+    `BMSY/K` = "BMSY/K",
+    `Tipo de especie` = "Tipo de especie",
+    `Implicancia de manejo` = "Implicancia de manejo"
+  ) |>
+  theme_vanilla() |>
+  autofit() |>
+  bold(part = "header") |>
+  color(part = "header", color = "white") |>
+  bg(part = "header", bg = "#2E86C1") |>
+  fontsize(size = 11, part = "all") |>
+  align(align = "center", part = "all")
+
+ft
+```
 
 \newpage
 
@@ -248,6 +351,12 @@ Further work is needed to improve the model, including:
 - Extend the time series of landings to earlier years in order to improve the stability and robustness of the model
 - Add uncertainty in some years of the biomass indices time series or catches
 - Fine-tune model configuration.
+
+\newpage
+
+## Code Repositories
+
+All this work has been developed using R language. The code and data used for the SPiCT explorations for Nephrops FU30 can be found in the following GitHub repository:
 
 
 \newpage
