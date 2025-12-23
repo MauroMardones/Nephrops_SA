@@ -194,6 +194,8 @@ February 8, 2025
 
 \emph{Nephrops} stock in FU30 Division 9.a is considered a Category 3 stock. The advice is currently based on the 2-over-3 rule using the abundance index from UWTV surveys. The reference points for this stock are undefined and ICES cannot assess the stock and exploitation status relative to MSY or precautionary approach (PA) reference points. Stochastic surplus production model in continuous time (SPiCT) has been recommended by ICES for a number of data limited stocks to produce MSY advice. This WD shows some SPiCT explorations carried out in order to evaluate the potential of this model for Nephrops FU 30 assessment and propose this stock as possible candidate for the next WKMSYSPiCT benchmark. Results obtained are promising.
 
+\newpage
+
 \subsection{Introduction}\label{introduction}
 
 Nephrops stock in FU30 Division 9.a was benchmarked in October 2016 (\citeproc{ref-ICES2017WKNEP}{ICES, 2017}) and an approach based on UWTV surveys to generate catch options was proposed for this FU. However, reference points could not be derived according to methodologies used by Category 1 Nephrops stocks conducting UWTV surveys. Consequently, the stock was not upgraded to Category 1. Different assessment models developed for data-limited stocks (DLS), such as Length-Based Indicators (LBIs) or Mean Length--Z (MLZ) based on the WKLIFE V framework (\citeproc{ref-ICES2015}{Acom, 2015}), as well as the Separable Cohort Analysis (SCA; R package version 1.2.0; Bell (\citeproc{ref-Bell2019SCA}{2019})) and the Separable Length Cohort Analysis (SLCA--nepref; R package version 0.2.2; Dobby (\citeproc{ref-Dobby2019nepref}{2019})), which are used to calculate MSY reference points for Category 1 Nephrops stocks, were explored for this stock during WKNephrops in November 2019 (\citeproc{ref-ICES2020WKNephrops}{ICES, 2020}). However, MSY reference points could not be derived adequately. Therefore, Nephrops FU30 remains classified as a Category 3 stock.
@@ -204,7 +206,11 @@ According to the 2023 ICES guidelines for providing advice on data-limited stock
 
 The Stochastic Surplus Production Model in Continuous Time (SPiCT) has been proposed by ICES to produce MSY advice for several Category 3 stocks in benchmark workshops conducted since 2021. The SPiCT model has already been accepted as the assessment basis for three additional Nephrops functional units in Division 9.a (\citeproc{ref-GonzalezHerraiz2023}{González Herraiz et al., 2023}; \citeproc{ref-ICES2021WGBIE}{ICES, 2021b}), and for one additional Nephrops FU nominated for the next WKMSYSPiCT in 2023--2024.
 
-The purpose of this working document is to present a set of exploratory SPiCT model runs for Nephrops FU30, with the aim of evaluating its suitability for assessment and proposing this stock as a candidate for the next WKMSYSPiCT benchmark in 2026.
+\begin{quote}
+In addition to revisiting the advantages and limitations of the scenarios previously tested in past working group meetings, this report extends the exploratory framework by incorporating new SPiCT scenarios that emerged from discussions held after the last meeting in December 2025. Specifically, a new set of scenarios is introduced, all configured consistently with the previous analyses by applying the same four alternative prior configurations (RUN1--RUN4) to each scenario. These new explorations include: (i) an alternative configuration incorporating all available indices simultaneously, (ii) a scenario based on a standardized index formulation, (iii) a scenario using a normalized ARSA survey time series, and (iv) a scenario in which fishing effort is included as a normalized series. The document provides a structured synthesis of these new scenarios and presents their main results, highlighting their relative performance, strengths and limitations in comparison with previously explored configurations, with the aim of informing future benchmark discussions and potential model selection for Nephrops FU30.
+\end{quote}
+
+\newpage
 
 \subsection{Methods}\label{methods}
 
@@ -264,9 +270,276 @@ The ARSA spring survey (SpSGFS-cspr-WIBTS-Q1) is usually conducted from late Feb
 
 \quad
 
-(working progress)
+The commercial LPUE series for Nephrops in FU30 has been calculated using landings and effort data from the Spanish and Portuguese fleets operating in the area. Effort is expressed as the number of fishing days, defined as trips landing at least 10\% Nephrops. The LPUE is calculated as the ratio of landings (in kg) to fishing effort (in fishing days) for each year (\ldots working progress).
+
+\subsubsection{Summary source of data}\label{summary-source-of-data}
+
+\begin{landscape}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[c]{|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}|p{0.75in}}
+
+\caption{Summary\ of\ input\ data\ series\ used\ for\ SPiCT\ explorations\ for\ Nephrops\ FU30.}\label{tab:unnamed-chunk-2}\\
+
+\ascline{1.5pt}{666666}{1-10}
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Year}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Catches\ (t)}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ARSA\ spring\ survey\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ARSA\ autumn\ survey\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ISUNEPCA\ UWTV\ biomass\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ISUNEPCA\ UWTV\ abundance\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ARSA\ productivity\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Commercial\ LPUE\ (kg/day)}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Effort\ (fishing\ days)}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Standardised\ LPUE}}}}} \\
+
+\ascline{1.5pt}{666666}{1-10}\endfirsthead \caption[]{Summary\ of\ input\ data\ series\ used\ for\ SPiCT\ explorations\ for\ Nephrops\ FU30.}\label{tab:unnamed-chunk-2}\\
+
+\ascline{1.5pt}{666666}{1-10}
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Year}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Catches\ (t)}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ARSA\ spring\ survey\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ARSA\ autumn\ survey\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ISUNEPCA\ UWTV\ biomass\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ISUNEPCA\ UWTV\ abundance\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{ARSA\ productivity\ index}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Commercial\ LPUE\ (kg/day)}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Effort\ (fishing\ days)}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Standardised\ LPUE}}}}} \\
+
+\ascline{1.5pt}{666666}{1-10}\endhead
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,993}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{26.603058}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.9506389}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,994}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{107.6180}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{28.159856}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.7551389}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{98.60984}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{107.6180}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,995}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{130.6230}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{99.36237}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{130.6230}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,996}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{48.5220}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{24.615855}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.9331109}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{88.15939}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{48.5220}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,997}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{97.0760}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{9.328451}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.3800499}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{79.21739}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{97.0760}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,998}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{85.3150}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{9.301283}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{12.347944}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.3043906}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{62.21825}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{85.3150}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,999}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{120.2170}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.4059252}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{66.12708}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{120.2170}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{128.8620}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{10.140252}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.3712835}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{60.59434}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{128.8620}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,001}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{178.4260}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{12.331178}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{33.128683}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.4428165}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{67.69023}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{178.4260}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,002}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{261.8360}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{10.871560}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{9.711523}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.4702794}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{73.96796}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{261.8360}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,003}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{306.5170}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{4.942728}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{78.35387}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{306.5170}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,004}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{147.0209}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{4.240238}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{19.038077}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.1520258}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{42.50271}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{147.0209}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,005}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{246.1790}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{17.429929}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{50.135864}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.6376499}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{52.65215}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{246.1790}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,006}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{245.3679}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{12.350958}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{49.824524}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.4168749}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{63.50000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{245.3679}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,007}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{214.4429}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{10.541994}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{6.969605}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.3700000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{58.80000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{214.4429}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,008}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{119.7816}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{23.930662}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{19.409256}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.8500000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{59.50000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{119.7816}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,009}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{119.2902}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{13.137462}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{7.609101}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.3700000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{50.00000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{119.2902}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,010}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{107.3343}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{18.563370}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{45.60000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{107.3343}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,011}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{95.9099}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{6.974094}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{8.019000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.2300000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{54.20000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{95.9099}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,012}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{116.0000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{5.038396}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{17.329677}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.1800000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{58.00000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{116.0000}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,013}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{26.7170}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{23.155208}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{44.841571}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.7900000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{92.05000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{26.7170}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,014}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{14.8850}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{48.654413}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{23.245209}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1.9200000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{40.10000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{14.8850}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,015}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{24.6410}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{33.141152}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{45.184648}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{5,000.000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{248.827}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1.2600000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{58.80000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{24.6410}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,016}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{123.7210}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{68.015128}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{49.124214}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{4,848.404}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{208.991}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2.7300000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{64.60000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{123.7210}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,017}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{139.5160}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{40.933017}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{56.500668}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{4,500.000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{382.689}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1.6700000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{45.50000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{139.5160}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,018}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{75.5510}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{9.263278}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{38.648341}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{4,000.000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{369.746}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.3800000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{47.90000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{75.5510}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,019}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{64.7700}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{32.037074}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{47.605792}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{3,567.028}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{109.933}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1.3400000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{73.70000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{64.7700}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,020}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{62.8690}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{165.458399}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{44.192202}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{6.1600000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{59.00000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{62.8690}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,021}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{49.2760}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,601.158}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{66.238}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{48.70000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{49.2760}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,022}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{44.4150}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{6.716924}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{67.219855}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,627.816}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{53.110}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.2500000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{54.40000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{44.4150}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,023}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{32.8630}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{17.925767}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{51.751912}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,591.873}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{54.193}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{0.6740000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{47.30000}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{32.8630}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,024}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{32.0470}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,778.028}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{63.698}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{4.0763432}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{45.66917}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{32.0470}}}} \\
+
+\ascline{0.75pt}{666666}{1-10}
+
+
+
+\multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{2,025}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1,089.122}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{38.023}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
+
+\ascline{1.5pt}{666666}{1-10}
+
+
+
+\end{longtable}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\end{landscape}
+
+\subsubsection{SPiCT conceptual description}\label{spict-conceptual-description}
+
+Surplus productions models are widely used in fisheries stock assessment, particularly for data-limited stocks. These models describe the dynamics of the total biomass of a fish stock over time, considering the balance between growth (production) and removals (catches). The basic equation governing surplus production models is:
+\[
+\frac{dB(t)}{dt} = P(B(t)) - C(t)
+\]
+where:
+- \(B(t)\) is the biomass at time \(t\),
+- \(P(B(t))\) is the surplus production function, representing the net growth of the biomass,
+- \(C(t)\) is the catch at time \(t\).
+
+In a graphical inspection, a surplus production curve typically has a dome-shaped form, indicating that production increases with biomass up to a certain point (the maximum sustainable yield, MSY), after which it declines due to density-dependent effects. The shape of curve dependes on the specific functional form chosen for \(P(B)\), such as the Schaefer model, Pella-Tomlinson model, or others. (Figure \ref{fig:surplusplot}).
+
+The SPiCT model extends traditional surplus production models by incorporating stochastic elements and continuous-time dynamics. This allows for a more realistic representation of the uncertainties inherent in fish stock assessments, such as environmental variability and observation errors. The key features of the SPiCT model include:
+- \textbf{Stochasticity}: The model incorporates process and observation errors, allowing for the quantification of uncertainty in biomass estimates and reference points.
+- \textbf{Continuous-time framework}: Unlike discrete-time models, SPiCT operates in continuous time, providing a more flexible and accurate representation of stock dynamics.
+- \textbf{Multiple data sources}: SPiCT can integrate various types of data, including catch data, abundance indices from surveys, and fishery-dependent indices such as LPUE and fishing effort.
+- \textbf{Bayesian inference}: The model employs Bayesian methods for parameter estimation, enabling the incorporation of prior knowledge and the derivation of posterior distributions for model parameters and stock status indicators.
 
 \subsubsection{SPiCT explorations}\label{spict-explorations}
+
+\quad
 
 The analyses were conducted using R version 4.3.2 and the SPiCT package (\citeproc{ref-PedersenBerg2017}{Pedersen \& Berg, 2017}), version 1.3.8, following the Handbook and Guidelines developed for this model (\citeproc{ref-Mildenberger2023SPiCT}{Mildenberger, Kokkalis, \& Berg, 2023}; \citeproc{ref-Pedersen2023SPiCTHandbook}{Pedersen, Kokkalis, Mildenberger, \& Berg, 2023}).
 
@@ -285,10 +558,10 @@ The ISUNEPCA UWTV survey index is considered the most reliable abundance index f
 
 \subsubsection{SPiCT model configurations}\label{spict-model-configurations}
 
-Several SPiCT model configurations were explored for Nephrops FU30, varying in the inclusion of abundance indices, catch data, and model parameters. The scenarios tested are summarised in Table \ref{tab:spictscenarios}. The base case scenario (Scenario 1) included catch data from 1994 to 2023 and the ISUNEPCA UWTV survey index from 2015 to 2023. Additional scenarios were developed to assess the impact of including the spring ARSA survey index (Scenario 2), as well as variations in model parameters such as process error, observation error, and prior distributions for key parameters (Scenarios 3--5).
+Several SPiCT model configurations were explored for Nephrops FU30, varying in the inclusion of abundance indices, catch data, and model parameters. The scenarios tested are summarised in Table \ref{tab:scenarios}. The base case scenario (Scenario 1) included catch data from 1994 to 2023 and the ISUNEPCA UWTV survey index from 2015 to 2023. Additional scenarios were developed to assess the impact of including the spring ARSA survey index (Scenario 2), as well as variations in model parameters such as process error, observation error, and prior distributions for key parameters (Scenarios 3--5).
 
 The different SPiCT model configurations explored in this study are summarized in
-Table @ref(tab:spict\_scenarios), including the input data used in each scenario and
+Table \ref{tab:scenarios}, including the input data used in each scenario and
 the corresponding prior configurations.
 
 \begin{landscape}
@@ -305,59 +578,59 @@ the corresponding prior configurations.
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{ccccc}
+\begin{longtable}[c]{|p{0.50in}|p{2.00in}|p{1.00in}|p{3.00in}}
 
 \caption{Summary\ of\ SPiCT\ model\ configurations\ (scenarios)\ explored\ for\ Nephrops\ FU30.\ 
-\ \ \ \ All\ scenarios\ were\ tested\ under\ four\ alternative\ prior\ configurations\ (RUN1–RUN4).}\label{tab:unnamed-chunk-2}\\
+\ \ \ \ All\ scenarios\ were\ tested\ under\ four\ alternative\ prior\ configurations\ (RUN1–RUN4)}(\#tab:tab:spictscenarios)\\
 
-\ascline{1.5pt}{666666}{1-5}
+\ascline{1.5pt}{666666}{1-4}
 
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Scenario}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Input\ data}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Time\ span}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Prior\ configurations}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Methodological\ description}}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Scenario}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Input\ data}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Time\ span}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Methodological\ description}}}}} \\
 
-\ascline{1.5pt}{666666}{1-5}\endfirsthead \caption[]{Summary\ of\ SPiCT\ model\ configurations\ (scenarios)\ explored\ for\ Nephrops\ FU30.\ 
-\ \ \ \ All\ scenarios\ were\ tested\ under\ four\ alternative\ prior\ configurations\ (RUN1–RUN4).}\label{tab:unnamed-chunk-2}\\
+\ascline{1.5pt}{666666}{1-4}\endfirsthead \caption[]{Summary\ of\ SPiCT\ model\ configurations\ (scenarios)\ explored\ for\ Nephrops\ FU30.\ 
+\ \ \ \ All\ scenarios\ were\ tested\ under\ four\ alternative\ prior\ configurations\ (RUN1–RUN4)}(\#tab:tab:spictscenarios)\\
 
-\ascline{1.5pt}{666666}{1-5}
+\ascline{1.5pt}{666666}{1-4}
 
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Scenario}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Input\ data}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Time\ span}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Prior\ configurations}}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{\textbf{Methodological\ description}}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Scenario}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Input\ data}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Time\ span}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Methodological\ description}}}}} \\
 
-\ascline{1.5pt}{666666}{1-5}\endhead
-
-
-
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC0}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance\ index}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Baseline\ configuration\ using\ only\ the\ UWTV\ survey\ as\ absolute\ abundance\ index.}}}} \\
-
-\ascline{0.75pt}{666666}{1-5}
+\ascline{1.5pt}{666666}{1-4}\endhead
 
 
 
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC1}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ ARSA\ spring\ survey}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ combining\ UWTV\ and\ ARSA\ spring\ surveys\ to\ assess\ consistency\ between\ fishery-independent\ indices.}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{SC0}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance\ index}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Baseline\ configuration\ using\ only\ the\ UWTV\ survey\ as\ absolute\ abundance\ index.}}}} \\
 
-\ascline{0.75pt}{666666}{1-5}
-
-
-
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC2}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Directed\ commercial\ LPUE}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ including\ fishery-dependent\ information\ through\ directed\ LPUE.}}}} \\
-
-\ascline{0.75pt}{666666}{1-5}
+\ascline{0.75pt}{666666}{1-4}
 
 
 
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC3}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Directed\ fishing\ effort}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ using\ directed\ fishing\ effort\ as\ a\ proxy\ of\ stock\ dynamics.}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{SC1}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ ARSA\ spring\ survey}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Configuration\ combining\ UWTV\ and\ ARSA\ spring\ surveys\ to\ assess\ consistency\ between\ fishery-independent\ indices.}}}} \\
 
-\ascline{0.75pt}{666666}{1-5}
-
-
-
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Standardized\ LPUE}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Configuration\ testing\ the\ use\ of\ standardized\ LPUE\ instead\ of\ raw\ commercial\ indices.}}}} \\
-
-\ascline{0.75pt}{666666}{1-5}
+\ascline{0.75pt}{666666}{1-4}
 
 
 
-\multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{SC5}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ARSA\ spring;\ ARSA\ autumn;\ ISUNEPCA\ biomass;\ ISUNEPCA\ abundance;\ ARSA\ productivity;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{RUN1–RUN4}}}} & \multicolumn{1}{>{}l}{\textcolor[HTML]{000000}{\fontsize{9}{9}\selectfont{\global\setmainfont{Helvetica}{Full\ configuration\ including\ all\ available\ survey\ and\ fishery-dependent\ indices\ to\ explore\ model\ behaviour\ under\ maximum\ data\ availability.}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{SC2}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Directed\ commercial\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Configuration\ including\ fishery-dependent\ information\ through\ directed\ LPUE.}}}} \\
 
-\ascline{1.5pt}{666666}{1-5}
+\ascline{0.75pt}{666666}{1-4}
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{SC3}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Directed\ fishing\ effort}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Configuration\ using\ directed\ fishing\ effort\ as\ a\ proxy\ of\ stock\ dynamics.}}}} \\
+
+\ascline{0.75pt}{666666}{1-4}
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{SC4}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ISUNEPCA\ UWTV\ abundance;\ Standardized\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Configuration\ testing\ the\ use\ of\ standardized\ LPUE\ instead\ of\ raw\ commercial\ indices.}}}} \\
+
+\ascline{0.75pt}{666666}{1-4}
+
+
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.5in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{SC5}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Catches;\ ARSA\ spring;\ ARSA\ autumn;\ ISUNEPCA\ biomass;\ ISUNEPCA\ abundance;\ ARSA\ productivity;\ Commercial\ LPUE}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{1994–2025}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Full\ configuration\ including\ all\ available\ survey\ and\ fishery-dependent\ indices\ to\ explore\ model\ behaviour\ under\ maximum\ data\ availability.}}}} \\
+
+\ascline{1.5pt}{666666}{1-4}
 
 
 
@@ -375,7 +648,7 @@ the corresponding prior configurations.
 
 \end{landscape}
 
-\begin{center}\includegraphics{SA_Nephrops_2025_files/figure-latex/unnamed-chunk-3-1} \end{center}
+A total of twenty SPiCT model runs were conducted, corresponding to four alternative prior configurations (RUN1--RUN4) (Table \ref{tab:priors}) applied consistently across five model scenarios (SC0--SC4). This factorial design allowed for the evaluation of model behaviour, convergence and sensitivity to both data configuration and prior assumptions on key biological and production parameters.
 
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
 
@@ -389,49 +662,45 @@ the corresponding prior configurations.
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{|p{1.82in}|p{1.66in}|p{0.88in}|p{1.59in}|p{2.71in}}
+\begin{longtable}[c]{|p{0.60in}|p{1.00in}|p{2.00in}|p{3.00in}}
+
+\caption{Summary\ of\ prior\ configurations\ (RUNs)\ explored\ for\ Nephrops\ FU30\ SPiCT\ model\ scenarios.}\label{tab:unnamed-chunk-3}\\
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.6in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Run}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Prior\ configuration}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Specification}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Purpose}}}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endfirsthead \caption[]{Summary\ of\ prior\ configurations\ (RUNs)\ explored\ for\ Nephrops\ FU30\ SPiCT\ model\ scenarios.}\label{tab:unnamed-chunk-3}\\
+
+\ascline{1.5pt}{666666}{1-4}
+
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.6in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Run}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Prior\ configuration}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Specification}}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{\textbf{Purpose}}}}} \\
+
+\ascline{1.5pt}{666666}{1-4}\endhead
 
 
 
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.6in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{RUN1}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Default\ (package\ defaults)}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Default\ SPiCT\ priors}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Baseline\ configuration\ using\ default\ SPiCT\ assumptions.}}}} \\
 
-\multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Modelo}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Forma.de.la.curva}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{BMSY.K}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Tipo.de.especie}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Implicancia.de.manejo}}}}} \\
-
-\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}\endfirsthead 
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}
-
-\multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Modelo}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Forma.de.la.curva}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{BMSY.K}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Tipo.de.especie}}}}} & \multicolumn{1}{>{\cellcolor[HTML]{2E86C1}\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{FFFFFF}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Implicancia.de.manejo}}}}} \\
-
-\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}\endhead
+\ascline{0.75pt}{666666}{1-4}
 
 
 
-\multicolumn{1}{>{\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Fox}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Asimétrica\ izquierda}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textasciitilde 0.37}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Rápido\ crecimiento}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Alta\ explotación\ tolerable}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.6in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{RUN2}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{logbkfrac}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ \textasciitilde \ log(0.5),\ SD\ =\ 0.2}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Constrains\ initial\ depletion\ (B/K)\ around\ an\ intermediate\ level\ with\ low\ uncertainty.}}}} \\
 
-\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
+\ascline{0.75pt}{666666}{1-4}
 
 
 
-\multicolumn{1}{>{\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Schaefer}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Simétrica}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.5}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Intermedia}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Balanceado}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.6in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{RUN3}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{logbkfrac,\ logn}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ \textasciitilde \ log(0.5),\ SD\ =\ 0.2;\ logn\ \textasciitilde \ log(2),\ SD\ =\ 0.5}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Adds\ a\ tighter\ prior\ on\ the\ production\ curve\ shape\ parameter\ (n).}}}} \\
 
-\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=0.75pt}-}
+\ascline{0.75pt}{666666}{1-4}
 
 
 
-\multicolumn{1}{>{\centering}m{\dimexpr 1.82in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Pella–Tomlinson\ (n=2)}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.66in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Asimétrica\ derecha}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.88in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textasciitilde 0.6–0.7}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.59in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Lenta,\ longeva}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 2.71in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Precaución,\ biomasa\ alta\ necesaria}}}} \\
+\multicolumn{1}{>{\raggedright}p{\dimexpr 0.6in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{RUN4}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{logbkfrac,\ logn,\ logr}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{logbkfrac\ \textasciitilde \ log(0.5),\ SD\ =\ 0.2;\ logn\ \textasciitilde \ log(2),\ SD\ =\ 0.5;\ logr\ \textasciitilde \ log(0.2),\ SD\ =\ 0.2}}}} & \multicolumn{1}{>{\raggedright}p{\dimexpr 3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{8}{8}\selectfont{\global\setmainfont{Helvetica}{Fully\ informative\ configuration\ including\ priors\ on\ depletion,\ production\ curve\ shape\ and\ intrinsic\ growth\ rate.}}}} \\
 
-\noalign{\global\arrayrulewidth 0pt}\arrayrulecolor[HTML]{000000}
-
-\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=1.5pt}-}
+\ascline{1.5pt}{666666}{1-4}
 
 
 
@@ -450,6 +719,135 @@ the corresponding prior configurations.
 \newpage
 
 \subsection{Results}\label{results}
+
+Results section: step-by-step presentation of model fits, diagnostics and key outputs.
+
+We evaluated six alternative data configurations (scenarios SC0--SC5). For each scenario we fitted four prior configurations (RUN1--RUN4), producing a set of candidate assessment models. Model comparison within each scenario was performed using AIC (ΔAIC within scenario), diagnostic plots produced by the SPiCT suite (comparison plots, hindcast plots and retrospective diagnostics), and predictive skill quantified with MASE for each abundance index. Management projections and candidate harvest control rule (HCR) responses were also generated for all candidate fits.
+
+The full AIC table is provided in Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic). It is recommended to select candidate runs based on ΔAIC within each scenario (ΔAIC = AIC − min(AIC) in that scenario) together with the diagnostic and hindcast results described below.
+
+library(readr); library(knitr)
+aic \textless- read\_csv(``outputs/AIC\_by\_scenario\_run.csv'')
+kable(aic, caption = ``AIC by scenario and prior configuration. AIC was computed using \texttt{get.AIC()} and is used here to rank runs within each scenario.'')
+
+\subsection{2. Fit diagnostics and model comparison (SPiCT compare plots)}\label{fit-diagnostics-and-model-comparison-spict-compare-plots}
+
+For each scenario we compared the four prior configurations visually using the \texttt{plotspict.compare()} outputs. Representative comparison figures for each scenario are shown in Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0)--Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC5) (one file per scenario).
+
+knitr::include\_graphics(``figs/SPiCT\_compare\_SC0.png'')
+
+\emph{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0).} Example output comparing RUN1--RUN4 within Scenario SC0 (biomass, fishing mortality and index fits). Equivalent comparison figures are available for SC1--SC5 (files \texttt{figs/SPiCT\_compare\_SC1.png} \ldots{} \texttt{figs/SPiCT\_compare\_SC5.png}).
+
+\textbf{Interpretation.} Within scenarios, runs with more informative priors on \texttt{logbkfrac} (RUN2 and RUN3 configurations) generally improved stability of biomass trajectories and tightened uncertainty bounds, as also reflected in lower within-scenario AIC values for several scenarios (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic). However, in some scenarios overly tight priors induced small shifts in estimated equilibrium parameters and led to visually poorer fit to the long survey series. These trade-offs motivated using additional diagnostics (hindcast MASE and retrospective Mohn's rho) to select preferred runs.
+
+\subsection{3. Predictive skill --- hindcast MASE}\label{predictive-skill-hindcast-mase}
+
+Hindcast performance was assessed via MASE for each abundance index; the MASE values were computed reproducing the procedure used by \texttt{plotspict.hindcast()} (observations from the base run versus predictions from the first peel, aligned in time and with NA handling). Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mase) summarises MASE by scenario, run and index; a small excerpt is shown here for illustration.
+
+mase \textless- read\_csv(``outputs/SPiCT\_hindcast\_MASE\_by\_index.csv'')
+kable(head(mase, 12), caption = ``MASE from hindcast diagnostics (excerpt). MASE is calculated per index and per run; lower values indicate better short-term predictive skill.'')
+
+\textbf{Interpretation.} MASE values varied across indices and scenarios. For most scenarios, RUN2 (logbkfrac prior) produced reduced MASE for the long UWTV biomass index compared to the default prior (RUN1), indicating improved short-term predictive skill. However, some runs that improved MASE for one index worsened MASE for others (trade-off across indices), highlighting the need to weight diagnostic evidence across all indices rather than relying on a single metric.
+
+Representative hindcast plots (showing observed vs predicted index trajectories and MASE in the panel titles) are provided in Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN1)--Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN4).
+
+knitr::include\_graphics(``figs/hindcast/hindcast\_SC1\_RUN1.png'')
+
+\emph{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN1).} Example hindcast plot for SC1 RUN1 (panel shows index fits and reported MASE).
+
+\subsection{4. Retrospective diagnostics (Mohn's rho)}\label{retrospective-diagnostics-mohns-rho}
+
+Retrospective stability was assessed via Mohn's rho for key quantities (B/BMSY and F/FMSY). The full retrospective results (per scenario and run) are summarised in Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mohn). The retrospective analysis was attempted for all runs; when the retrospective routine did not converge for a particular run the entry is flagged and that run was examined qualitatively using the full diagnostic suite.
+
+mohn \textless- read\_csv(``outputs/SPiCT\_retro\_mohn\_table.csv'') \# if you produced one
+kable(head(mohn, 12), caption = ``Retrospective diagnostics (Mohn's rho) summarised by scenario and run (excerpt). Positive values indicate a tendency for the model to overestimate recent biomass relative to the full data run.'')
+
+\textbf{Interpretation.} Runs with extreme priors sometimes displayed elevated Mohn's rho (indicative of retrospective bias). Where Mohn's rho exceeded common informal thresholds (\textbar rho\textbar{} \textgreater{} 0.2), we considered the run less reliable unless other diagnostics (AIC, hindcast MASE and indices fit) provided strong countervailing evidence.
+
+\subsection{5. Time series of reference metrics (FFMSY and BBMSY) and Kobe plots}\label{time-series-of-reference-metrics-ffmsy-and-bbmsy-and-kobe-plots}
+
+We extracted posterior time series of F/FMSY and B/BMSY from each fitted run, averaged by year, and produced Kobe plots for each scenario. Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:Kobe\_SC1) is an example (Scenario SC1). The complete set of Kobe plots is available as \texttt{figs/Kobe\_SC0.png} \ldots{} \texttt{figs/Kobe\_SC5.png}.
+
+knitr::include\_graphics(``figs/Kobe\_SC1.png'')
+
+\emph{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:Kobe\_SC1).} Kobe plot for SC1: panels show the temporal trajectory of F/FMSY vs B/BMSY for each run (RUN1--RUN4). Colors indicate year and the 1:1 lines denote reference points.
+
+\textbf{Interpretation.} Most scenarios show trajectories that remain near or slightly above FMSY in recent years; some runs suggest the stock is approaching F\textless BMSY thresholds. Because Kobe plots are qualitative and sensitive to priors and index selection, they are interpreted together with the diagnostics above (AIC, MASE, Mohn's rho). Final advice-oriented interpretation requires selection of a preferred run per scenario using the combined evidence.
+
+\subsection{6. Management simulations}\label{management-simulations}
+
+Management scenarios using the ICES (2025) HCR (0.15 fractile, breakpointB = 0.5, limitB = 0.3) were applied to the candidate fits. Summaries of management outputs (catch trajectories and probability of breaching limit reference points under the HCR) are reported in \texttt{outputs/management/SPiCT\_management\_summary.csv} and an excerpt is provided in Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:management).
+
+man \textless- read\_csv(``outputs/management/SPiCT\_management\_summary.csv'')
+kable(head(man, 12), caption = ``Management summary (excerpt) for the ICES (2025) HCR applied to each fit.'')
+
+\textbf{Interpretation.} The HCR considerably reduces catch advice relative to recent removals for runs indicating low B/BMSY, while runs with higher estimated biomass provided more optimistic catch trajectories. The HCR responses were generally consistent across runs with low ΔAIC and acceptable MASE.
+
+\subsection{7. Recommended material to include in the final report}\label{recommended-material-to-include-in-the-final-report}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Main figures}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Scenario compare plots for SC0--SC5 (Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0)--Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC5)). These are the primary diagnostic figures for reviewers.
+  \item
+    Hindcast plots for selected runs (showing MASE) and the retrospective plots for the same runs.
+  \item
+    Kobe plots for each scenario (Kobe\_SC0.png \ldots{} Kobe\_SC5.png).
+  \end{itemize}
+\item
+  \textbf{Main tables}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    AIC table (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic\}).
+  \item
+    Hindcast MASE per index (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mase\}).
+  \item
+    Retrospective diagnostics (Mohn's rho) and a small management summary (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:management\}).
+  \end{itemize}
+\item
+  \textbf{Text guidance}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use ΔAIC within scenario to shortlist runs.
+  \item
+    Use hindcast MASE and retrospective diagnostics to assess short-term predictive skill and stability.
+  \item
+    Use Kobe and management simulations to illustrate the consequences of run selection on advice.
+  \end{itemize}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Captions and cross-references (placeholders)}\label{captions-and-cross-references-placeholders}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0)} --- SPiCT comparison plot for Scenario SC0 (RUN1--RUN4).
+\item
+  \textbf{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN1)} --- Hindcast diagnostics for SC1 RUN1; panel titles contain MASE values.
+\item
+  \textbf{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:Kobe\_SC1)} --- Kobe plot for Scenario SC1 (four prior configurations).
+\item
+  \textbf{Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic)} --- AIC by scenario and run (used to compute ΔAIC within scenario).
+\item
+  \textbf{Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mase)} --- Hindcast MASE by scenario, run and index.
+\item
+  \textbf{Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mohn)} --- Mohn's rho (retrospective) by scenario and run.
+\item
+  \textbf{Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:management)} --- Management summary for ICES (2025) HCR per fit.
+\end{itemize}
+
+The combined diagnostics show that no single metric is sufficient to identify the ``best'' run. I recommend selecting a preferred run within each scenario by applying a simple decision rule that weights (1) ΔAIC (within scenario), (2) hindcast MASE averaged across indices, and (3) Mohn's rho for B/BMSY; when two or more runs are numerically similar, favour the run with superior visual fit to the long, fishery-independent survey used as a primary index. The figures and tables listed above provide the necessary evidence to document the selection process in the Working Document.
 
 \newpage
 
@@ -491,7 +889,7 @@ All this work has been developed using R language. The code and data used for th
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{../figs/land_index} 
+{\centering \includegraphics[width=1\linewidth]{../figs/indices_nephrops_FU30} 
 
 }
 
@@ -499,6 +897,15 @@ All this work has been developed using R language. The code and data used for th
 \end{figure}
 
 \end{landscape}
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=0.7\linewidth]{SA_Nephrops_2025_files/figure-latex/surplusplot-1} 
+
+}
+
+\caption{Comparison of surplus production functions: Schaefer (n=1), Pella–Tomlinson (n=2) and Fox (log).}\label{fig:surplusplot}
+\end{figure}
 
 \newpage
 

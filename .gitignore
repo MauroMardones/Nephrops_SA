@@ -6,3 +6,6 @@
 *cpue/
 *docs/
 *figs/
+*outputs/
+code/log
+code/tex

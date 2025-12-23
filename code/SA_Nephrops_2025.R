@@ -1,4 +1,3 @@
-## ----setup, include=FALSE, message=F---------------------------------------------
 rm(list = ls())
 options(bitmapType = "cairo")
 #XQuartz is a mess, put this in your onload to default to cairo instead (https://github.com/tidyverse/ggplot2/issues/2655)
@@ -10,8 +9,6 @@ knitr::opts_chunk$set(collapse = TRUE,
                       cache=FALSE,
                       warning = FALSE)
 
-
-## ----eval=FALSE, echo=TRUE-------------------------------------------------------
 # install.packages("devtools")
 # install.packages("TMB")
 # #si hay problemas, instalarlo desde el github
@@ -23,8 +20,6 @@ knitr::opts_chunk$set(collapse = TRUE,
 # install.packages("Rcpp")
 # install.packages("ellipse")
 
-
-## ----echo = TRUE, message = FALSE------------------------------------------------
 library(usethis)
 library(devtools)
 library(ellipse)
@@ -53,35 +48,38 @@ if (!dir.exists(fig.path)) {
 }
 
 
-
+## -------- READ DATA --------------
 # Por ahora no tengo Effort ni LPUE standar
-## --------------------------------------------------------------------------------
+
 bac <- read_excel(here("data",
                            "inputdata_spict_fu30_2025_Rev.xlsx")) %>%
   mutate(
     Effort = if_else(is.na(catch), NA_real_, 1),
     LPUE_std = catch / Effort
   )
+# Data actualizada
+# bac <- read_csv(here("data",
+#                      "inputdata_FU30_wkbmsyspict.csv")) %>%
+#   mutate(
+#     Effort = if_else(is.na(catch), NA_real_, 1),
+#     LPUE_std = catch / Effort
+#   )
 
 
 
-## --------------------------------------------------------------------------------
+## -------------Plot Catch Index-------------------------------------------
 bac_long <- bac %>%
   pivot_longer(cols = -year, names_to = "variable", values_to = "value")
-# ---- Gráfico de capturas (barras) ----
 p_catch <- ggplot(filter(bac_long, variable == "catch"),
                   aes(x = year, y = value)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = mean(bac$catch, na.rm = TRUE),
              linetype = "dashed", color = "black") +
-  theme_minimal(base_size = 12) +
+  theme_bw() +
   theme(
     axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)
   ) +
   labs(y = "Landings (tons)", x = "", title = "Landings Nephrops time series")
-
-
-# ---- Gráficos para los índices (puntos + suavizado) ----
 plot_index <- function(var_name, ylab){
   ggplot(filter(bac_long, variable == var_name),
          aes(x = year, y = value)) +
@@ -91,7 +89,7 @@ plot_index <- function(var_name, ylab){
                 method = "loess",
                 formula = y ~ x,
                 linewidth = 0.8) +
-    theme_minimal(base_size = 12) +
+    theme_bw() +
     theme(
       axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)
     ) +
@@ -107,32 +105,26 @@ p6 <- plot_index("LPUEcomercial", "Index value")
 p7 <- plot_index("Effort", "Index value")
 p8 <- plot_index("LPUE_std", "Index value")
 
-# ---- Combinar todos los gráficos ----
-# y guuardar en "figs"
+# combinar y guuardar en "figs"
 fig_indices <- ggarrange(
-  p_catch,
-  ggarrange(
-    p1, p2, p3, p4, p5, p6, p7, p8,
-    ncol = 2,
-    nrow = 4,
+  p_catch, p1, p2, p3, p4, p5, p6, p7, p8,
+    ncol = 3,
+    nrow = 3,
     labels = "AUTO"
   )
-)
+
 
 ggsave(
   filename = file.path(fig.path, "indices_nephrops_FU30.png"),
   plot = fig_indices,
-  width = 16,
-  height = 10,
+  width = 18,
+  height = 12,
   units = "cm",
   dpi = 300
 )
 
-###
+## ------------- Correlation----------
 
-# Correlation
-
-## ----warning=FALSE, message=FALSE------------------------------------------------
 data_log <- bac %>%
   select(-year, -catch) %>%
   mutate(across(everything(), log))
@@ -153,9 +145,8 @@ ph2 <- pheatmap(cor_spearman,
          color = colorRampPalette(c("blue", "white", "red"))(50))
 
 
-# Preparing Data for Splitc
+## --------- Preparing Data for Spict--------------
 
-## --------------------------------------------------------------------------------
 data <- bac
 # Create Catch dataframe
 C_nep <- data.frame(
@@ -210,15 +201,13 @@ I_LPUEstd <- data.frame(
   timeI = data$year
 )
 
-
-## --------------------------------------------------------------------------------
 ind  <- which(C_nep$timeC == 1994)
 ind2 <- which(C_nep$timeC == 2025)
 
 
-## Scenarios for SPiCT model
+## ---------------Scenarios for SPiCT model-------------
 
-## ----------
+
 # Scenario 0 -- only ISUNEP abundance index
 
 inp0 <- list(
@@ -235,7 +224,6 @@ inp0 <- list(
 )
 
 
-## --------------------------------------------------------------------------------
 # Scenario 1 -- Landings + ISUNEPCA TV Survey + IBTS ARSA Survey
 inp1 <- list(
   timeC = C_nep$timeC[ind:ind2],
@@ -254,7 +242,7 @@ inp1 <- list(
 
 
 
-## --------------------------------------------------------------------------------
+
 # SCENARIO 2 # Landings + ISUNEPCA TV Survey + Directed LPUE
 inp2 <- list(
   timeC = C_nep$timeC[ind:ind2],
@@ -272,8 +260,6 @@ inp2 <- list(
 )
 
 
-
-## --------------------------------------------------------------------------------
 # Scenario 3 -- Landings + ISUNEPCA TV Survey + Directed Effort
 
 I_effort <- data.frame(
@@ -297,7 +283,7 @@ inp3 <- list(
 )
 
 
-## --------------------------------------------------------------------------------
+
 # Scenario 4 -- Catches, ISUNEPCA LPUE Std
 
 inp4 <- list(
@@ -316,10 +302,9 @@ inp4 <- list(
 )
 
 
-## --------------------------------------------------------------------------------
+
 # Scenario 5 -- All Indices
 inp5 <- list(
-  # ---- Capturas ----
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
@@ -342,7 +327,7 @@ inp5 <- list(
   )
 )
 
-## --------------------------------------------------------------------------------
+
 inp1$dteuler <- 1/16  # must be set before check.inp
 inp1 <- check.inp(inp1)
 
@@ -350,11 +335,9 @@ inp1 <- check.inp(inp1)
 inp1$dtc
 
 
-## PRIORS AND INITIAL VALUES buy Scenario regarding last WG
-
-# ------------------------------
-# Priors configurations
-# ------------------------------
+## -----------Priors configurations-------------------------------
+# Priors list
+list.possible.priors()
 
 priors_run1 <- list(
   name = "RUN1_default",
@@ -403,12 +386,12 @@ scenarios_priors <- list(
 )
 
 ###
+# Create all combinations of scenarios and priors.
+#Now "spict_scenarios" objetct contains all combinations of data scenarios and prior configurations
 
 spict_scenarios <- list()
-
 for (sc_name in names(scenarios_data)) {
   for (run_name in names(scenarios_priors)) {
-
     spict_scenarios[[paste(sc_name, run_name, sep = "_")]] <- list(
       scenario = sc_name,
       run      = run_name,
@@ -417,11 +400,10 @@ for (sc_name in names(scenarios_data)) {
     )
   }
 }
-# Now spict_scenarios contains all combinations of data scenarios and prior configurations
+#
 
-## --------------------------------------------------------------------------------
+
 # Run SPICT
-
 
 results_by_scenario <- list()
 
@@ -459,18 +441,653 @@ for (sc_name in names(scenarios_data)) {
   }
 }
 
+## --------------------Read Scenarios----------------------------------------------
+
 # Example access to results
 
-# Qué escenarios se corrieron
 names(results_by_scenario)
 
-# Qué RUNs tiene un escenario
+# individual Scenario
 names(results_by_scenario$SC1)
 
-# Ver un modelo concreto
+# Individual Scenario and run (e.i.)
 results_by_scenario$SC0$RUN4
 
+# genera  un .rsd por escenario
+
+saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
+
+
+## --------------Function to extract diagnostics from a spict fit object------------------------------------------
+
+# Table and plots
+
+run_osa_diagnostics <- function(spict_obj,
+                                scenario,
+                                run,
+                                out_dir = "figs/diagnostics") {
+
+  if (!dir.exists(out_dir)) {
+    dir.create(out_dir, recursive = TRUE)
+  }
+
+  # Calcular residuos OSA
+  res_osa <- calc.osa.resid(spict_obj)
+
+  # Nombre de archivo
+  fname <- file.path(
+    out_dir,
+    paste0("OSA_", scenario, "_", run, ".png")
+  )
+
+  # Guardar plot
+  png(filename = fname, width = 2000, height = 1600, res = 300)
+  plotspict.diagnostic(res_osa, qlegend = FALSE)
+  dev.off()
+
+  invisible(res_osa)
+}
+
+
+osa_results <- list()
+
+for (sc in names(results_by_scenario)) {
+  osa_results[[sc]] <- list()
+
+  for (run in names(results_by_scenario[[sc]])) {
+
+    cat("Running OSA diagnostics:", sc, run, "\n")
+
+    osa_results[[sc]][[run]] <- tryCatch(
+      run_osa_diagnostics(
+        spict_obj = results_by_scenario[[sc]][[run]],
+        scenario  = sc,
+        run       = run
+      ),
+      error = function(e) {
+        message("❌ Error in ", sc, " ", run, ": ", e$message)
+        NULL
+      }
+    )
+  }
+}
+
+
+# leer outputs por escenaruio
+# osa_results$SC1$RUN1
+
+## Save al outputs
+saveRDS(
+  osa_results,
+  file = "outputs/SPiCT_OSA_results_by_scenario.rds"
+)
+
+
+## -------------------Plot initaial default----------------------------------------------
+
+run_spict_plot <- function(spict_obj,
+                           scenario,
+                           run,
+                           CI = 0.8,
+                           out_dir = "figs/spict_plots") {
+
+  if (!dir.exists(out_dir)) {
+    dir.create(out_dir, recursive = TRUE)
+  }
+
+  fname <- file.path(
+    out_dir,
+    paste0("SPiCT_", scenario, "_", run, ".png")
+  )
+
+  png(filename = fname, width = 2400, height = 1800, res = 300)
+  plot(spict_obj, CI = CI)
+  dev.off()
+
+  invisible(fname)
+}
+# Run plots for all scenarios and runs
+spict_plots <- list()
+
+for (sc in names(results_by_scenario)) {
+  spict_plots[[sc]] <- list()
+
+  for (run in names(results_by_scenario[[sc]])) {
+
+    cat("Generating SPiCT plot:", sc, run, "\n")
+
+    spict_plots[[sc]][[run]] <- tryCatch(
+      run_spict_plot(
+        spict_obj = results_by_scenario[[sc]][[run]],
+        scenario  = sc,
+        run       = run,
+        CI = 0.8
+      ),
+      error = function(e) {
+        message("❌ Error in ", sc, " ", run, ": ", e$message)
+        NULL
+      }
+    )
+  }
+}
+
+## ---------------------------Retros----------------------------------------
+##
+# Correr análisis retrospectivo (retro)
+#
+# Generar y guardar los plots retrospectivos
+#
+# Guardar los objetos de resultados
+#
+# Iterar automáticamente por escenario y run
+
+# retrosc1r1 <- retro(results_by_scenario$SC1$RUN1,
+#                            nretroyear = 5,
+#                            mc.cores = 1)
+# # plot
+# plotspict.retro(retrosc1r1)
+
+
+run_spict_retro_simple <- function(fit,
+                                   scenario,
+                                   run,
+                                   nretroyear = 5,
+                                   fig_dir = "figs/retro",
+                                   out_dir = "outputs/retro") {
+
+  dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
+  dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+
+  # Retro
+  res_retro <- retro(
+    fit,
+    nretroyear = nretroyear,
+    mc.cores = 1
+  )
+
+  # Guardar objeto
+  saveRDS(
+    res_retro,
+    file = file.path(
+      out_dir,
+      paste0("RETRO_", scenario, "_", run, ".rds")
+    )
+  )
+
+  # Guardar plot
+  png(
+    filename = file.path(
+      fig_dir,
+      paste0("RETRO_", scenario, "_", run, ".png")
+    ),
+    width = 2400,
+    height = 1800,
+    res = 300
+  )
+  plotspict.retro(res_retro)
+  dev.off()
+
+  return(res_retro)
+}
+# Run retrospectives for all scenarios and runs
+
+retro_results <- list()
+
+for (sc in names(results_by_scenario)) {
+
+  message("\n=== Scenario:", sc, "===")
+  retro_results[[sc]] <- list()
+
+  for (run in names(results_by_scenario[[sc]])) {
+
+    message("Running RETRO:", sc, run)
+
+    retro_results[[sc]][[run]] <- tryCatch(
+      run_spict_retro_simple(
+        fit = results_by_scenario[[sc]][[run]],
+        scenario = sc,
+        run = run,
+        nretroyear = 5
+      ),
+      error = function(e) {
+        message("❌ Error in ", sc, " ", run, ": ", e$message)
+        NULL
+      }
+    )
+  }
+}
+
+#Objetos retros guardados en "retro_results"
+
+
+## -------extract rho parametrer by scenario--------
+#
+extract_mohn_spict <- function(retro_obj) {
+
+  if (is.null(retro_obj)) {
+    return(data.frame(
+      Mohn_BBmsy = NA_real_,
+      Mohn_FFmsy = NA_real_
+    ))
+  }
+
+  mr <- tryCatch(
+    mohns_rho(
+      rep = retro_obj,
+      what = c("BBmsy", "FFmsy"),
+      annualfunc = mean
+    ),
+    error = function(e) NULL
+  )
+
+  if (is.null(mr)) {
+    return(data.frame(
+      Mohn_BBmsy = NA_real_,
+      Mohn_FFmsy = NA_real_
+    ))
+  }
+
+  data.frame(
+    Mohn_BBmsy = mr["BBmsy"],
+    Mohn_FFmsy = mr["FFmsy"]
+  )
+}
+
+# Extraer rho
+mohn_table <- data.frame()
+
+for (sc in names(retro_results)) {
+  for (run in names(retro_results[[sc]])) {
+
+    mohn_vals <- extract_mohn_spict(retro_results[[sc]][[run]])
+
+    mohn_table <- rbind(
+      mohn_table,
+      data.frame(
+        Scenario = sc,
+        Run = run,
+        Mohn_BBmsy = mohn_vals$Mohn_BBmsy,
+        Mohn_FFmsy = mohn_vals$Mohn_FFmsy
+      )
+    )
+  }
+}
+
+mohn_table
+# guaerda la tabla en outputs/retro
+write.csv(
+  mohn_table,
+  file = "outputs/retro/mohns_rho_by_scenario.csv",
+  row.names = FALSE
+)
+
+## ---------------------------Obtener AIC----------------------------------
+
+# Because AIC depends on the likelihood associated with a
+# given data configuration, its values are not directly comparable
+# across models that differ in the number or type of input data.
+# Therefore, AIC-based comparisons were restricted to models within the same scenario.
+
+# Tabla de AIC
+aic_table <- data.frame()
+
+for (sc in names(results_by_scenario)) {
+  for (run in names(results_by_scenario[[sc]])) {
+
+    fit <- results_by_scenario[[sc]][[run]]
+
+    aic_val <- tryCatch(
+      get.AIC(fit),
+      error = function(e) NA_real_
+    )
+
+    aic_table <- rbind(
+      aic_table,
+      data.frame(
+        Scenario = sc,
+        Run = run,
+        AIC = aic_val
+      ) %>%
+        arrange(Scenario, AIC)
+    )
+  }
+}
+
+aic_table
+
+write.csv(
+  aic_table,
+  file = "outputs/AIC_by_scenario_run.csv",
+  row.names = FALSE
+)
+aic_table <- aic_table[order(aic_table$Scenario, aic_table$AIC), ]
+
+
+## --------------------------Extrae BB and F---------------------------------------
+
+extract_FF_BB_MSY <- function(res){
+
+  #  FFMSY
+  ffmsy <- exp(as.data.frame(get.par("logFFmsy", res)))
+  ffmsy$year <- round(as.numeric(rownames(ffmsy)), 0)
+
+  FFMSY <- ffmsy %>%
+    group_by(year) %>%
+    summarise(FFMSY = mean(est), .groups = "drop")
+
+  #  BBMSY
+  bbmsy <- exp(as.data.frame(get.par("logBBmsy", res)))
+  bbmsy$year <- round(as.numeric(rownames(bbmsy)), 0)
+
+  BBMSY <- bbmsy %>%
+    group_by(year) %>%
+    summarise(BBMSY = mean(est), .groups = "drop")
+
+  # combina
+  kobebro <- left_join(FFMSY, BBMSY, by = "year")
+
+  return(kobebro)
+}
+# Create table for all scenarios and runs
+kobebro_table <- data.frame()
+
+for (sc in names(results_by_scenario)) {
+  for (run in names(results_by_scenario[[sc]])) {
+
+    res <- results_by_scenario[[sc]][[run]]
+
+    tmp <- tryCatch(
+      extract_FF_BB_MSY(res),
+      error = function(e) NULL
+    )
+
+    if (!is.null(tmp)) {
+      tmp$Scenario <- sc
+      tmp$Run <- run
+
+      kobebro_table <- bind_rows(kobebro_table, tmp)
+    }
+  }
+}
+# Reorder columns
+kobebro_table <- kobebro_table %>%
+  select(Scenario, Run, year, FFMSY, BBMSY)
+
+# Save table
+write.csv(
+  kobebro_table,
+  "outputs/FFMSY_BBMSY_by_scenario_run_year.csv",
+  row.names = FALSE
+)
+
+# Plots
+
+plot_kobe_scenario <- function(df, scenario_name) {
+
+  ggplot(
+    df %>% filter(Scenario == scenario_name),
+    aes(x = FFMSY, y = BBMSY)
+  ) +
+    # Cuadrantes Kobe
+    annotate("rect", xmin = 1, xmax = Inf, ymin = 1, ymax = Inf,
+             fill = "orange", alpha = 0.4) +
+    annotate("rect", xmin = 0, xmax = 1, ymin = 1, ymax = Inf,
+             fill = "red", alpha = 0.4) +
+    annotate("rect", xmin = 1, xmax = Inf, ymin = 0, ymax = 1,
+             fill = "lightgreen", alpha = 0.4) +
+    annotate("rect", xmin = 0, xmax = 1, ymin = 0, ymax = 1,
+             fill = "orange", alpha = 0.4) +
+
+    # Trayectoria temporal
+    geom_path(color = "black", linewidth = 0.8) +
+    geom_point(aes(color = year), size = 2) +
+
+    geom_vline(xintercept = 1, linetype = "dashed") +
+    geom_hline(yintercept = 1, linetype = "dashed") +
+
+    scale_color_viridis_c(name = "Year") +
+
+    facet_wrap(~Run, ncol = 2) +
+
+    coord_cartesian(xlim = c(0, max(df$FFMSY, na.rm = TRUE) * 1.1),
+                    ylim = c(0, max(df$BBMSY, na.rm = TRUE) * 1.1)) +
+
+    labs(
+      title = paste("Kobe plot –", scenario_name),
+      x = expression(F/F[MSY]),
+      y = expression(B/B[MSY])
+    ) +
+
+    theme_bw() +
+    theme(
+      legend.position = "bottom",
+      strip.text = element_text(face = "bold")
+    )
+}
+# Generate and save plots for each scenario
+for (sc in unique(kobebro_table$Scenario)) {
+  p_kobe <- plot_kobe_scenario(kobebro_table, sc)
+
+  ggsave(
+    filename = file.path(fig.path, paste0("Kobe_plot_", sc, ".png")),
+    plot = p_kobe,
+    width = 18,
+    height = 12,
+    units = "cm",
+    dpi = 300
+  )
+}
+
+## ---------------------- manage tables and figs-------------------------------------
+# Aplicar manejo (manage)
+#
+# Añadir el HCR ICES (2025) para especies vulnerables (fractil 0.15)
+#
+# Ejecutarlo para todos los escenarios y todos los runs
+#
+# Guardar los resultados de manejo por escenario/run
+#
+# Mantener una estructura ordenada y reutilizable
+
+
+## Ojo que se demora mucho!!!
+
+run_management_spict <- function(fit){
+
+  fit_m <- manage(fit)
+
+  fit_m <- add.man.scenario(
+    fit_m,
+    name = "ICES_2025_0.15_fractile",
+    fractiles = list(catch = 0.15),
+    breakpointB = 0.5,
+    limitB = 0.3
+  )
+
+  return(fit_m)
+}
+# Run management for all scenarios and runs
+management_results <- list()
+
+for (sc in names(results_by_scenario)) {
+  management_results[[sc]] <- list()
+
+  for (run in names(results_by_scenario[[sc]])) {
+
+    fit <- results_by_scenario[[sc]][[run]]
+
+    fit_m <- tryCatch(
+      run_management_spict(fit),
+      error = function(e) NULL
+    )
+
+    management_results[[sc]][[run]] <- fit_m
+  }
+}
+# Extract management summary
+management_summary <- data.frame()
+
+for (sc in names(management_results)) {
+  for (run in names(management_results[[sc]])) {
+
+    fit_m <- management_results[[sc]][[run]]
+
+    if (is.null(fit_m)) next
+
+    sm <- tryCatch(
+      sumspict.manage(fit_m),
+      error = function(e) NULL
+    )
+
+    if (!is.null(sm)) {
+      sm$Scenario <- sc
+      sm$Run <- run
+      management_summary <- rbind(management_summary, sm)
+    }
+  }
+}
+# Save management summary
+saveRDS(
+  management_results,
+  file = "outputs/SPiCT_management_results_by_scenario.rds"
+)
+
+
+## --------- Extract TAC predictions function--------------
+
+# get.TAC‘: gives the catch predicted management scenario
+# ‘man.tac‘: gives the catch prediction of all defined
+# management scenarios
+
+
+## Get the TAC for the ICES (2020) recommended HCR (as used in WKMSYSPICT)
+reptest1 <- add.man.scenario(results_by_scenario$SC0$RUN4, fractiles = list(catch=0.35), breakpointB = c(0.3, 0.5))
+
+## Now `rep` includes 3 management scenarios
+
+## Get the TAC when fishing mortality is equal to Fmsy
+get.TAC(reptest1)
+
+##  ----Hindcast MASE calculation ----
+
+sc0r1h <- hindcast(results_by_scenario$SC0$RUN4)
+
+## -------------- Comparision plots -----------
+# Lista para almacenar resultados
+BF_list <- list()
+
+for (sc in names(results_by_scenario)) {
+
+  for (rn in names(results_by_scenario[[sc]])) {
+
+    rep <- results_by_scenario[[sc]][[rn]]
+
+        # biomass
+    B <- exp(as.data.frame(get.par("logB", rep)))
+    B$year <- as.numeric(rownames(B))
+
+    # F
+    F <- exp(as.data.frame(get.par("logF", rep)))
+    F$year <- as.numeric(rownames(F))
+
+    # combine
+    BF_df <- B %>%
+      select(
+        year,
+        Biomass = est,
+        Biomass_lwr = ll,
+        Biomass_upr = ul
+      ) %>%
+      left_join(
+        F %>%
+          select(
+            year,
+            FishingMortality = est,
+            F_lwr = ll,
+            F_upr = ul
+          ),
+        by = "year"
+      ) %>%
+      mutate(
+        Scenario = sc,
+        Run = rn
+      )
+
+    BF_list[[paste(sc, rn, sep = "_")]] <- BF_df
+  }
+}
+
+# Combinar todo en un solo data frame
+BF_all <- bind_rows(BF_list)
+## Guardar resultados
+write.csv(
+  BF_all,
+  "outputs/SPiCT_BB_F_all_scenarios.csv",
+  row.names = FALSE
+)
+
+# Plot por variable
+for (sc in unique(BF_all$Scenario)) {
+
+  df_sc <- BF_all %>%
+    filter(Scenario == sc)
+
+  p_B <- ggplot(df_sc,
+                aes(x = year,
+                    y = Biomass,
+                    color = Run,
+                    group = Run)) +
+    geom_line(linewidth = 0.9) +
+    theme_bw(base_size = 12) +
+    labs(
+      title = paste("Estimated biomass trajectories –", sc),
+      x = "Year",
+      y = "Biomass",
+      color = "Run"
+    )
+
+  ggsave(
+    filename = paste0("figs/Biomass_", sc, ".png"),
+    plot = p_B,
+    width = 18,
+    height = 12,
+    units = "cm",
+    dpi = 300
+  )
+}
+# F plot
+for (sc in unique(BF_all$Scenario)) {
+
+  df_sc <- BF_all %>%
+    filter(Scenario == sc)
+
+  p_F <- ggplot(df_sc,
+                aes(x = year,
+                    y = FishingMortality,
+                    color = Run,
+                    group = Run)) +
+    geom_line(linewidth = 0.9) +
+    theme_bw(base_size = 12) +
+    labs(
+      title = paste("Estimated fishing mortality trajectories –", sc),
+      x = "Year",
+      y = "Fishing Mortality",
+      color = "Run"
+    )
+
+  ggsave(
+    filename = paste0("figs/FishingMortality_", sc, ".png"),
+    plot = p_F,
+    width = 18,
+    height = 12,
+    units = "cm",
+    dpi = 300
+  )
+}
+
+# para despues
 ## --------------------------------------------------------------------------------
+
 ## Extraigo Valores
 
 extract_spict_diagnostics <- function(fit) {
@@ -615,326 +1232,6 @@ ft_SC4 <- build_diagnostic_table(results_by_scenario$SC4, "Scenario 4")
 ft_SC5 <- build_diagnostic_table(results_by_scenario$SC5, "Scenario 5")
 
 
-##  --------------------------------------------------------------------------------
 
 
-## Plots
-
-
-
-
-# # Convert model to Schaefer (set exponent n = 1)
-# inp1$ini$logn <- log(2)
-# inp1$phases$logn <- -1  # Fix it
-
-# # ---- Fox model ----
-# inp1$ini$logn <- log(1.01)  # n ~ 0, modelo tipo Fox
-# inp1$phases$logn <- -1      # fijar el exponente
-
-#
-# # ---- Pella–Tomlinson (n = 2) ----
-inp1$ini$logn <- log(3)   # da n = 2 en la parametrización interna
-inp1$phases$logn <- -1    # fijar el exponente (no estimarlo)
-
-
-## --------------------------------------------------------------------------------
-# Priors list
-list.possible.priors()
-
-
-## --------------------------------------------------------------------------------
-inp1$priors <- list()
-
-inp1$priors$logalpha <- c(1, 1, 0)
-inp1$priors$logbeta <- c(1, 1, 0)
-# --- Population dynamics priors ---
-
-# Intrinsic growth rate
-inp1$priors$logr <- c(log(0.8), 0.1, 0.3)      # Moderate productivity
-
-# Biomass relative to Bmsy
-inp1$priors$logBBmsy <- c(log(0.4), 0.3, 1, 1994)
-#Biomasa inicial igual a Bmsy. Priorizas estado de explotación neutral.
-
-
-# Exploitation prior -> high exploitation (low B0/K)
-inp1$priors$logbkfrac <- c(log(0.2), 0.5, 1)   # High exploitation (B0 ≈ 30% K)
-
-# o fijar
-# # Valor inicial (en escala log)
-# inp1$ini$logbkfrac <- log(0.2)
-# # Fase negativa => no se estima (parámetro fijo)
-# inp1$phases$logp1robfac <- -1
-
-# Fishing mortality relative to Fmsy
-inp1$priors$logFFmsy <- c(log(1.2), 0.4, 1, 1994)
-#F= Fmsy al inicio de la serie. Priorizas estado de explotación neutral.
-
-# --- Catchability priors (logq) ---
-# Surveys ≈ 1 (neutral scaling)
-# CPUE commercial ≈ 0.01 (much smaller)
-
-# inp1$priors$logq <- list(
-#   I_arsa_spring  = c(log(1),   0.9, 1.2),   # scientific survey
-#   I_arsa_autumn  = c(log(1),   0.9, 1.2),   # scientific survey
-#   I_isunepbio    = c(log(1),   0.9, 1.2),   # scientific survey
-#   I_isunepabun   = c(log(1),   0.9, 1.2), # commercial CPUE, much lower q
-#   I_rendiarsaspr = c(log(1),   0.9, 1.2),   # scientific survey
-#   I_LPUEcom     = c(log(0.0005), 0, 0.01)    # commercial CPUE, much lower q
-# )
-
-
-#prior solo con INSUPEC Bio,  Arsa Spring y LPUE Comercial
-
-# inp1$priors$logq <- list(
-#   I_arsa_spring  = c(log(1),   0.9, 1.2),   # scientific survey
-#
-#   I_isunepbio    = c(log(1),   0.9, 1.2),   # scientific survey
-#   I_LPUEcom      = c(log(0.0005), 0, 0.01)    # commercial CPUE, much lower q
-# )
-
-# Prior solo para INSUPEC Bio y Arsa Spring
-#
-# inp1$priors$logq <- list(
-#   I_arsa_spring  = c(log(5),   0.9, 1.2),   # scientific survey
-#
-#   I_isunepbio    = c(log(5),   0.9, 1.2)   # scientific survey
-#
-# )
-
-# # -- Fijar parámetros: colocar valor inicial (ini) y fase = -1 (no estimar) --
-#
-# # Intrinsic growth rate (r)
-# inp1$ini$logr    <- log(0.8)
-# inp1$phases$logr <- -1
-#
-# # Biomass relative to Bmsy (B0/Bmsy)
-# inp1$ini$logBBmsy    <- log(0.4)
-# inp1$phases$logBBmsy <- -1
-#
-# # B0/K (bkfrac)
-# inp1$ini$logbkfrac    <- log(0.2)
-# inp1$phases$logbkfrac <- -1
-#
-# # Fishing mortality relative to Fmsy (F0/Fmsy)
-# inp1$ini$logFFmsy    <- log(1.2)
-# inp1$phases$logFFmsy <- -1
-
-# (Opcional) Si tu estructura de objetos usa otra rama para fases/ini, ajusta los nombres en consecuencia.
-
-
-# Check input
-inp1 <- check.inp(inp1)
-
-
-## --------------------------------------------------------------------------------
-res1 <- fit.spict(inp1)
-
-
-## --------------------------------------------------------------------------------
-capture.output(summary(res1))
-
-
-## ----figwidth=8, fig.height=9----------------------------------------------------
-plot(res1,CI = 0.8)
-
-a <-plotspict.bbmsy(res1)
-b <-  plotspict.ffmsy(res1)
-b<- plotspict.biomass(res1, qlegend = T, ylim=c(0, 15000))
-p <- plotspict.production(res1, n.plotyears = 60)
-c <- plotspict.f(res1, qlegend = F, rel.axes = F)
-d <- plotspict.fb(res1)
-f <- plotspict.ffmsy(res1, qlegend=T)
-g <- plotspict.catch(res1, qlegend=FALSE, ylim=c(0, 1000))
-check.ini(res1, ntrials=4)
-
-
-## ----fig.width=7, fig.height=6---------------------------------------------------
-
-all(is.finite(res1$sd))
-
-
-## --------------------------------------------------------------------------------
-calc.bmsyk(res1)
-plotspict.production(res1)
-
-
-## ----fig.width=9, fig.height=7---------------------------------------------------
-resbacres <- calc.osa.resid(res1)
-plotspict.diagnostic(resbacres, qlegend = F)
-
-
-## --------------------------------------------------------------------------------
-resretro <- retro(res1,
-                  nretroyear = 4,
-                  mc.cores = 1)
-plotspict.retro(resretro)
-
-
-## --------------------------------------------------------------------------------
-plotspict.retro.fixed(resretro)
-
-
-## --------------------------------------------------------------------------------
-get.AIC(res1)
-
-
-## --------------------------------------------------------------------------------
-bioest <- exp(as.data.frame(get.par('logB',
-                                    res1)))
-year <- round(as.numeric(rownames(bioest)),0)
-bioest <- cbind(bioest, year)
-BIOEST <- bioest %>%
-  group_by(year) %>%
-  summarise(estimado=mean(est))%>%
-  rename(BIOEST=estimado)
-
-
-## --------------------------------------------------------------------------------
-fest <- exp(as.data.frame(get.par('logF',
-                                  res1)))
-year <- round(as.numeric(rownames(fest)),0)
-fest <- cbind(fest, year)
-FEST <- fest %>%
-  group_by(year) %>%
-  summarise(estimado=mean(est))%>%
-  rename(FEST=estimado)
-# uno
-estimadosFB <- cbind(BIOEST, FEST[,2])
-
-
-## ----eval=FALSE------------------------------------------------------------------
-# write_csv(estimadosFB, "estimadoSPICT.csv")
-
-
-## --------------------------------------------------------------------------------
-ffmsy <- exp(as.data.frame(get.par('logFFmsy', res1)))
-year <- round(as.numeric(rownames(ffmsy)),0)
-ffmsy <- cbind(ffmsy, year)
-FFMSY <- ffmsy %>%
-  group_by(year) %>%
-  summarise(estimado=mean(est))%>%
-  rename(FFMSY=estimado)
-
-
-## --------------------------------------------------------------------------------
-bbmsy <- exp(as.data.frame(get.par('logBBmsy', res1)))
-year <- round(as.numeric(rownames(bbmsy)),0)
-bbmsy <- cbind(bbmsy, year)
-BBMSY <- bbmsy %>%
-  group_by(year) %>%
-  summarise(estimado=mean(est))%>%
-  rename(BBMSY=estimado)
-
-
-## --------------------------------------------------------------------------------
-kobebro <- cbind(FFMSY, BBMSY[,2])
-#write.csv(kobebro, "kobebro.csv", sep=",")
-
-
-## --------------------------------------------------------------------------------
-texto_coords <- data.frame(
-  x = c(0.2, 1, 2.5, 2.3),   # Coordenadas x para los textos
-  y = c(2, 2.5, 2.5, 0.2),   # Coordenadas y para los textos
-  etiqueta = c("Agotada", "Plena Explotación", "Sobrexplotación", "Subexplotación")  # Textos que se agregarán
-)
-
-
-## ----fig.height=6, fig.width=6---------------------------------------------------
-ggplot()+
-  geom_point(aes(kobebro$BBMSY, kobebro$FFMSY),
-            lwd=2) +
-  #geom_line(aes(kobebro$BBMSY, kobebro$FFMSY)) +
-  geom_rect(aes(xmin = 0, xmax = 0.5, ymin = 0, ymax = 3),
-            fill = "#E43338", alpha = 0.5) +
-  geom_rect(aes(xmin = 0.5, xmax = 0.75, ymin = 0, ymax = 3),
-            fill = "#F2ED23", alpha = 0.5) +
-  geom_rect(aes(xmin = 0.75, xmax = 1.25, ymin = 0, ymax = 3),
-            fill = "#ACC39A", alpha = 0.5) +
-  geom_rect(aes(xmin = 1.25, xmax = 3.5, ymin = 0, ymax = 1),
-            fill = "#608D68", alpha = 0.5) +
-  geom_rect(aes(xmin = 1.25, xmax = 3.5, ymin = 1, ymax = 3),
-            fill = "#808080", alpha = 0.5) +
-  geom_hline(yintercept = 1) +
-  geom_vline(xintercept = c(0.5, 0.75, 1.75, 1, 1.25), linetype=2)+
-  theme_few()+
-  labs(x = expression("BD/BD"[RMS]), y = expression("F/F"[RMS]))+
-  # geom_text(data = texto_coords, aes(x = x, y = y, label = etiqueta),
-  #            vjust = -0.5)+
-  geom_text(aes(x=kobebro$BBMSY,y=kobebro$FFMSY,label=kobebro$year),
-             nudge_y = 0.1,size = 3,
-               check_overlap = TRUE)
-
-
-## ----eval=FALSE------------------------------------------------------------------
-# #cross correlation between cpue and catch in schaef Fig 7.2
-# parset(cex=0.85) #sets par parameters for a tidy base graphic
-# ccf(x=bacalaodata$obsC[20:38],y=bacalaodata$obsI[20:38],type="correlation",
-#     ylab="Correlation",plot=TRUE)
-
-
-## --------------------------------------------------------------------------------
-cov2cor(res1$cov.fixed)
-
-
-## --------------------------------------------------------------------------------
-cov2cor(get.cov(resbac1, 'logBmsy', 'logFmsy'))
-
-
-## ----warning=FALSE, message=FALSE------------------------------------------------
-resbro2 <- manage(resretro)
-
-
-## --------------------------------------------------------------------------------
-mohns_rho(resbro2, what = c("FFmsy", "BBmsy"))
-
-
-## --------------------------------------------------------------------------------
-sumspict.manage(resbro2)
-
-
-## --------------------------------------------------------------------------------
-plotspict.bbmsy(resbro2, qlegend = F, ylim=c(0, 20))
-plotspict.ffmsy(resbro2, qlegend = F)
-plotspict.catch(resbro2, qlegend = F)
-plotspict.fb(resbro2)
-
-
-## ----warning=FALSE, message=F----------------------------------------------------
-plotspict.hcr(resbro2, CI=0.95)
-
-
-## ----fig.width=5, fig.height=4---------------------------------------------------
-xsf <-rnorm(1000, mean = 1356.5 , sd = 387)
-xs1f  <-seq(min(xsf),max(xsf),5)
-ysf  <-dnorm(xs1f,  mean = 1356.5 , sd = 387)
-qsf <- as.data.frame(qnorm(c(0.1, 0.2, 0.3, 0.4,  0.5),
-                          mean = 1356.5 , sd = 387))
-cbabac <- ggplot()+
-  geom_line(aes(xs1f, ysf))+
-  geom_vline(xintercept=qsf[1,1], col="#999999")+
-  geom_vline(xintercept=qsf[2,1], col="#E69F00")+
-  geom_vline(xintercept=qsf[3,1], col="#009E73")+
-  geom_vline(xintercept=qsf[4,1], col="#56B4E9")+
-  geom_vline(xintercept=qsf[5,1], col="#e66101")+
-   geom_text(aes(x=qsf[1,1]+50,
-                label=round(qsf[1,1], 1),y=0.00040),
-             colour="#999999", angle=90)+
-   geom_text(aes(x=qsf[2,1]+50,
-                label=round(qsf[2,1], 1),y=0.00040),
-             colour="#E69F00", angle=90)+
-   geom_text(aes(x=qsf[3,1]+50,
-                label=round(qsf[3,1], 1),y=0.00040),
-             colour="#009E73", angle=90)+
-   geom_text(aes(x=qsf[4,1]+50,
-                label=round(qsf[4,1], 1),y=0.00040),
-             colour="#56B4E9", angle=90)+
-   geom_text(aes(x=qsf[5,1]+50,
-                label=round(qsf[5,1], 1),y=0.00040),
-             colour="#e66101", angle=90)+
-  ylab('')+
-  xlab('')+
-  ggtitle("")+
-  theme_few()
-cbabac
 
