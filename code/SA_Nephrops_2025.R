@@ -51,36 +51,52 @@ if (!dir.exists(fig.path)) {
 ## -------- READ DATA --------------
 # Por ahora no tengo Effort ni LPUE standar
 
-bac <- read_excel(here("data",
-                           "inputdata_spict_fu30_2025_Rev.xlsx")) %>%
-  mutate(
-    Effort = if_else(is.na(catch), NA_real_, 1),
-    LPUE_std = catch / Effort
-  )
-# Data actualizada
-# bac <- read_csv(here("data",
-#                      "inputdata_FU30_wkbmsyspict.csv")) %>%
+# bac <- read_excel(here("data",
+#                            "inputdata_spict_fu30_2025_Rev.xlsx")) %>%
 #   mutate(
 #     Effort = if_else(is.na(catch), NA_real_, 1),
 #     LPUE_std = catch / Effort
 #   )
+# Data actualizada
+bac <- read_csv(here("data",
+                     "inputdata_FU30_wkbmsyspict.csv")) %>%
+  mutate(
+    Effort = Total_Effort,
+    LPUE_std = catch / Effort
+  )
 
 
 
 ## -------------Plot Catch Index-------------------------------------------
 bac_long <- bac %>%
   pivot_longer(cols = -year, names_to = "variable", values_to = "value")
-p_catch <- ggplot(filter(bac_long, variable == "catch"),
-                  aes(x = year, y = value)) +
+p_catch <- ggplot(
+  filter(bac_long, variable == "catch"),
+  aes(x = year, y = value)
+) +
   geom_col(fill = "steelblue", alpha = 0.7) +
-  geom_hline(yintercept = mean(bac$catch, na.rm = TRUE),
-             linetype = "dashed", color = "black") +
+  geom_hline(
+    yintercept = mean(bac$catch, na.rm = TRUE),
+    linetype = "dashed",
+    color = "black"
+  ) +
+  scale_x_continuous(
+    breaks = seq(min(bac$year, na.rm = TRUE),
+                 max(bac$year, na.rm = TRUE),
+                 by = 1)
+  ) +
   theme_bw() +
   theme(
-    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)
+    axis.text.x = element_text(
+      angle = 90,
+      vjust = 0.5,
+      hjust = 1,
+      size = 8
+    )
   ) +
-  labs(y = "Landings (tons)", x = "", title = "Landings Nephrops time series")
-plot_index <- function(var_name, ylab){
+  labs(y = "Landings (tons)",
+       x = "", title = "Landings Nephrops time series")
+plot_index <- function(var_name, ylab){ # no indexar
   ggplot(filter(bac_long, variable == var_name),
          aes(x = year, y = value)) +
     geom_point(color = "darkred", size = 2) +
@@ -96,32 +112,59 @@ plot_index <- function(var_name, ylab){
     labs(y = ylab, x = "", title = var_name)
 }
 
-p1 <- plot_index("arsaspr", "Index value")
-p2 <- plot_index("arsaautum", "Index value")
-p3 <- plot_index("isunepbioREV", "Index value")
-p4 <- plot_index("isunepabunREV", "Index value")
-p5 <- plot_index("rendiarsaspr", "Index value")
-p6 <- plot_index("LPUEcomercial", "Index value")
-p7 <- plot_index("Effort", "Index value")
-p8 <- plot_index("LPUE_std", "Index value")
+#Índices ARSA (completos)
+p1 <- plot_index("arsabio", "ARSA biomass index")
+p2 <- plot_index("arsarendi", "ARSA productivity index")
+p3 <- plot_index("arsarendistand_grh", "ARSA standardized productivity (GRH)")
+p4 <- plot_index("arsarendistand_Kgh", "ARSA standardized productivity (Kgh)")
+p5 <- plot_index("arsa_std_nor", "ARSA standardized index (normalized)")
+p6 <- plot_index("arsa_CV_std_nor", "ARSA CV (standardized)")
+
+# Índices ISUNEPCA (UWTV)
+p7  <- plot_index("isunepbio", "ISUNEPCA UWTV biomass index")
+p8  <- plot_index("isunepbio_nor", "ISUNEPCA biomass (normalized)")
+p9  <- plot_index("isunepabun", "ISUNEPCA UWTV abundance index")
+p10 <- plot_index("CV_isunep_nor", "ISUNEPCA CV (normalized)")
+
+# Índices dependientes de la pesquería
+p11 <- plot_index("LPUE_10%nep", "Commercial LPUE (≥10% Nephrops)")
+p12 <- plot_index("LPUE_std", "Standardized LPUE")
+p13 <- plot_index("Effort_10%nep", "Directed fishing effort (≥10% Nephrops)")
+p14 <- plot_index("Effort", "Fishing effort")
+p15 <- plot_index("Total_Effort", "Total fishing effort")
 
 # combinar y guuardar en "figs"
 fig_indices <- ggarrange(
-  p_catch, p1, p2, p3, p4, p5, p6, p7, p8,
-    ncol = 3,
-    nrow = 3,
-    labels = "AUTO"
-  )
-
+  p1,  p2,  p3,
+  p4,  p5,  p6,
+  p7,  p8,  p9,
+  p10, p11, p12,
+  p13, p14, p15,
+  ncol = 5,
+  nrow = 3,
+  labels = "AUTO",
+  font.label = list(size = 10)
+)
 
 ggsave(
-  filename = file.path(fig.path, "indices_nephrops_FU30.png"),
+  filename = file.path(fig.path, "indices_nephrops_FU30_all.png"),
   plot = fig_indices,
-  width = 18,
-  height = 12,
+  width = 41,
+  height = 25,
   units = "cm",
   dpi = 300
 )
+
+# save p_catch
+ggsave(
+  filename = file.path(fig.path, "landings_nephrops_FU30.png"),
+  plot = p_catch,
+  width = 15,
+  height = 8,
+  units = "cm",
+  dpi = 300
+)
+
 
 ## ------------- Correlation----------
 
@@ -144,6 +187,23 @@ ph2 <- pheatmap(cor_spearman,
          main = "Correlation Heatmap (Spearman)",
          color = colorRampPalette(c("blue", "white", "red"))(50))
 
+# save plots
+# ggsave(
+#   filename = file.path(fig.path, "correlation_pearson_nephrops_FU30.png"),
+#   plot = ph1,
+#   width = 20,
+#   height = 18,
+#   units = "cm",
+#   dpi = 300
+# )
+# ggsave(
+#   filename = file.path(fig.path, "correlation_spearman_nephrops_FU30.png"),
+#   plot = ph2,
+#   width = 20,
+#   height = 18,
+#   units = "cm",
+#   dpi = 300
+# )
 
 ## --------- Preparing Data for Spict--------------
 
@@ -156,52 +216,99 @@ C_nep <- data.frame(
 
 # Create abundance index dataframes
 
-I_arsa_spring <- data.frame(
-  obsI = data$arsaspr,
-  timeI = data$year + 0.25
+# ARSA biomass index
+I_arsa_bio <- data.frame(
+  obsI  = bac$arsabio,
+  timeI = bac$year + 0.25
 )
 
-I_arsa_autumn <- data.frame(
-  obsI = data$arsaautum,
-  timeI = data$year + 0.75
+# ARSA productivity index (raw)
+I_arsa_rendi <- data.frame(
+  obsI  = bac$arsarendi,
+  timeI = bac$year + 0.25
 )
 
-I_isunepbio <- data.frame(
-  obsI = data$isunepbioREV,
-  timeI = data$year + 0.5
+# ARSA productivity – standardized (GRH scale)
+I_arsa_rendi_std_grh <- data.frame(
+  obsI  = bac$arsarendistand_grh,
+  timeI = bac$year + 0.25
 )
 
-I_isunepbio2 <- data.frame(
-  obsI = data$isunepbio_2,
-  timeI = data$year + 0.5
+# ARSA productivity – standardized (Kgh scale)
+I_arsa_rendi_std_kgh <- data.frame(
+  obsI  = bac$arsarendistand_Kgh,
+  timeI = bac$year + 0.25
 )
 
-I_isunepabun <- data.frame(
-  obsI = data$isunepabunREV,
-  timeI = data$year + 0.5
+# ARSA standardized normalized index
+I_arsa_std_nor <- data.frame(
+  obsI  = bac$arsa_std_nor,
+  timeI = bac$year + 0.25
 )
 
-I_rendiarsaspr <- data.frame(
-  obsI = data$rendiarsaspr,
-  timeI = data$year
+# ARSA CV standardized normalized
+I_arsa_cv_std_nor <- data.frame(
+  obsI  = bac$arsa_CV_std_nor,
+  timeI = bac$year + 0.25
 )
 
-I_LPUEcom <- data.frame(
-  obsI = data$LPUEcomercial,
-  timeI = data$year
+# UWTV biomass index
+I_isunep_bio <- data.frame(
+  obsI  = bac$isunepbio,
+  timeI = bac$year + 0.5
 )
-# work in progress
+
+# UWTV biomass normalized
+I_isunep_bio_nor <- data.frame(
+  obsI  = bac$isunepbio_nor,
+  timeI = bac$year + 0.5
+)
+
+# UWTV abundance index
+I_isunep_abun <- data.frame(
+  obsI  = bac$isunepabun,
+  timeI = bac$year + 0.5
+)
+
+# UWTV CV normalized
+I_isunep_cv_nor <- data.frame(
+  obsI  = bac$CV_isunep_nor,
+  timeI = bac$year + 0.5
+)
+# LPUE (10% Nephrops fleet)
+I_LPUE_10nep <- data.frame(
+  obsI  = bac$`LPUE_10%nep`,
+  timeI = bac$year
+)
+
+# Effort (10% Nephrops fleet) # work in progress
+I_Effort_10nep <- data.frame(
+  obsI  = bac$`Effort_10%nep`,
+  timeI = bac$year
+)
+
+# Total effort # work in progress
+I_Total_Effort <- data.frame(
+  obsI  = bac$Total_Effort,
+  timeI = bac$year
+)
+
+# Effort (final series used in SPiCT) # work in progress
 I_Effort <- data.frame(
-  obsI = data$Effort,
-  timeI = data$year
-)
-# work in progress
-I_LPUEstd <- data.frame(
-  obsI = data$LPUE_std,
-  timeI = data$year
+  obsI  = bac$Effort,
+  timeI = bac$year
 )
 
-ind  <- which(C_nep$timeC == 1994)
+# Standardized LPUE # work in progress
+I_LPUE_std <- data.frame(
+  obsI  = bac$LPUE_std,
+  timeI = bac$year
+)
+
+
+
+
+ind  <- which(C_nep$timeC == 1987)
 ind2 <- which(C_nep$timeC == 2025)
 
 
@@ -224,115 +331,181 @@ inp0 <- list(
 )
 
 
-# Scenario 1 -- Landings + ISUNEPCA TV Survey + IBTS ARSA Survey
+# Scenario 1 -- Landings + ISUNEPCA UWTV abundance + ARSA biomass
+
 inp1 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunepabun$timeI[ind:ind2],   # ISUNEPCA TV
-    I_arsa_spring$timeI[ind:ind2]  # ARSA spring
+    I_isunep_abun$timeI[ind:ind2],
+    I_arsa_bio$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_isunepabun$obsI[ind:ind2],
-    I_arsa_spring$obsI[ind:ind2]
+    I_isunep_abun$obsI[ind:ind2],
+    I_arsa_bio$obsI[ind:ind2]
   )
 )
 
+# Scenario 2 -- Landings + ISUNEPCA UWTV abundance + standardized LPUE
 
-
-
-# SCENARIO 2 # Landings + ISUNEPCA TV Survey + Directed LPUE
 inp2 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunepabun$timeI[ind:ind2],   # ISUNEPCA TV
-    I_LPUEcom$timeI[ind:ind2]       # Directed LPUE
+    I_isunep_abun$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_isunepabun$obsI[ind:ind2],
-    I_LPUEcom$obsI[ind:ind2]
+    I_isunep_abun$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
   )
 )
 
-
-# Scenario 3 -- Landings + ISUNEPCA TV Survey + Directed Effort
-
-I_effort <- data.frame(
-  obsI  = data$Effort,
-  timeI = data$year
-)
+# Scenario 3 -- Landings + ISUNEPCA UWTV abundance + total effort
 
 inp3 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunepabun$timeI[ind:ind2],
-    I_effort$timeI[ind:ind2]
+    I_isunep_abun$timeI[ind:ind2],
+    I_Total_Effort$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_isunepabun$obsI[ind:ind2],
-    I_effort$obsI[ind:ind2]
+    I_isunep_abun$obsI[ind:ind2],
+    I_Total_Effort$obsI[ind:ind2]
   )
 )
 
-
-
-# Scenario 4 -- Catches, ISUNEPCA LPUE Std
+# Scenario 4-- Landings + ISUNEPCA bio + standardized LPUE
+#(idéntico en estructura a SC2, solo difiere la unidad del indice ISUNEPCA (bio -Abund))
 
 inp4 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunepabun$timeI[ind:ind2],   # ISUNEPCA TV
-    I_LPUEstd$timeI[ind:ind2]       # Directed LPUE
+    I_isunep_bio$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_isunepabun$obsI[ind:ind2],
-    I_LPUEstd$obsI[ind:ind2]
+    I_isunep_bio $obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
   )
 )
 
+# Scenario 5 — All indices (normalized / standardized)
 
-
-# Scenario 5 -- All Indices
 inp5 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_arsa_spring$timeI[ind:ind2],   # 1. ARSA spring
-    I_arsa_autumn$timeI[ind:ind2],   # 2. ARSA autumn
-    I_isunepbio$timeI[ind:ind2],     # 3. ISUNEP biomass
-    I_isunepabun$timeI[ind:ind2],    # 4. ISUNEP abundance
-    I_rendiarsaspr$timeI[ind:ind2],  # 5. Rendimiento ARSA spring
-    I_LPUEcom$timeI[ind:ind2]        # 6. LPUE comercial
+    I_arsa_std_nor$timeI[ind:ind2],
+    I_arsa_bio$timeI[ind:ind2],
+    I_isunep_bio_nor$timeI[ind:ind2],
+    I_isunep_abun$timeI[ind:ind2],
+    I_arsa_rendi_std_grh$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_arsa_spring$obsI[ind:ind2],
-    I_arsa_autumn$obsI[ind:ind2],
-    I_isunepbio$obsI[ind:ind2],
-    I_isunepabun$obsI[ind:ind2],
-    I_rendiarsaspr$obsI[ind:ind2],
-    I_LPUEcom$obsI[ind:ind2]
+    I_arsa_std_nor$obsI[ind:ind2],
+    I_arsa_bio$obsI[ind:ind2],
+    I_isunep_bio_nor$obsI[ind:ind2],
+    I_isunep_abun$obsI[ind:ind2],
+    I_arsa_rendi_std_grh$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
+  )
+)
+
+# Scenario 6-- Landings + normalized ISUNEPCA biomass + normalized ARSA biomass
+
+inp6 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_bio_nor$timeI[ind:ind2],
+    I_arsa_std_nor$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunep_bio_nor$obsI[ind:ind2],
+    I_arsa_std_nor$obsI[ind:ind2]
+  )
+)
+
+# Scenario 7-- Landings + normalized ISUNEPCA biomass + standardized LPUE
+
+inp7 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_bio_nor$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunep_bio_nor$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
+  )
+)
+
+#Scenario 8 -- Landings + normalized ISUNEPCA biomass + normalized ARSA + standardized LPUE
+
+inp8 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_bio_nor$timeI[ind:ind2],
+    I_arsa_std_nor$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunep_bio_nor$obsI[ind:ind2],
+    I_arsa_std_nor$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
   )
 )
 
 
-inp1$dteuler <- 1/16  # must be set before check.inp
-inp1 <- check.inp(inp1)
+# must be set before check.inp
+inp_list <- list(
+  SC0 = inp0,
+  SC1 = inp1,
+  SC2 = inp2,
+  SC3 = inp3,
+  SC4 = inp4,
+  SC5 = inp5,
+  SC6 = inp6,
+  SC7 = inp7
+)
+# Check inputs
 
-# Inspect
-inp1$dtc
+inp_list_checked <- lapply(inp_list, function(inp) {
+  inp$dteuler <- 1 / 16
+  inp <- check.inp(inp)
+  return(inp)
+})
+
+sapply(inp_list_checked, function(x) {
+  c(
+    n_catch = length(x$obsC),
+    n_index = x$nindex,
+    dtc_min = min(x$dtc),
+    dtc_max = max(x$dtc)
+  )
+})
 
 
 ## -----------Priors configurations-------------------------------
@@ -457,6 +630,7 @@ results_by_scenario$SC0$RUN4
 
 saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
 
+#------- RESULTS-----------
 
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
@@ -660,7 +834,7 @@ for (sc in names(results_by_scenario)) {
 #Objetos retros guardados en "retro_results"
 
 
-## -------extract rho parametrer by scenario--------
+### -------Extract rho parametrer by scenario--------
 #
 extract_mohn_spict <- function(retro_obj) {
 
@@ -721,7 +895,7 @@ write.csv(
   row.names = FALSE
 )
 
-## ---------------------------Obtener AIC----------------------------------
+## ---------------------------Get AIC----------------------------------
 
 # Because AIC depends on the likelihood associated with a
 # given data configuration, its values are not directly comparable
@@ -763,7 +937,7 @@ write.csv(
 aic_table <- aic_table[order(aic_table$Scenario, aic_table$AIC), ]
 
 
-## --------------------------Extrae BB and F---------------------------------------
+## --------------------------Get BB and F vector---------------------------------------
 
 extract_FF_BB_MSY <- function(res){
 

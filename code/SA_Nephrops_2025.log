@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  23 DEC 2025 13:36
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  26 DEC 2025 11:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -971,6 +971,9 @@ Underfull \hbox (badness 1418) in paragraph at lines 233--234
  []
 
 
+LaTeX Warning: Citation `ref-ref' on page 6 undefined on input line 243.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
@@ -987,6 +990,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [7]
 
+LaTeX Warning: Reference `fig:landindex' on page 8 undefined on input line 267.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
@@ -994,6 +1000,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [8]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[9]
 
 Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
@@ -1031,7 +1045,7 @@ Package fontspec Info: Font family 'Helvetica(0)' created for font 'Helvetica'
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 297.
+(Font)              scaled to size 8.0pt on input line 301.
 
 Package fontspec Info: Helvetica scale = 0.9999963390480794.
 
@@ -1068,13 +1082,13 @@ Package fontspec Info: Font family 'Helvetica(1)' created for font 'Helvetica'
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/Helvetica(1)/m/n on input line 297.
+(Font)                  TU/lmr/m/n --> TU/Helvetica(1)/m/n on input line 301.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  TU/lmr/m/it --> TU/Helvetica(1)/m/it on input line 297.
+(Font)                  TU/lmr/m/it --> TU/Helvetica(1)/m/it on input line 301.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  TU/lmr/bx/n --> TU/Helvetica(1)/b/n on input line 297.
+(Font)                  TU/lmr/bx/n --> TU/Helvetica(1)/b/n on input line 301.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 297.
+(Font)              scaled to size 8.0pt on input line 301.
 
 Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
@@ -2129,17 +2143,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[9
+[10
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[10]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -2155,14 +2161,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[12
+[12]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[13
 
 ]
 
-LaTeX Warning: Reference `tab:scenarios' on page 13 undefined on input line 561.
+LaTeX Warning: Reference `tab:scenarios' on page 14 undefined on input line 565.
 
 
-LaTeX Warning: Reference `tab:scenarios' on page 13 undefined on input line 564.
+LaTeX Warning: Reference `tab:scenarios' on page 14 undefined on input line 568.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2171,7 +2185,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[13]
+[14]
 
 Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
@@ -2267,106 +2281,6 @@ Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
 
 Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[14
-
-]
-
-LaTeX Warning: Reference `tab:priors' on page 15 undefined on input line 651.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Overfull \hbox (23.22739pt too wide) in alignment at lines 665--673
- [] [] [] [] 
- []
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Overfull \hbox (23.22739pt too wide) in alignment at lines 673--679
- [] [] [] [] 
- []
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Package fontspec Info: Helvetica scale = 0.8272579836209012.
-
-
-Overfull \hbox (23.22739pt too wide) in alignment at lines 679--707
- [] [] [] [] 
- []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2379,32 +2293,94 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 
-LaTeX Warning: Citation `ref-ref' on page 16 undefined on input line 727.
+LaTeX Warning: Reference `tab:priors' on page 16 undefined on input line 655.
 
 
-Underfull \hbox (badness 6332) in paragraph at lines 729--732
-[]\TU/lmr/m/n/12 library(readr); library(knitr) aic <- read_csv(“outputs/AIC_by_scenario_run.csv”)
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Overfull \hbox (23.22739pt too wide) in alignment at lines 669--677
+ [] [] [] [] 
  []
 
 
-LaTeX Warning: Citation `ref-ref' on page 16 undefined on input line 735.
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
 
-LaTeX Warning: Citation `ref-ref' on page 16 undefined on input line 735.
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
 
-Underfull \hbox (badness 3000) in paragraph at lines 735--736
-\TU/lmr/m/n/12 For each scenario we compared the four prior configurations visually using the
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Overfull \hbox (23.22739pt too wide) in alignment at lines 677--683
+ [] [] [] [] 
  []
 
 
-LaTeX Warning: Citation `ref-ref' on page 16 undefined on input line 739.
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
 
-LaTeX Warning: Citation `ref-ref' on page 16 undefined on input line 741.
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
 
 
-LaTeX Warning: Citation `ref-ref' on page 16 undefined on input line 745.
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Package fontspec Info: Helvetica scale = 0.8272579836209012.
+
+
+Overfull \hbox (23.22739pt too wide) in alignment at lines 683--711
+ [] [] [] [] 
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2413,27 +2389,36 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[16]
-Underfull \hbox (badness 1028) in paragraph at lines 747--749
-[]\TU/lmr/m/n/12 mase <- read_csv(“outputs/SPiCT_hindcast_MASE_by_index.csv”) kable(head(mase,
+[16
+
+]
+
+LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 731.
+
+
+Underfull \hbox (badness 6332) in paragraph at lines 733--736
+[]\TU/lmr/m/n/12 library(readr); library(knitr) aic <- read_csv(“outputs/AIC_by_scenario_run.csv”)
  []
 
 
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 752.
+LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 739.
 
 
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 752.
+LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 739.
 
 
-Underfull \hbox (badness 1028) in paragraph at lines 752--753
-[]\TU/lmr/m/n/12 Representative hindcast plots (showing observed vs predicted index trajectories and
+Underfull \hbox (badness 3000) in paragraph at lines 739--740
+\TU/lmr/m/n/12 For each scenario we compared the four prior configurations visually using the
  []
 
 
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 756.
+LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 743.
 
 
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 760.
+LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 745.
+
+
+LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 749.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2443,19 +2428,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [17]
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 769.
-
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 773.
-
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 779.
-
-
-Overfull \hbox (23.88898pt too wide) in paragraph at lines 781--783
-[]\TU/lmr/m/n/12 man <- read_csv(“outputs/management/SPiCT_management_summary.csv”) kable(head(man,
+Underfull \hbox (badness 1028) in paragraph at lines 751--753
+[]\TU/lmr/m/n/12 mase <- read_csv(“outputs/SPiCT_hindcast_MASE_by_index.csv”) kable(head(mase,
  []
+
+
+LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 756.
+
+
+LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 756.
+
+
+Underfull \hbox (badness 1028) in paragraph at lines 756--757
+[]\TU/lmr/m/n/12 Representative hindcast plots (showing observed vs predicted index trajectories and
+ []
+
+
+LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 760.
+
+
+LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 764.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2466,42 +2458,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [18]
 
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 796.
+LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 773.
 
 
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 796.
+LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 777.
 
 
-Underfull \hbox (badness 1253) in paragraph at lines 796--798
-[]\TU/lmr/m/n/12 Scenario compare plots for SC0–SC5 (Figure ([])(fig:compare_SC0)–Figure
+LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 783.
+
+
+Overfull \hbox (23.88898pt too wide) in paragraph at lines 785--787
+[]\TU/lmr/m/n/12 man <- read_csv(“outputs/management/SPiCT_management_summary.csv”) kable(head(man,
  []
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 808.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 810.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 812.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 835.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 837.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 839.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 841.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 843.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 845.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2512,7 +2480,42 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [19]
 
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 800.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 800.
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 800--802
+[]\TU/lmr/m/n/12 Scenario compare plots for SC0–SC5 (Figure ([])(fig:compare_SC0)–Figure
+ []
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 812.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 814.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 816.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 839.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 841.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 843.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 845.
+
+
 LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 847.
+
+
+LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 849.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2522,6 +2525,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [20]
+
+LaTeX Warning: Citation `ref-ref' on page 21 undefined on input line 851.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -2538,8 +2544,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [22]
-File: ../figs/studyarea.png Graphic file (type bmp)
-<../figs/studyarea.png>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -2548,11 +2552,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [23]
-File: ../figs/indices_nephrops_FU30.png Graphic file (type bmp)
-<../figs/indices_nephrops_FU30.png>
+File: ../figs/studyarea.png Graphic file (type bmp)
+<../figs/studyarea.png>
 
-LaTeX Warning: Float too large for page by 34.32463pt on input line 897.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
+File: ../figs/landings_nephrops_FU30.png Graphic file (type bmp)
+<../figs/landings_nephrops_FU30.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -2564,8 +2570,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [24]
-File: SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf Graphic file (type pdf)
-<use SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -2573,7 +2577,43 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[25
+[25]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[26]
+File: ../figs/indices_nephrops_FU30_all.png Graphic file (type bmp)
+<../figs/indices_nephrops_FU30_all.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[27]
+File: ../figs/correlation_pearson_nephrops_FU30.png Graphic file (type bmp)
+<../figs/correlation_pearson_nephrops_FU30.png>
+File: SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf Graphic file (type pdf)
+<use SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[28
 
 
 ]
@@ -2584,8 +2624,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 969--970
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 991--992
 \TU/lmr/m/n/12 from [][]$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][] [] [][] [] [][][][][] [] [][][][][][][][][][] [] [][] [] [] [] [][][][][][][][][] [] [][][] [] [][][][][][][][] []
  []
 
@@ -2596,7 +2636,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[27] (./SA_Nephrops_2025.aux)
+[30]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[31] (./SA_Nephrops_2025.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -2605,12 +2653,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 20261 strings out of 478761
- 378749 string characters out of 5848546
+ 20300 strings out of 478761
+ 380437 string characters out of 5848546
  1926991 words of memory out of 5000000
- 39951 multiletter control sequences out of 15000+600000
+ 39988 multiletter control sequences out of 15000+600000
  518820 words of font info for 96 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,12n,128p,1897b,571s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on SA_Nephrops_2025.pdf (28 pages).
+Output written on SA_Nephrops_2025.pdf (32 pages).

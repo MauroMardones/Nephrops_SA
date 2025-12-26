@@ -124,9 +124,9 @@ Based on the available data analysis and compilation the proposed models for dep
 Accordingly, two alternatives are presented to model the population dynamics of Nephrops norvegicus in the Gulf of Cádiz, as well as to provide recommendations for resource management.
 
 
-All updates and improvements can be followed and obtained at the [SPiCT GitHub repository](https://github.com/DTUAqua/spict/commits/master). Bugs and issues can be reported via the [SPiCT Releases page](https://github.com/DTUAqua/spict/releases).
+Annual Nephrops landings in FU30 exhibit marked interannual variability over the analysed period (Figure \@ref(fig:landings)). Catches increased steadily during the late 1990s and early 2000s, reaching peak values in the early 2000s, followed by a sharp decline associated with management measures and quota restrictions. After this period, landings remained at comparatively lower levels, with pronounced fluctuations in recent years. The dashed horizontal line in Figure @ref(fig:landings) represents the long-term mean catch and provides a reference against which periods of above- and below-average exploitation can be identified. Overall, the landings time series reflects both changes in stock availability and the effects of regulatory constraints applied to the fishery.
 
-Time series of Nephrops stock indicators for FU30 (Division 9.a). The left panel shows annual landings (tons), with the dashed horizontal line indicating the long-term mean catch. In Figure \@ref(fig:landindex), panels A–F display the main abundance and productivity indices used in the assessment: (A) arsaspr, acoustic-based spring survey index; (B) arsaaautum, acoustic-based autumn survey index; (C) isunepbio_2, UWTV-based burrow density biomass index; (D) isunepabun, UWTV-based burrow abundance index; (E) rendiarsspr, survey-based productivity indicator; and (F) LPUEcommercial, commercial landings per unit effort. 
+All updates and improvements can be followed and obtained at the [SPiCT GitHub repository](https://github.com/DTUAqua/spict/commits/master). Bugs and issues can be reported via the [SPiCT Releases page](https://github.com/DTUAqua/spict/releases).
 
 ### Abundances Index
 
@@ -154,6 +154,11 @@ The ARSA spring survey (SpSGFS-cspr-WIBTS-Q1) is usually conducted from late Feb
 \quad
 
 The commercial LPUE series for Nephrops in FU30 has been calculated using landings and effort data from the Spanish and Portuguese fleets operating in the area. Effort is expressed as the number of fishing days, defined as trips landing at least 10% Nephrops. The LPUE is calculated as the ratio of landings (in kg) to fishing effort (in fishing days) for each year (...working progress).
+
+A suite of fishery-independent and fishery-dependent indices was used to characterize the temporal dynamics of the Nephrops FU30 stock (Figure \@ref(fig:indices)). These include survey-based indices derived from ARSA trawl surveys and ISUNEPCA UWTV surveys, as well as commercial indices such as LPUE and effort-related metrics. The indices display contrasting temporal patterns, reflecting differences in survey design, spatial coverage, and the biological processes captured by each data source. While some indices suggest periods of relative stability, others indicate substantial variability over time, particularly in recent years. Smoothed trends highlight medium-term changes and help to distinguish persistent signals from short-term fluctuations. Taken together, these indices provide complementary information on stock abundance and exploitation dynamics and form the empirical basis for the SPiCT model explorations presented in this study.
+
+Pairwise relationships among the different abundance, productivity and fishery-dependent indices were explored using a Spearman rank correlation analysis. Spearman correlations were selected to account for potential non-linear relationships and non-normal distributions in the time series. The Figure \@ref(fig:correlation) reveals strong positive correlations among indices derived from similar sources, particularly between ISUNEPCA UWTV biomass and abundance indices, as well as between standardized LPUE and effort-related metrics. In contrast, ARSA-based indices show weaker or negative correlations with some fishery-dependent indicators, highlighting differences in spatial coverage and survey design. Overall, the results indicate a clear clustering of indices by data origin, suggesting partial redundancy among some series and complementarity across others.
+
 
 ### Summary source of data
 
@@ -556,8 +561,13 @@ All this work has been developed using R language. The code and data used for th
 
 ## Figures and Tables
 
-```{r areaconcept, out.width='60%', fig.cap="Map of the Gulf of Cádiz (FU30, Division 9.a) showing the main fishing grounds for Nephrops norvegicus."}
+```{r areaconcept, out.width='90%', fig.cap="Map of the Gulf of Cádiz (FU30, Division 9.a) showing the main fishing grounds for Nephrops norvegicus."}
 knitr::include_graphics("../figs/studyarea.png")
+```
+
+
+```{r landings, out.width='100%', fig.cap="Time series of annual Nephrops landings (tons) for FU30 (Division 9.a). Bars represent reported annual catches, while the dashed horizontal line indicates the long-term mean catch over the period analysed."}
+knitr::include_graphics("../figs/landings_nephrops_FU30.png")
 ```
 
 
@@ -565,14 +575,18 @@ knitr::include_graphics("../figs/studyarea.png")
 \begin{landscape}
 ```
 
-```{r landindex, out.width='100%', fig.cap="Time series of Nephrops stock indicators for FU30 (Division 9.a). The left panel shows annual landings (tons), with the dashed horizontal line indicating the long-term mean catch. Panels A–F display the main abundance indices used in the assessment. Points represent observed annual values, while solid lines correspond to smoothed trends with associated uncertainty envelopes."}
-knitr::include_graphics("../figs/indices_nephrops_FU30.png")
+```{r indices, out.width='100%', fig.cap="Time series of abundance and fishery-dependent indices used in the SPiCT explorations for Nephrops FU30 (Division 9.a). Panels A–H show the different survey-based and commercial indices. Points represent observed annual values, while solid lines correspond to smoothed trends with associated uncertainty envelopes."}
+knitr::include_graphics("../figs/indices_nephrops_FU30_all.png")
 ```
 
 ```{=latex}
 \end{landscape}
 ```
 
+
+```{r correlation, out.width='100%', fig.cap="Spearman rank correlation heatmap among abundance, productivity and fishery-dependent indices for Nephrops FU30 (Division 9.a). Colours indicate the strength and direction of correlations (red: positive; blue: negative), and hierarchical clustering highlights groups of highly correlated indices."}
+knitr::include_graphics("../figs/correlation_pearson_nephrops_FU30.png")
+```
 
 
 ```{r surplusplot, out.width='70%', fig.cap="Comparison of surplus production functions: Schaefer (n=1), Pella–Tomlinson (n=2) and Fox (log)."}
