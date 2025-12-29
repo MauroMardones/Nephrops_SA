@@ -488,7 +488,8 @@ inp_list <- list(
   SC4 = inp4,
   SC5 = inp5,
   SC6 = inp6,
-  SC7 = inp7
+  SC7 = inp7,
+  SC8 = inp8
 )
 # Check inputs
 
@@ -541,7 +542,8 @@ priors_run4 <- list(
   )
 )
 
-# Grouped Scenarios
+# Grouped Scenarios and Priors
+# here we define wich combinations of scenarios and priors we want to run
 
 scenarios_data <- list(
   SC0 = inp0,
@@ -630,7 +632,13 @@ results_by_scenario$SC0$RUN4
 
 saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
 
+
+### POSIBLE CORTE DE CODE ####
+
+
 #------- RESULTS-----------
+
+
 
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
@@ -934,8 +942,6 @@ write.csv(
   file = "outputs/AIC_by_scenario_run.csv",
   row.names = FALSE
 )
-aic_table <- aic_table[order(aic_table$Scenario, aic_table$AIC), ]
-
 
 ## --------------------------Get BB and F vector---------------------------------------
 
@@ -1052,99 +1058,43 @@ for (sc in unique(kobebro_table$Scenario)) {
   )
 }
 
-## ---------------------- manage tables and figs-------------------------------------
-# Aplicar manejo (manage)
-#
-# Añadir el HCR ICES (2025) para especies vulnerables (fractil 0.15)
-#
-# Ejecutarlo para todos los escenarios y todos los runs
-#
-# Guardar los resultados de manejo por escenario/run
-#
-# Mantener una estructura ordenada y reutilizable
-
-
-## Ojo que se demora mucho!!!
-
-run_management_spict <- function(fit){
-
-  fit_m <- manage(fit)
-
-  fit_m <- add.man.scenario(
-    fit_m,
-    name = "ICES_2025_0.15_fractile",
-    fractiles = list(catch = 0.15),
-    breakpointB = 0.5,
-    limitB = 0.3
-  )
-
-  return(fit_m)
-}
-# Run management for all scenarios and runs
-management_results <- list()
-
-for (sc in names(results_by_scenario)) {
-  management_results[[sc]] <- list()
-
-  for (run in names(results_by_scenario[[sc]])) {
-
-    fit <- results_by_scenario[[sc]][[run]]
-
-    fit_m <- tryCatch(
-      run_management_spict(fit),
-      error = function(e) NULL
-    )
-
-    management_results[[sc]][[run]] <- fit_m
-  }
-}
-# Extract management summary
-management_summary <- data.frame()
-
-for (sc in names(management_results)) {
-  for (run in names(management_results[[sc]])) {
-
-    fit_m <- management_results[[sc]][[run]]
-
-    if (is.null(fit_m)) next
-
-    sm <- tryCatch(
-      sumspict.manage(fit_m),
-      error = function(e) NULL
-    )
-
-    if (!is.null(sm)) {
-      sm$Scenario <- sc
-      sm$Run <- run
-      management_summary <- rbind(management_summary, sm)
-    }
-  }
-}
-# Save management summary
-saveRDS(
-  management_results,
-  file = "outputs/SPiCT_management_results_by_scenario.rds"
-)
-
-
-## --------- Extract TAC predictions function--------------
-
-# get.TAC‘: gives the catch predicted management scenario
-# ‘man.tac‘: gives the catch prediction of all defined
-# management scenarios
-
-
-## Get the TAC for the ICES (2020) recommended HCR (as used in WKMSYSPICT)
-reptest1 <- add.man.scenario(results_by_scenario$SC0$RUN4, fractiles = list(catch=0.35), breakpointB = c(0.3, 0.5))
-
-## Now `rep` includes 3 management scenarios
-
-## Get the TAC when fishing mortality is equal to Fmsy
-get.TAC(reptest1)
 
 ##  ----Hindcast MASE calculation ----
 
-sc0r1h <- hindcast(results_by_scenario$SC0$RUN4)
+sc0r1h <- hindcast(results_by_scenario$SC1$RUN4)
+plotspict.hindcast(sc0r1h)
+
+dir.create("figs/hindcast", recursive = TRUE, showWarnings = FALSE)
+
+for (sc in names(results_by_scenario)) {
+  for (rn in names(results_by_scenario[[sc]])) {
+
+    fit <- results_by_scenario[[sc]][[rn]]
+    if (is.null(fit)) next
+
+    hc <- tryCatch(
+      hindcast(fit),
+      error = function(e) NULL
+    )
+
+    # si no convergió → saltar
+    if (is.null(hc)) next
+
+    png(
+      filename = paste0("figs/hindcast/hindcast_", sc, "_", rn, ".png"),
+      width = 2000,
+      height = 1400,
+      res = 200
+    )
+
+    plotspict.hindcast(hc)
+
+    dev.off()
+  }
+}
+
+
+
 
 ## -------------- Comparision plots -----------
 # Lista para almacenar resultados
@@ -1259,153 +1209,217 @@ for (sc in unique(BF_all$Scenario)) {
   )
 }
 
-# para despues
-## --------------------------------------------------------------------------------
+## ---------------------- Manage tables and figs-------------------------------------
+# Aplicar manejo (manage)
+#
+# Añadir el HCR ICES (2025) para especies vulnerables (fractil 0.15)
+#
+# Ejecutarlo para todos los escenarios y todos los runs
+#
+# Guardar los resultados de manejo por escenario/run
+#
+# Mantener una estructura ordenada y reutilizable
 
-## Extraigo Valores
+# get.TAC‘: gives the catch predicted management scenario
+# ‘man.tac‘: gives the catch prediction of all defined
 
-extract_spict_diagnostics <- function(fit) {
+# example fx()
+# fit <- manage(results_by_scenario$SC4$RUN4)
+# sumspict.manage(fit)
+# # example plot
+# plotspict.hcr(fit)
 
-  if (is.null(fit)) {
-    return(list(
-      convergence = FALSE,
-      pdHess = NA,
-      osa_bias_p = NA,
-      osa_acf_p = NA,
-      shapiro_p = NA,
-      mohn_bbmsy = NA,
-      mohn_ffmsy = NA,
-      prod_curve = NA,
-      uncertainty_bbmsy = NA,
-      uncertainty_ffmsy = NA,
-      aic = NA_real_
-    ))
-  }
+out <- list()
 
-  # AIC seguro
-  aic_val <- NA_real_
-  if (!is.null(fit$aic) && is.numeric(fit$aic)) {
-    aic_val <- fit$aic
-  }
+for (sc in names(results_by_scenario)) {
+  for (rn in names(results_by_scenario[[sc]])) {
 
-  list(
-    convergence = fit$opt$convergence == 0,
+    res <- tryCatch({
 
-    pdHess = if (!is.null(fit$sdrep))
-      isTRUE(fit$sdrep$pdHess) else NA,
+      fit <- manage(results_by_scenario[[sc]][[rn]])
+      tab <- as.data.frame(sumspict.manage(fit))
 
-    osa_bias_p = if (!is.null(fit$diagnostics$osa_bias_p))
-      fit$diagnostics$osa_bias_p else NA,
+      tab$scenario <- sc
+      tab$run <- rn
+      tab$error <- NA_character_
 
-    osa_acf_p = if (!is.null(fit$diagnostics$osa_acf_p))
-      fit$diagnostics$osa_acf_p else NA,
+      tab
 
-    shapiro_p = if (!is.null(fit$diagnostics$shapiro_p))
-      fit$diagnostics$shapiro_p else NA,
+    }, error = function(e) {
 
-    mohn_bbmsy = if (!is.null(fit$retro$mohn$bbmsy))
-      fit$retro$mohn$bbmsy else NA,
+      # Crear una fila NA cuando manage() falla
+      tab <- data.frame(
+        scenario = sc,
+        run = rn,
+        error = conditionMessage(e),
+        stringsAsFactors = FALSE
+      )
 
-    mohn_ffmsy = if (!is.null(fit$retro$mohn$ffmsy))
-      fit$retro$mohn$ffmsy else NA,
+      tab
+    })
 
-    prod_curve = if (!is.null(fit$par$n))
-      fit$par$n else NA,
-
-    uncertainty_bbmsy = if (!is.null(fit$sdrep))
-      sd(fit$sdrep$value[grep("bbmsy", names(fit$sdrep$value))],
-         na.rm = TRUE) else NA,
-
-    uncertainty_ffmsy = if (!is.null(fit$sdrep))
-      sd(fit$sdrep$value[grep("ffmsy", names(fit$sdrep$value))],
-         na.rm = TRUE) else NA,
-
-    aic = aic_val
-  )
-}
-
-
-# round function
-round_safe <- function(x, digits = 2) {
-  if (is.numeric(x) && length(x) == 1 && !is.na(x)) {
-    round(x, digits)
-  } else {
-    NA
+    out[[paste(sc, rn, sep = "_")]] <- res
   }
 }
 
-# made table
 
-library(flextable)
-library(dplyr)
+out_clean <- lapply(out, function(x) {
+  x %>%
+    rownames_to_column(var = "Management_rule")
+})
 
-build_diagnostic_table <- function(results_scenario, scenario_name) {
 
-  runs <- names(results_scenario)
+all_tables <- bind_rows(out_clean)
 
-  diag_list <- lapply(results_scenario, extract_spict_diagnostics)
 
-  diag_df <- tibble(
-    Diagnostic = c(
-      "Convergence",
-      "Parameters variance finite (pdHess)",
-      "OSA residuals – Bias p-value",
-      "OSA residuals – ACF Ljung-Box p-value",
-      "OSA residuals – Sample quantiles (Shapiro p-value)",
-      "Mohn's rho (B/BMSY)",
-      "Mohn's rho (F/FMSY)",
-      "Production curve parameter (n)",
-      "Uncertainty order of magnitude (B/BMSY)",
-      "Uncertainty order of magnitude (F/FMSY)",
-      "AIC"
-    )
+write.csv(
+  all_tables,
+  "outputs/manage_summary_all_scenarios_runs.csv",
+  row.names = FALSE
+)
+# Save management summary
+saveRDS(
+  all_tables,
+  file = "outputs/manage_summary_all_scenarios_runs.rds"
+)
+
+## Plots
+# dir.create("figs/hcr", recursive = TRUE, showWarnings = FALSE)
+# for (sc in names(results_by_scenario)) {
+#   for (rn in names(results_by_scenario[[sc]])) {
+#
+#     fit <- results_by_scenario[[sc]][[rn]]
+#
+#     p_hcr <- tryCatch(
+#       {
+#         plotspict.hcr(manage(fit))
+#       },
+#       error = function(e) {
+#         message("❌ Error in HCR plot ", sc, " ", rn, ": ", e$message)
+#         return(NULL)
+#       }
+#     )
+#
+#     if (!is.null(p_hcr)) {
+#       ggsave(
+#         filename = file.path(
+#           "figs/hcr",
+#           paste0("HCR_plot_", sc, "_", rn, ".png")
+#         ),
+#         plot = p_hcr,
+#         width = 24,
+#         height = 18,
+#         units = "cm",
+#         dpi = 300
+#       )
+#     }
+#   }
+# }
+
+
+## ----Final Tables Values -----
+
+get_conv <- function(x) {
+  if (is.null(x)) return(NA)
+  if (!is.null(x$opt$convergence)) x$opt$convergence == 0 else NA
+}
+
+get_pdhess <- function(x) {
+  if (is.null(x)) return(NA)
+  x$pdHess %||% NA
+}
+
+get_aic <- function(x) {
+  if (is.null(x)) return(NA)
+  tryCatch(get.AIC(x), error = function(e) NA)
+}
+get_biomass_2025 <- function(x) {
+  if (is.null(x)) return(NA_real_)
+
+  b <- exp(as.data.frame(get.par("logB", x)))
+  b$year <- round(as.numeric(rownames(b)), 0)
+
+  b_2025 <- b %>% filter(year == 2025)
+  if (nrow(b_2025) == 0) return(NA_real_)
+
+  sum(b_2025$est, na.rm = TRUE)
+}
+
+get_fishingmortality_2025 <- function(x) {
+  if (is.null(x)) return(NA_real_)
+
+  f <- exp(as.data.frame(get.par("logF", x)))
+  f$year <- round(as.numeric(rownames(f)), 0)
+
+  f_2025 <- f %>% filter(year == 2025)
+  if (nrow(f_2025) == 0) return(NA_real_)
+
+  mean(f_2025$est, na.rm = TRUE)
+}
+
+get_Bmsy_prodcurve <- function(fit) {
+  if (is.null(fit)) return(NA_real_)
+    out <- tryCatch(
+    calc.bmsyk(fit),
+    error = function(e) NA
   )
-
-  for (run in runs) {
-    d <- diag_list[[run]]
-
-    diag_df[[run]] <- c(
-      ifelse(isTRUE(d$convergence), "✓", "✗"),
-      ifelse(isTRUE(d$pdHess), "TRUE", "FALSE"),
-      round_safe(d$osa_bias_p, 3),
-      round_safe(d$osa_acf_p, 3),
-      round_safe(d$shapiro_p, 3),
-      round_safe(d$mohn_bbmsy, 3),
-      round_safe(d$mohn_ffmsy, 3),
-      round_safe(d$prod_curve, 3),
-      round_safe(d$uncertainty_bbmsy, 3),
-      round_safe(d$uncertainty_ffmsy, 3),
-      round_safe(d$aic, 2)
-    )
+    # si falla o es NA
+  if (length(out) == 0 || all(is.na(out))) return(NA_real_)
+    # caso 1: escalar numérico
+  if (is.atomic(out) && length(out) == 1) {
+    return(as.numeric(out))
+  }
+    # caso 2: vector con nombre Bmsy
+  if (is.atomic(out) && "Bmsy" %in% names(out)) {
+    return(as.numeric(out["Bmsy"]))
   }
 
-  flextable(diag_df) |>
-    bold(part = "header") |>
-    fontsize(size = 9, part = "all") |>
-    align(j = 2:ncol(diag_df), align = "center", part = "all") |>
-    align(j = 1, align = "left", part = "all") |>
-    valign(valign = "top", part = "all") |>
-    theme_booktabs() |>
-    autofit() |>
-    set_caption(
-      paste0(
-        scenario_name,
-        ": summary of convergence, diagnostics, uncertainty and model performance across prior configurations."
+  # caso 3: lista
+  if (is.list(out) && "Bmsy" %in% names(out)) {
+    return(as.numeric(out$Bmsy))
+  }
+  NA_real_
+}
+
+
+
+# Create summary table
+
+
+summary_table <- data.frame()
+
+for (sc in names(results_by_scenario)) {
+  for (rn in names(results_by_scenario[[sc]])) {
+
+    fit <- results_by_scenario[[sc]][[rn]]
+
+    summary_table <- rbind(
+      summary_table,
+      data.frame(
+        Scenario = sc,
+        Run = rn,
+        Convergence = get_conv(fit),
+        PDHess = get_pdhess(fit),
+        AIC = get_aic(fit),
+        Biomass_2025 = get_biomass_2025(fit),
+        FishingMortality_2025 = get_fishingmortality_2025(fit),
+        ProdCurve = get_Bmsy_prodcurve(fit)
       )
     )
+  }
 }
 
 
+summary_table <- summary_table %>%
+  left_join(
+    mohn_table,
+    by = c("Scenario", "Run")
+  )
 
-# Tabla por escenario
-
-ft_SC1 <- build_diagnostic_table(results_by_scenario$SC1, "Scenario 1")
-ft_SC2 <- build_diagnostic_table(results_by_scenario$SC2, "Scenario 2")
-ft_SC3 <- build_diagnostic_table(results_by_scenario$SC3, "Scenario 3")
-ft_SC4 <- build_diagnostic_table(results_by_scenario$SC4, "Scenario 4")
-ft_SC5 <- build_diagnostic_table(results_by_scenario$SC5, "Scenario 5")
-
-
-
-
+# Save summary table
+write.csv(
+  summary_table,
+  "outputs/SPiCT_summary_table_all_scenarios_runs.csv",
+  row.names = FALSE
+)
 
