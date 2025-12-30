@@ -88,11 +88,11 @@ Nephrops stock in FU30 Division 9.a was benchmarked in October 2016 [@ICES2017WK
 
 The SCA method was revisited during WGBIE 2023, following an update of the UWTV survey area and the geostatistical estimation of Nephrops burrow abundance in 2022. In addition, LBI, LBSPR and MLZ methods were also applied during that working group for this stock. However, results from LBI, LBSPR and MLZ should be interpreted with caution, as not all assumptions underlying these methods are met for Nephrops stocks. Key limitations include the assumption of equilibrium conditions, such as constant total mortality and recruitment, which have also been identified in other Nephrops stocks [@CousidoRocha2022]. Furthermore, life-history parameters (M/k, L~inf~, L50, L95) are highly uncertain, as they have not been updated since the 1980s–1990s and are not specific to FU30. An additional limitation is that these approaches do not explicitly account for spatial structure, which is particularly relevant for Nephrops due to its burrow-dwelling behaviour and strong association with sediment type. Finally, length-composition data should be representative of the exploited population, but recent sampling has been inadequate, with reduced sampling intensity and incomplete quarterly coverage. Some of these considerations also apply when interpreting SCA results.
 
-According to the 2023 ICES guidelines for providing advice on data-limited stocks [@ICES2023a], this stock should have been assessed using the ICES rfb rule (Method 2.1; @ICES2021SPiCT). However, given the limitations of these methods for this stock and the fishing pressure indicator (HR) accepted during the last benchmark [@ICES2017WKNEP], which provided more complete information than the indicator derived from the new rfb rule, the latter was not applied, following ACOM recommendations.
+According to the 2023 ICES guidelines for providing advice on data-limited stocks [@ICES2023a], this stock should have been assessed using the `ICES rfb rule` (Method 2.1; @ICES2021SPiCT). However, given the limitations of these methods for this stock and the fishing pressure indicator (HR) accepted during the last benchmark [@ICES2017WKNEP], which provided more complete information than the indicator derived from the new rfb rule, the latter was not applied, following ACOM recommendations.
 
 The Stochastic Surplus Production Model in Continuous Time (SPiCT) has been proposed by ICES to produce MSY advice for several Category 3 stocks in benchmark workshops conducted since 2021. The SPiCT model has already been accepted as the assessment basis for three additional Nephrops functional units in Division 9.a [@ICES2021WGBIE; @GonzalezHerraiz2023], and for one additional Nephrops FU nominated for the next WKMSYSPiCT in 2023–2024.
 
-> In addition to revisiting the advantages and limitations of the scenarios previously tested in past working group meetings, this report extends the exploratory framework by incorporating new SPiCT scenarios that emerged from discussions held after the last meeting in December 2025. Specifically, a new set of scenarios is introduced, all configured consistently with the previous analyses by applying the same four alternative prior configurations (RUN1–RUN4) to each scenario. These new explorations include: (i) an alternative configuration incorporating all available indices simultaneously, (ii) a scenario based on a standardized index formulation, (iii) a scenario using a normalized ARSA survey time series, and (iv) a scenario in which fishing effort is included as a normalized series. The document provides a structured synthesis of these new scenarios and presents their main results, highlighting their relative performance, strengths and limitations in comparison with previously explored configurations, with the aim of informing future benchmark discussions and potential model selection for Nephrops FU30.
+In addition to revisiting the advantages and limitations of the scenarios previously tested in past working group meetings, this report extends the exploratory framework by incorporating new SPiCT scenarios that emerged from discussions held after the last meeting in December 2025. Specifically, a new set of scenarios is introduced, all configured consistently with the previous analyses by applying the same four alternative prior configurations (RUN1–RUN4) to each scenario. These new explorations include: (i) an alternative configuration incorporating all available indices simultaneously, (ii) a scenario based on a standardized index formulation, (iii) a scenario using a normalized ARSA survey time series, and (iv) a scenario in which fishing effort is included as a normalized series. The document provides a structured synthesis of these new scenarios and presents their main results, highlighting their relative performance, strengths and limitations in comparison with previously explored configurations, with the aim of informing future benchmark discussions and potential model selection for Nephrops FU30.
 
 \newpage
 
@@ -550,33 +550,10 @@ surplusplot
 summary_table <- read_csv(here("outputs", 
                                "SPiCT_summary_table_all_scenarios_runs.csv"))
 
-summary_long <- summary_table %>%
-  select(
-    Scenario,
-    Run,
-    AIC,
-    Biomass_2025,
-    FishingMortality_2025,
-    ProdCurve,
-    Mohn_BBmsy,
-    Mohn_FFmsy
-  ) %>%
-  pivot_longer(
-    cols = -c(Scenario, Run),
-    names_to = "Variable",
-    values_to = "Value"
-  )
 
-summary_wide <- summary_long %>%
-  pivot_wider(
-    names_from = Run,
-    values_from = Value
-  ) %>%
-  arrange(Scenario, Variable) %>% 
-  #maximo 2 decimales
-  mutate(across(where(is.numeric), ~ round(., 2)))
+
 kable(
-  summary_wide,
+  summary_table,
   format = "latex",
   booktabs = TRUE,
   longtable = TRUE,

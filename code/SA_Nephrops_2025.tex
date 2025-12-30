@@ -204,13 +204,11 @@ Nephrops stock in FU30 Division 9.a was benchmarked in October 2016 (\citeproc{r
 
 The SCA method was revisited during WGBIE 2023, following an update of the UWTV survey area and the geostatistical estimation of Nephrops burrow abundance in 2022. In addition, LBI, LBSPR and MLZ methods were also applied during that working group for this stock. However, results from LBI, LBSPR and MLZ should be interpreted with caution, as not all assumptions underlying these methods are met for Nephrops stocks. Key limitations include the assumption of equilibrium conditions, such as constant total mortality and recruitment, which have also been identified in other Nephrops stocks (\citeproc{ref-CousidoRocha2022}{Cousido-Rocha et al., 2022}). Furthermore, life-history parameters (M/k, L\textsubscript{inf}, L50, L95) are highly uncertain, as they have not been updated since the 1980s--1990s and are not specific to FU30. An additional limitation is that these approaches do not explicitly account for spatial structure, which is particularly relevant for Nephrops due to its burrow-dwelling behaviour and strong association with sediment type. Finally, length-composition data should be representative of the exploited population, but recent sampling has been inadequate, with reduced sampling intensity and incomplete quarterly coverage. Some of these considerations also apply when interpreting SCA results.
 
-According to the 2023 ICES guidelines for providing advice on data-limited stocks (\citeproc{ref-ICES2023a}{ICES, 2023b}), this stock should have been assessed using the ICES rfb rule (Method 2.1; ICES (\citeproc{ref-ICES2021SPiCT}{2021a})). However, given the limitations of these methods for this stock and the fishing pressure indicator (HR) accepted during the last benchmark (\citeproc{ref-ICES2017WKNEP}{ICES, 2017}), which provided more complete information than the indicator derived from the new rfb rule, the latter was not applied, following ACOM recommendations.
+According to the 2023 ICES guidelines for providing advice on data-limited stocks (\citeproc{ref-ICES2023a}{ICES, 2023b}), this stock should have been assessed using the \texttt{ICES\ rfb\ rule} (Method 2.1; ICES (\citeproc{ref-ICES2021SPiCT}{2021a})). However, given the limitations of these methods for this stock and the fishing pressure indicator (HR) accepted during the last benchmark (\citeproc{ref-ICES2017WKNEP}{ICES, 2017}), which provided more complete information than the indicator derived from the new rfb rule, the latter was not applied, following ACOM recommendations.
 
 The Stochastic Surplus Production Model in Continuous Time (SPiCT) has been proposed by ICES to produce MSY advice for several Category 3 stocks in benchmark workshops conducted since 2021. The SPiCT model has already been accepted as the assessment basis for three additional Nephrops functional units in Division 9.a (\citeproc{ref-GonzalezHerraiz2023}{González Herraiz et al., 2023}; \citeproc{ref-ICES2021WGBIE}{ICES, 2021b}), and for one additional Nephrops FU nominated for the next WKMSYSPiCT in 2023--2024.
 
-\begin{quote}
 In addition to revisiting the advantages and limitations of the scenarios previously tested in past working group meetings, this report extends the exploratory framework by incorporating new SPiCT scenarios that emerged from discussions held after the last meeting in December 2025. Specifically, a new set of scenarios is introduced, all configured consistently with the previous analyses by applying the same four alternative prior configurations (RUN1--RUN4) to each scenario. These new explorations include: (i) an alternative configuration incorporating all available indices simultaneously, (ii) a scenario based on a standardized index formulation, (iii) a scenario using a normalized ARSA survey time series, and (iv) a scenario in which fishing effort is included as a normalized series. The document provides a structured synthesis of these new scenarios and presents their main results, highlighting their relative performance, strengths and limitations in comparison with previously explored configurations, with the aim of informing future benchmark discussions and potential model selection for Nephrops FU30.
-\end{quote}
 
 \newpage
 
@@ -506,113 +504,6 @@ To ensure consistency and comparability across scenarios, all new configurations
 
 \subsection{Results}\label{results}
 
-Results section: step-by-step presentation of model fits, diagnostics and key outputs.
-
-We evaluated six alternative data configurations (scenarios SC0--SC5). For each scenario we fitted four prior configurations (RUN1--RUN4), producing a set of candidate assessment models. Model comparison within each scenario was performed using AIC (AIC within scenario), diagnostic plots produced by the SPiCT suite (comparison plots, hindcast plots and retrospective diagnostics), and predictive skill quantified with MASE for each abundance index. Management projections and candidate harvest control rule (HCR) responses were also generated for all candidate fits.
-
-The full AIC table is provided in Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic). It is recommended to select candidate runs based on AIC within each scenario (AIC = AIC − min(AIC) in that scenario) together with the diagnostic and hindcast results described below.
-
-library(readr); library(knitr)
-aic \textless- read\_csv(``outputs/AIC\_by\_scenario\_run.csv'')
-kable(aic, caption = ``AIC by scenario and prior configuration. AIC was computed using \texttt{get.AIC()} and is used here to rank runs within each scenario.'')
-
-\subsection{2. Fit diagnostics and model comparison (SPiCT compare plots)}\label{fit-diagnostics-and-model-comparison-spict-compare-plots}
-
-For each scenario we compared the four prior configurations visually using the \texttt{plotspict.compare()} outputs. Representative comparison figures for each scenario are shown in Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0)--Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC5) (one file per scenario).
-
-knitr::include\_graphics(``figs/SPiCT\_compare\_SC0.png'')
-
-\emph{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0).} Example output comparing RUN1--RUN4 within Scenario SC0 (biomass, fishing mortality and index fits). Equivalent comparison figures are available for SC1--SC5 (files \texttt{figs/SPiCT\_compare\_SC1.png} \ldots{} \texttt{figs/SPiCT\_compare\_SC5.png}).
-
-\textbf{Interpretation.} Within scenarios, runs with more informative priors on \texttt{logbkfrac} (RUN2 and RUN3 configurations) generally improved stability of biomass trajectories and tightened uncertainty bounds, as also reflected in lower within-scenario AIC values for several scenarios (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic). However, in some scenarios overly tight priors induced small shifts in estimated equilibrium parameters and led to visually poorer fit to the long survey series. These trade-offs motivated using additional diagnostics (hindcast MASE and retrospective Mohn's rho) to select preferred runs.
-
-\subsection{3. Predictive skill --- hindcast MASE}\label{predictive-skill-hindcast-mase}
-
-Hindcast performance was assessed via MASE for each abundance index; the MASE values were computed reproducing the procedure used by \texttt{plotspict.hindcast()} (observations from the base run versus predictions from the first peel, aligned in time and with NA handling). Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mase) summarises MASE by scenario, run and index; a small excerpt is shown here for illustration.
-
-mase \textless- read\_csv(``outputs/SPiCT\_hindcast\_MASE\_by\_index.csv'')
-kable(head(mase, 12), caption = ``MASE from hindcast diagnostics (excerpt). MASE is calculated per index and per run; lower values indicate better short-term predictive skill.'')
-
-\textbf{Interpretation.} MASE values varied across indices and scenarios. For most scenarios, RUN2 (logbkfrac prior) produced reduced MASE for the long UWTV biomass index compared to the default prior (RUN1), indicating improved short-term predictive skill. However, some runs that improved MASE for one index worsened MASE for others (trade-off across indices), highlighting the need to weight diagnostic evidence across all indices rather than relying on a single metric.
-
-Representative hindcast plots (showing observed vs predicted index trajectories and MASE in the panel titles) are provided in Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN1)--Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN4).
-
-knitr::include\_graphics(``figs/hindcast/hindcast\_SC1\_RUN1.png'')
-
-\emph{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:hindcast\_SC1\_RUN1).} Example hindcast plot for SC1 RUN1 (panel shows index fits and reported MASE).
-
-\subsection{4. Retrospective diagnostics (Mohn's rho)}\label{retrospective-diagnostics-mohns-rho}
-
-Retrospective stability was assessed via Mohn's rho for key quantities (B/BMSY and F/FMSY). The full retrospective results (per scenario and run) are summarised in Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mohn). The retrospective analysis was attempted for all runs; when the retrospective routine did not converge for a particular run the entry is flagged and that run was examined qualitatively using the full diagnostic suite.
-
-mohn \textless- read\_csv(``outputs/SPiCT\_retro\_mohn\_table.csv'') \# if you produced one
-kable(head(mohn, 12), caption = ``Retrospective diagnostics (Mohn's rho) summarised by scenario and run (excerpt). Positive values indicate a tendency for the model to overestimate recent biomass relative to the full data run.'')
-
-\textbf{Interpretation.} Runs with extreme priors sometimes displayed elevated Mohn's rho (indicative of retrospective bias). Where Mohn's rho exceeded common informal thresholds (\textbar rho\textbar{} \textgreater{} 0.2), we considered the run less reliable unless other diagnostics (AIC, hindcast MASE and indices fit) provided strong countervailing evidence.
-
-\subsection{5. Time series of reference metrics (FFMSY and BBMSY) and Kobe plots}\label{time-series-of-reference-metrics-ffmsy-and-bbmsy-and-kobe-plots}
-
-We extracted posterior time series of F/FMSY and B/BMSY from each fitted run, averaged by year, and produced Kobe plots for each scenario. Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:Kobe\_SC1) is an example (Scenario SC1). The complete set of Kobe plots is available as \texttt{figs/Kobe\_SC0.png} \ldots{} \texttt{figs/Kobe\_SC5.png}.
-
-knitr::include\_graphics(``figs/Kobe\_SC1.png'')
-
-\emph{Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:Kobe\_SC1).} Kobe plot for SC1: panels show the temporal trajectory of F/FMSY vs B/BMSY for each run (RUN1--RUN4). Colors indicate year and the 1:1 lines denote reference points.
-
-\textbf{Interpretation.} Most scenarios show trajectories that remain near or slightly above FMSY in recent years; some runs suggest the stock is approaching F\textless BMSY thresholds. Because Kobe plots are qualitative and sensitive to priors and index selection, they are interpreted together with the diagnostics above (AIC, MASE, Mohn's rho). Final advice-oriented interpretation requires selection of a preferred run per scenario using the combined evidence.
-
-\subsection{6. Management simulations}\label{management-simulations}
-
-Management scenarios using the ICES (2025) HCR (0.15 fractile, breakpointB = 0.5, limitB = 0.3) were applied to the candidate fits. Summaries of management outputs (catch trajectories and probability of breaching limit reference points under the HCR) are reported in \texttt{outputs/management/SPiCT\_management\_summary.csv} and an excerpt is provided in Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:management).
-
-man \textless- read\_csv(``outputs/management/SPiCT\_management\_summary.csv'')
-kable(head(man, 12), caption = ``Management summary (excerpt) for the ICES (2025) HCR applied to each fit.'')
-
-\textbf{Interpretation.} The HCR considerably reduces catch advice relative to recent removals for runs indicating low B/BMSY, while runs with higher estimated biomass provided more optimistic catch trajectories. The HCR responses were generally consistent across runs with low AIC and acceptable MASE.
-
-\subsection{7. Recommended material to include in the final report}\label{recommended-material-to-include-in-the-final-report}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Main figures}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Scenario compare plots for SC0--SC5 (Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC0)--Figure (\citeproc{ref-ref}{\textbf{ref?}})(fig:compare\_SC5)). These are the primary diagnostic figures for reviewers.
-  \item
-    Hindcast plots for selected runs (showing MASE) and the retrospective plots for the same runs.
-  \item
-    Kobe plots for each scenario (Kobe\_SC0.png \ldots{} Kobe\_SC5.png).
-  \end{itemize}
-\item
-  \textbf{Main tables}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    AIC table (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:aic\}).
-  \item
-    Hindcast MASE per index (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:mase\}).
-  \item
-    Retrospective diagnostics (Mohn's rho) and a small management summary (Table (\citeproc{ref-ref}{\textbf{ref?}})(tab:management\}).
-  \end{itemize}
-\item
-  \textbf{Text guidance}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Use AIC within scenario to shortlist runs.
-  \item
-    Use hindcast MASE and retrospective diagnostics to assess short-term predictive skill and stability.
-  \item
-    Use Kobe and management simulations to illustrate the consequences of run selection on advice.
-  \end{itemize}
-\end{enumerate}
-
-Table \ref{tab:spictsumm} summarizes the final set of SPiCT model results for \emph{Nephrops norvegicus}, across all evaluated scenarios and runs. The table integrates key diagnostics of model performance (convergence status, positive-definite Hessian, and AIC), retrospective consistency (Mohn's rho for biomass and fishing mortality relative to MSY reference points), hindcast predictive performance (MASE), and estimates of stock status in 2025 (biomass and fishing mortality). In addition, the table reports the MSY-based reference biomass derived from the production curve approach. This integrated summary provides the basis for model screening and comparison across scenarios, supporting transparent and reproducible assessment of stock dynamics and management-relevant quantities.
-
 \newpage
 
 \subsection{Conclusions}\label{conclusions}
@@ -691,64 +582,49 @@ All this work has been developed using R language. The code and data used for th
 
 \begingroup\fontsize{8}{10}\selectfont
 
-\begin{longtable}[t]{llllll}
+\begin{longtable}[t]{llllllllll}
 \caption{\label{tab:spictsumm}Summary of SPiCT model diagnostics and outputs by scenario and prior configuration (RUN).}\\
 \toprule
-Scenario & Variable & RUN1 & RUN2 & RUN3 & RUN4\\
+Scenario & Run & Convergence & PDHess & AIC & Biomass\_2025 & FishingMortality\_2025 & ProdCurve & Mohn\_BBmsy & Mohn\_FFmsy\\
 \midrule
 \endfirsthead
 \caption[]{\label{tab:spictsumm}Summary of SPiCT model diagnostics and outputs by scenario and prior configuration (RUN). \textit{(continued)}}\\
 \toprule
-Scenario & Variable & RUN1 & RUN2 & RUN3 & RUN4\\
+Scenario & Run & Convergence & PDHess & AIC & Biomass\_2025 & FishingMortality\_2025 & ProdCurve & Mohn\_BBmsy & Mohn\_FFmsy\\
 \midrule
 \endhead
 
 \endfoot
 \bottomrule
 \endlastfoot
-SC0 & AIC & 81.74 & 75.16 & 79.84 & 85.69\\
-SC0 & Biomass\_2025 & 11581.04 & 11944.54 & 12193.22 & 105352.14\\
-SC0 & FishingMortality\_2025 & 0.04 & 0.04 & 0.04 & 0.00\\
-SC0 & Mohn\_BBmsy & NA & NA & NA & -0.22\\
-SC0 & Mohn\_FFmsy & NA & NA & NA & 1.87\\
+SC0 & RUN1 & FALSE & FALSE & 81.74004 & 1.158104e+04 & 0.0374601 & 0.4637637 & NA & NA\\
+SC0 & RUN2 & FALSE & FALSE & 75.16112 & 1.194454e+04 & 0.0363071 & 0.5058017 & NA & NA\\
+SC0 & RUN3 & FALSE & FALSE & 79.84203 & 1.219322e+04 & 0.0354813 & 0.5249317 & NA & NA\\
+SC0 & RUN4 & TRUE & FALSE & 85.68566 & 1.053521e+05 & 0.0040364 & 0.4747904 & -0.2166351 & 1.8658211\\
+SC1 & RUN1 & TRUE & FALSE & 161.43259 & 9.751916e+03 & 0.0439546 & 0.2271481 & -0.2831278 & 1.1851386\\
 \addlinespace
-SC0 & ProdCurve & 0.46 & 0.51 & 0.52 & 0.47\\
-SC1 & AIC & 161.43 & 156.39 & 155.01 & 154.64\\
-SC1 & Biomass\_2025 & 9751.92 & 11686.70 & 17693.59 & 43935.02\\
-SC1 & FishingMortality\_2025 & 0.04 & 0.04 & 0.02 & 0.01\\
-SC1 & Mohn\_BBmsy & -0.28 & -0.08 & -0.07 & -0.07\\
+SC1 & RUN2 & TRUE & FALSE & 156.39077 & 1.168670e+04 & 0.0366234 & 0.2263819 & -0.0847673 & 0.1881822\\
+SC1 & RUN3 & TRUE & FALSE & 155.00565 & 1.769359e+04 & 0.0242663 & 0.4445529 & -0.0710085 & 0.1237096\\
+SC1 & RUN4 & TRUE & FALSE & 154.64076 & 4.393502e+04 & 0.0097088 & 0.4476987 & -0.0727626 & 0.1478205\\
+SC2 & RUN1 & TRUE & FALSE & 93.81321 & 4.498993e+05 & 0.0010702 & 0.4827461 & 0.0204882 & 0.8698954\\
+SC2 & RUN2 & TRUE & FALSE & 93.36372 & 9.410083e+04 & 0.0050540 & 0.5000005 & NA & NA\\
 \addlinespace
-SC1 & Mohn\_FFmsy & 1.19 & 0.19 & 0.12 & 0.15\\
-SC1 & ProdCurve & 0.23 & 0.23 & 0.44 & 0.45\\
-SC2 & AIC & 93.81 & 93.36 & 90.59 & 95.20\\
-SC2 & Biomass\_2025 & 449899.34 & 94100.83 & 94100.95 & 20637.30\\
-SC2 & FishingMortality\_2025 & 0.00 & 0.01 & 0.01 & 0.02\\
+SC2 & RUN3 & TRUE & FALSE & 90.59114 & 9.410095e+04 & 0.0050540 & 0.5000000 & NA & NA\\
+SC2 & RUN4 & TRUE & FALSE & 95.19899 & 2.063730e+04 & 0.0231716 & 0.5922630 & 0.1243007 & -0.1526050\\
+SC3 & RUN1 & FALSE & FALSE & -1101.77769 & 9.559775e+06 & 0.0000012 & 0.0940517 & NA & NA\\
+SC3 & RUN2 & FALSE & FALSE & 57.04038 & 5.780237e+03 & 0.0835684 & 0.6843396 & NA & NA\\
+SC3 & RUN3 & FALSE & FALSE & 49.64963 & 6.403386e+03 & 0.0683053 & 0.7415948 & NA & NA\\
 \addlinespace
-SC2 & Mohn\_BBmsy & 0.02 & NA & NA & 0.12\\
-SC2 & Mohn\_FFmsy & 0.87 & NA & NA & -0.15\\
-SC2 & ProdCurve & 0.48 & 0.50 & 0.50 & 0.59\\
-SC3 & AIC & -1101.78 & 57.04 & 49.65 & -874.48\\
-SC3 & Biomass\_2025 & 9559775.29 & 5780.24 & 6403.39 & 11046283.28\\
+SC3 & RUN4 & TRUE & FALSE & -874.48038 & 1.104628e+07 & 0.0001232 & 0.9900186 & 0.0020133 & 0.0003821\\
+SC4 & RUN1 & TRUE & FALSE & 63.87712 & 2.503812e+02 & 2.1266786 & 0.4043102 & -0.3110333 & 0.1172206\\
+SC4 & RUN2 & TRUE & FALSE & 112.47282 & 3.286400e+03 & 0.1631291 & 0.4851281 & -0.0001301 & -0.0898329\\
+SC4 & RUN3 & TRUE & FALSE & 109.70669 & 3.288816e+03 & 0.1627489 & 0.4956575 & 0.0066254 & -0.1025988\\
+SC4 & RUN4 & TRUE & FALSE & 109.59154 & 1.549314e+04 & 0.0340371 & 0.4547468 & 0.0678965 & -0.2668698\\
 \addlinespace
-SC3 & FishingMortality\_2025 & 0.00 & 0.08 & 0.07 & 0.00\\
-SC3 & Mohn\_BBmsy & NA & NA & NA & 0.00\\
-SC3 & Mohn\_FFmsy & NA & NA & NA & 0.00\\
-SC3 & ProdCurve & 0.09 & 0.68 & 0.74 & 0.99\\
-SC4 & AIC & 63.88 & 112.47 & 109.71 & 109.59\\
-\addlinespace
-SC4 & Biomass\_2025 & 250.38 & 3286.40 & 3288.82 & 15493.14\\
-SC4 & FishingMortality\_2025 & 2.13 & 0.16 & 0.16 & 0.03\\
-SC4 & Mohn\_BBmsy & -0.31 & 0.00 & 0.01 & 0.07\\
-SC4 & Mohn\_FFmsy & 0.12 & -0.09 & -0.10 & -0.27\\
-SC4 & ProdCurve & 0.40 & 0.49 & 0.50 & 0.45\\
-\addlinespace
-SC5 & AIC & 316.98 & 322.34 & 320.42 & 317.43\\
-SC5 & Biomass\_2025 & 21792.41 & 5403.90 & 5194.90 & 17709.07\\
-SC5 & FishingMortality\_2025 & 0.02 & 0.08 & 0.09 & 0.02\\
-SC5 & Mohn\_BBmsy & 45.73 & 0.83 & NA & 0.01\\
-SC5 & Mohn\_FFmsy & NA & NA & 0.01 & -0.07\\
-\addlinespace
-SC5 & ProdCurve & 0.31 & 0.30 & 0.45 & 0.51\\*
+SC5 & RUN1 & TRUE & FALSE & 316.97628 & 2.179241e+04 & 0.0202556 & 0.3096113 & 45.7302077 & NA\\
+SC5 & RUN2 & TRUE & FALSE & 322.34000 & 5.403899e+03 & 0.0823163 & 0.2987740 & 0.8310956 & NA\\
+SC5 & RUN3 & TRUE & FALSE & 320.41940 & 5.194901e+03 & 0.0861971 & 0.4534649 & NA & 0.0101220\\
+SC5 & RUN4 & TRUE & FALSE & 317.43273 & 1.770907e+04 & 0.0243733 & 0.5062200 & 0.0107357 & -0.0709751\\*
 \end{longtable}
 \endgroup{}
 

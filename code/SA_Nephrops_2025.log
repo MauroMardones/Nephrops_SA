@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  29 DEC 2025 20:08
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  30 DEC 2025 10:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -954,12 +954,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [5]
-Underfull \hbox (badness 1418) in paragraph at lines 235--236
+Underfull \hbox (badness 1418) in paragraph at lines 233--234
 \TU/lmr/m/n/12 APA/2883/2006, APA/2801/2007, ARM/2515/2009, ARM/58/2010, ARM/2457/2010,
  []
 
 
-LaTeX Warning: Citation `ref-ref' on page 6 undefined on input line 245.
+LaTeX Warning: Citation `ref-ref' on page 6 undefined on input line 243.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -978,7 +978,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [7]
 
-LaTeX Warning: Reference `fig:landindex' on page 8 undefined on input line 269.
+LaTeX Warning: Reference `fig:landindex' on page 8 undefined on input line 267.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1024,6 +1024,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [12
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 438--438
+[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 439--439
+[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
+ []
+
+
+Underfull \hbox (badness 7397) in paragraph at lines 439--440
+\TU/lmr/m/n/8 surveys to assess consistency between fishery-
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 440--440
 []|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
  []
@@ -1034,37 +1049,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 441--441
  []
 
 
-Underfull \hbox (badness 7397) in paragraph at lines 441--442
-\TU/lmr/m/n/8 surveys to assess consistency between fishery-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 442--442
 []|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 443--443
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 444--444
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Underfull \hbox (badness 2088) in paragraph at lines 446--446
+Underfull \hbox (badness 2088) in paragraph at lines 444--444
 []|\TU/lmr/m/n/8 Catches; ARSA spring; ARSA
  []
 
 
-Underfull \hbox (badness 7468) in paragraph at lines 446--446
+Underfull \hbox (badness 7468) in paragraph at lines 444--444
 \TU/lmr/m/n/8 autumn; ISUNEPCA biomass;
  []
 
 
-Underfull \hbox (badness 3954) in paragraph at lines 446--446
+Underfull \hbox (badness 3954) in paragraph at lines 444--444
 \TU/lmr/m/n/8 ISUNEPCA abundance; ARSA
  []
 
@@ -1076,7 +1076,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [13]
-Underfull \hbox (badness 2245) in paragraph at lines 472--473
+Underfull \hbox (badness 2245) in paragraph at lines 470--471
 []|\TU/lmr/m/n/8 Scenario integrating total landings with normal-
  []
 
@@ -1088,7 +1088,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [14]
-Underfull \hbox (badness 2512) in paragraph at lines 496--496
+Underfull \hbox (badness 2512) in paragraph at lines 494--494
 []|\TU/lmr/m/n/8 Default (package de-
  []
 
@@ -1109,34 +1109,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [16]
 
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 513.
-
-
-Underfull \hbox (badness 6332) in paragraph at lines 515--518
-[]\TU/lmr/m/n/12 library(readr); library(knitr) aic <- read_csv(“outputs/AIC_by_scenario_run.csv”)
- []
-
-
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 521.
-
-
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 521.
-
-
-Underfull \hbox (badness 3000) in paragraph at lines 521--522
-\TU/lmr/m/n/12 For each scenario we compared the four prior configurations visually using the
- []
-
-
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 525.
-
-
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 527.
-
-
-LaTeX Warning: Citation `ref-ref' on page 17 undefined on input line 531.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
@@ -1144,27 +1116,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [17]
-Underfull \hbox (badness 1028) in paragraph at lines 533--535
-[]\TU/lmr/m/n/12 mase <- read_csv(“outputs/SPiCT_hindcast_MASE_by_index.csv”) kable(head(mase,
- []
-
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 538.
-
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 538.
-
-
-Underfull \hbox (badness 1028) in paragraph at lines 538--539
-[]\TU/lmr/m/n/12 Representative hindcast plots (showing observed vs predicted index trajectories and
- []
-
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 542.
-
-
-LaTeX Warning: Citation `ref-ref' on page 18 undefined on input line 546.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1174,20 +1125,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [18]
 
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 555.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 559.
-
-
-LaTeX Warning: Citation `ref-ref' on page 19 undefined on input line 565.
-
-
-Overfull \hbox (23.88898pt too wide) in paragraph at lines 567--569
-[]\TU/lmr/m/n/12 man <- read_csv(“outputs/management/SPiCT_management_summary.csv”) kable(head(man,
- []
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
@@ -1195,25 +1132,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [19]
+File: ../figs/studyarea.png Graphic file (type bmp)
+<../figs/studyarea.png>
 
-LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 582.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
+File: ../figs/landings_nephrops_FU30.png Graphic file (type bmp)
+<../figs/landings_nephrops_FU30.png>
 
-LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 582.
-
-
-Underfull \hbox (badness 1253) in paragraph at lines 582--584
-[]\TU/lmr/m/n/12 Scenario compare plots for SC0–SC5 (Figure ([])(fig:compare_SC0)–Figure
- []
-
-
-LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 594.
-
-
-LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 596.
-
-
-LaTeX Warning: Citation `ref-ref' on page 20 undefined on input line 598.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1239,40 +1166,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [22]
-File: ../figs/studyarea.png Graphic file (type bmp)
-<../figs/studyarea.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-File: ../figs/landings_nephrops_FU30.png Graphic file (type bmp)
-<../figs/landings_nephrops_FU30.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[23]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[24]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[25]
 File: ../figs/indices_nephrops_FU30_all.png Graphic file (type bmp)
 <../figs/indices_nephrops_FU30_all.png>
 
@@ -1285,7 +1178,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[26]
+[23]
 File: ../figs/correlation_pearson_nephrops_FU30.png Graphic file (type bmp)
 <../figs/correlation_pearson_nephrops_FU30.png>
 File: SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf Graphic file (type pdf)
@@ -1294,13 +1187,38 @@ File: SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf Graphic file (type p
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
+Overfull \hbox (111.717pt too wide) in alignment at lines 585--590
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (111.717pt too wide) in alignment at lines 590--595
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (111.717pt too wide) in alignment at lines 595--597
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (111.717pt too wide) in alignment at lines 597--599
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (111.717pt too wide) in alignment at lines 599--628
+ [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[27
+[24
 
 
 ]
@@ -1311,7 +1229,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[28]
+[25]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1319,8 +1237,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[29]
-Underfull \hbox (badness 10000) in paragraph at lines 814--815
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 690--691
 \TU/lmr/m/n/12 from [][]$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][] [] [][] [] [][][][][] [] [][][][][][][][][][] [] [][] [] [] [] [][][][][][][][][] [] [][][] [] [][][][][][][][] []
  []
 
@@ -1331,7 +1249,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[30]
+[27]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1339,7 +1257,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[31] (./SA_Nephrops_2025.aux)
+[28] (./SA_Nephrops_2025.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1348,12 +1266,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 21229 strings out of 478761
- 394745 string characters out of 5848546
+ 21217 strings out of 478761
+ 394440 string characters out of 5848546
  1886991 words of memory out of 5000000
- 40905 multiletter control sequences out of 15000+600000
+ 40893 multiletter control sequences out of 15000+600000
  518854 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,12n,121p,1374b,513s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on SA_Nephrops_2025.pdf (32 pages).
+Output written on SA_Nephrops_2025.pdf (29 pages).
