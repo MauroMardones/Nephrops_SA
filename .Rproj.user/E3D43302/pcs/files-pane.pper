@@ -2,12 +2,12 @@
     "sortOrder": [
         {
             "columnIndex": 4,
-            "ascending": false
+            "ascending": true
         },
         {
             "columnIndex": 2,
             "ascending": true
         }
     ],
-    "path": "~/IEO/Nephrops_SA/figs"
+    "path": "~/IEO/Nephrops_SA/figs/hindcast"
 }

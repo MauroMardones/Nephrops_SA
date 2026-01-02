@@ -1423,3 +1423,57 @@ write.csv(
   row.names = FALSE
 )
 
+## --------------Example single scenario run ------------------------
+
+# Exampl with just 1 Scenario
+
+# Scenario: Landings + ISUNEPCA UWTV abundance + standardized LPUE (SC2)
+inp_sc2 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_abun$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunep_abun$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
+  )
+)
+# Run SPiCT for SC2 with default priors
+fit_sc2 <- fit.spict(
+  inp = check.inp(inp_sc2),
+  verbose = TRUE
+)
+# Run OSA diagnostics
+osa_sc2 <- run_osa_diagnostics(
+  spict_obj = fit_sc2,
+  scenario  = "SC2",
+  run       = "Default"
+)
+# Run SPiCT plot
+spict_plot_sc2 <- run_spict_plot(
+  spict_obj = fit_sc2,
+  scenario  = "SC2",
+  run       = "Default",
+  CI = 0.8
+)
+# Run retrospective
+retro_sc2 <- run_spict_retro_simple(
+  fit = fit_sc2,
+  scenario = "SC2",
+  run = "Default",
+  nretroyear = 5
+)
+# Extract Mohn's rho
+mohn_sc2 <- extract_mohn_spict(retro_sc2)
+# Extract FFMSY and BBMSY
+kobebro_sc2 <- extract_FF_BB_MSY(fit_sc2)
+# Run hindcast
+hindcast_sc2 <- hindcast(fit_sc2)
+# plot hindcast
+plotspict.hindcast(hindcast_sc2)
+# Run management
+manage_sc2 <- manage(fit_sc2)
