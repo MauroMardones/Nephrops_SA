@@ -48,7 +48,7 @@ if (!dir.exists(fig.path)) {
 }
 
 
-## -------- READ DATA --------------
+## -------- Read Data--------------
 # Por ahora no tengo Effort ni LPUE standar
 
 # bac <- read_excel(here("data",
@@ -400,7 +400,7 @@ inp4 <- list(
   )
 )
 
-# Scenario 5 — All indices (normalized / standardized)
+# Scenario 5 — Catches; ISUNEPCA UWTV biomass (normalized); ARSA biomass (normalized)
 
 inp5 <- list(
   timeC = C_nep$timeC[ind:ind2],
@@ -408,24 +408,16 @@ inp5 <- list(
 
   timeI = list(
     I_arsa_std_nor$timeI[ind:ind2],
-    I_arsa_bio$timeI[ind:ind2],
-    I_isunep_bio_nor$timeI[ind:ind2],
-    I_isunep_abun$timeI[ind:ind2],
-    I_arsa_rendi_std_grh$timeI[ind:ind2],
-    I_LPUE_std$timeI[ind:ind2]
-  ),
+    I_isunep_bio_nor$timeI[ind:ind2]
+    ),
 
   obsI = list(
     I_arsa_std_nor$obsI[ind:ind2],
-    I_arsa_bio$obsI[ind:ind2],
-    I_isunep_bio_nor$obsI[ind:ind2],
-    I_isunep_abun$obsI[ind:ind2],
-    I_arsa_rendi_std_grh$obsI[ind:ind2],
-    I_LPUE_std$obsI[ind:ind2]
-  )
+    I_isunep_bio_nor$obsI[ind:ind2]
+   )
 )
 
-# Scenario 6-- Landings + normalized ISUNEPCA biomass + normalized ARSA biomass
+# Scenario 6-- Landings + ISUNEPCA UWTV biomass (normalized); Standardised LPUE
 
 inp6 <- list(
   timeC = C_nep$timeC[ind:ind2],
@@ -433,12 +425,12 @@ inp6 <- list(
 
   timeI = list(
     I_isunep_bio_nor$timeI[ind:ind2],
-    I_arsa_std_nor$timeI[ind:ind2]
+    I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
     I_isunep_bio_nor$obsI[ind:ind2],
-    I_arsa_std_nor$obsI[ind:ind2]
+    I_LPUE_std$obsI[ind:ind2]
   )
 )
 
@@ -450,11 +442,13 @@ inp7 <- list(
 
   timeI = list(
     I_isunep_bio_nor$timeI[ind:ind2],
+    I_arsa_std_nor$timeI[ind:ind2],
     I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
     I_isunep_bio_nor$obsI[ind:ind2],
+    I_arsa_std_nor$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
   )
 )
@@ -466,17 +460,37 @@ inp8 <- list(
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunep_bio_nor$timeI[ind:ind2],
-    I_arsa_std_nor$timeI[ind:ind2],
+    I_isunep_abun$timeI[ind:ind2],
     I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_isunep_bio_nor$obsI[ind:ind2],
-    I_arsa_std_nor$obsI[ind:ind2],
+    I_isunep_abun$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
   )
 )
+
+#Scenario 9 -- Scenario combines total landings with the ISUNEPCA UWTV biomass index (2015–2025),
+#ARSA biomass survey (1993–2012),
+#and the standardised commercial LPUE (2009–2024).
+
+inp9 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_bio_nor$timeI[ind:ind2],
+    I_arsa_std_nor$timeI[7:26],
+    I_LPUE_std$timeI[23:38]
+  ),
+
+  obsI = list(
+    I_isunep_bio_nor$obsI[ind:ind2],
+    I_arsa_std_nor$obsI[7:26],
+    I_LPUE_std$obsI[23:38]
+  )
+)
+
 
 
 # must be set before check.inp
@@ -489,7 +503,8 @@ inp_list <- list(
   SC5 = inp5,
   SC6 = inp6,
   SC7 = inp7,
-  SC8 = inp8
+  SC8 = inp8,
+  SC9 = inp9
 )
 # Check inputs
 
@@ -546,12 +561,16 @@ priors_run4 <- list(
 # here we define wich combinations of scenarios and priors we want to run
 
 scenarios_data <- list(
-  SC0 = inp0,
-  SC1 = inp1,
-  SC2 = inp2,
-  SC3 = inp3,
-  SC4 = inp4,
-  SC5 = inp5
+  # SC0 = inp0,
+  # SC1 = inp1,
+  # SC2 = inp2,
+  # SC3 = inp3,
+  # SC4 = inp4,
+  SC5 = inp5,
+  SC6 = inp6,
+  SC7 = inp7,
+  SC8 = inp8,
+  SC9 = inp9
 )
 scenarios_priors <- list(
   RUN1 = priors_run1,
@@ -626,7 +645,7 @@ names(results_by_scenario)
 names(results_by_scenario$SC1)
 
 # Individual Scenario and run (e.i.)
-results_by_scenario$SC0$RUN4
+results_by_scenario$SC5$RUN4
 
 # genera  un .rsd por escenario
 
@@ -1209,6 +1228,101 @@ for (sc in unique(BF_all$Scenario)) {
   )
 }
 
+## ----------------------- BRPs ---------------------------------------
+
+# funcion para sacar los BRP
+get_spict_report <- function(fit) {
+
+  if (is.null(fit$report)) {
+    return(tibble(Bmsy = NA, Fmsy = NA, MSY = NA, Cp = NA))
+  }
+
+  tibble(
+    Bmsy = fit$report$Bmsy[1],
+    Fmsy = fit$report$Fmsy[1],
+    MSY  = fit$report$MSY[1],
+    Cp   = fit$report$Cp[1]
+  )
+}
+
+
+srp_table <- imap_dfr(results_by_scenario, function(scen_list, scen_name) {
+
+  imap_dfr(scen_list, function(run_fit, run_name) {
+
+    rp <- get_spict_report(run_fit)
+
+    tibble(
+      Scenario = scen_name,
+      Run      = run_name,
+      Bmsy     = rp$Bmsy,
+      Fmsy     = rp$Fmsy,
+      MSY      = rp$MSY,
+      Cp       = rp$Cp
+    )
+  })
+})
+
+srp_table_clean <- srp_table %>%
+  mutate(
+    Bmsy = ifelse(Bmsy <= 0 | abs(Bmsy) > 1e12, NA, Bmsy),
+    Fmsy = ifelse(Fmsy <= 0 | abs(Fmsy) > 10, NA, Fmsy),
+    MSY  = ifelse(MSY  <= 0 | abs(MSY)  > 1e6, NA, MSY),
+    Cp   = ifelse(Cp   <= 0 | Cp > 1e6, NA, Cp)
+  )
+
+srp_table_final <- srp_table_clean %>%
+  mutate(across(c(Bmsy, Fmsy, MSY, Cp), ~ round(.x, 3)))
+
+write.csv(
+  srp_table_final,
+  file = "outputs/brps_table_final.csv",
+  row.names = FALSE
+)
+
+# Un plot Simple
+
+srp_long <- srp_table_final %>%
+  pivot_longer(
+    cols = c(Bmsy, Fmsy, MSY, Cp),
+    names_to = "Variable",
+    values_to = "Value"
+  )
+p <- ggplot(srp_long,
+            aes(x = Scenario,
+                y = Value,
+                colour = Run)) +
+
+  geom_point(size = 3,
+             position = position_dodge(width = 0.6),
+             na.rm = TRUE) +
+
+  facet_wrap(~ Variable, scales = "free_y", ncol = 4) +
+  scale_color_viridis_d(option = "H")+
+  labs(
+    title = "",
+    x = "Scenario",
+    y = "Estimated value",
+    colour = "Prior (RUN)"
+  ) +
+
+  theme_bw(base_size = 12) +
+  theme(
+    legend.position = "top",
+    strip.background = element_rect(fill = "grey90"),
+    panel.grid.minor = element_blank()
+  )
+
+p
+
+ggsave(
+  filename = "figs/SPiCT_BRP_scenario_RUN_comparison.png",
+  plot = p,
+  width = 10,
+  height = 4,
+  dpi = 300
+)
+
 ## ---------------------- Manage tables and figs-------------------------------------
 # Aplicar manejo (manage)
 #
@@ -1433,15 +1547,24 @@ inp_sc2 <- list(
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunep_abun$timeI[ind:ind2],
-    I_LPUE_std$timeI[ind:ind2]
+    I_isunep_bio_nor$timeI[ind:ind2],
+    I_arsa_rendi_std_kgh$timeI[7:26],
+    I_LPUE_std$timeI[23:38]
   ),
 
   obsI = list(
-    I_isunep_abun$obsI[ind:ind2],
-    I_LPUE_std$obsI[ind:ind2]
+    I_isunep_bio_nor$obsI[ind:ind2],
+    I_arsa_rendi_std_kgh$obsI[7:26],
+    I_LPUE_std$obsI[23:38]
   )
 )
+
+
+inp_sc2$priors$logbkfrac <- c(log(0.5), 0.2, 1)
+inp_sc2$priors$logn <- c(log(2),   0.5, 1)
+inp_sc2$priors$logr <- c(log(0.2), 0.2, 1)
+
+
 # Run SPiCT for SC2 with default priors
 fit_sc2 <- fit.spict(
   inp = check.inp(inp_sc2),
