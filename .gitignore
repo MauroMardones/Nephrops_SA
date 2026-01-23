@@ -1,12 +1,44 @@
-.Rproj.user
+# --- Word temporary files ---
+
+~$*.docx
+*.docx
+
+# --- R Markdown & LaTeX build artifacts ---
+
+*.log
+*.tex
+*.aux
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+
+# --- R Markdown output folders ---
+
+*_files/
+*_cache/
+figs/
+data/
+docs/
+cpue/
+outputs/
+
+# --- PDFs generated from reports ---
+
+*.pdf
+
+# --- Specific assessment outputs in code/ ---
+
+code/*_files/
+code/*.docx
+code/*.pdf
+code/*.log
+code/*.tex
+
+# --- R session artifacts ---
+
 .Rhistory
 .RData
-.Ruserdata
-*data/
-*cpue/
-*docs/
-*figs/
-*outputs/
-code/log
-code/tex
-data/xlsx
+.Rproj.user/

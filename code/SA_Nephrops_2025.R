@@ -43,20 +43,13 @@ library(pheatmap)
 # definir un directorio para guardar plott "figs"
 
 fig.path <- here("figs")
-# if (!dir.exists(fig.path)) {
-#   dir.create(fig.path)
-# }
+# lapply(c("figs", "outputs"),
+#        function(x) if(!dir.exists(x))
+#          dir.create(x, recursive = TRUE))
+
 
 
 ## -------- Read Data--------------
-# Por ahora no tengo Effort ni LPUE standar
-
-# bac <- read_excel(here("data",
-#                            "inputdata_spict_fu30_2025_Rev.xlsx")) %>%
-#   mutate(
-#     Effort = if_else(is.na(catch), NA_real_, 1),
-#     LPUE_std = catch / Effort
-#   )
 # Data actualizada
 bac <- read_csv(here("data",
                      "inputdata_FU30_wkbmsyspict.csv")) %>%
@@ -314,8 +307,7 @@ I_LPUE_std <- data.frame(
   timeI = bac$year
 )
 
-
-
+# Indices time range
 
 ind  <- which(C_nep$timeC == 1987)
 ind2 <- which(C_nep$timeC == 2025)
@@ -498,9 +490,9 @@ inp9 <- list(
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunep_abun$timeI[ind:ind2],
-    I_arsa_rendi_std_kgh$timeI[7:26],
-    I_LPUE_std$timeI[23:38]
+    I_isunep_abun$timeI[ind:ind2],      # Índice 1
+    I_arsa_rendi_std_kgh$timeI[7:26],   # Índice 2 (ARSA)
+    I_LPUE_std$timeI[23:38]            # Índice 3
   ),
 
   obsI = list(
@@ -509,6 +501,21 @@ inp9 <- list(
     I_LPUE_std$obsI[23:38]
   )
 )
+
+# 1. Inicializar stdevfacI con 1s para todos los índices
+inp9$stdevfacI <- list(
+  rep(1, length(inp9$obsI[[1]])),
+  rep(1, length(inp9$obsI[[2]])),
+  rep(1, length(inp9$obsI[[3]]))
+)
+
+# 2. Aplicar incertidumbre extra a ARSA (Índice 2)
+# Buscamos la posición de los años 2020 y 2024 dentro del vector de tiempo de ARSA
+años_con_incertidumbre <- c(2020, 2024)
+idx_arsa <- which(inp9$timeI[[2]] %in% años_con_incertidumbre)
+
+# Asignamos un factor (ejemplo: 10 para indicar que el dato es casi irrelevante)
+inp9$stdevfacI[[2]][idx_arsa] <- 10
 
 
 
@@ -548,10 +555,9 @@ sapply(inp_list_checked, function(x) {
 list.possible.priors()
 
 
-# --------------------------------------------------
+##
 # old Prior configurations set
-# --------------------------------------------------
-
+##
 
 priors_run1 <- list(
   name = "RUN1_default",
@@ -582,10 +588,9 @@ priors_run4 <- list(
   )
 )
 
-# --------------------------------------------------
+#
 # New Prior configurations set
-# --------------------------------------------------
-
+#
 # RUN5 — Default SPiCT priors
 priors_run5 <- list(
   name   = "RUN5_default",
@@ -617,7 +622,6 @@ priors_run7 <- list(
     logdf = c(log(0.1), 0.2, 1)
   )
 )
-
 
 # RUN8 — Alpha and beta stabilising priors disabled
 priors_run8 <- list(
@@ -902,9 +906,9 @@ for (sc in scenarios) {
     out_dir <- file.path("outputs/results", sc, rn)
     dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-    # =========================
+    #
     # Tables SPiCT parameters
-    # =========================
+    #
 
     # Summary of estimates
     write.csv(
@@ -1669,7 +1673,8 @@ get_Bmsy_prodcurve <- function(fit) {
   }
   NA_real_
 }
-
+# Sensitivity
+# B/BMSY ..
 
 
 # Create summary table
@@ -1739,8 +1744,8 @@ inp_sc2$priors$logbkfrac <- c(log(0.5), 0.2, 1)
 inp_sc2$priors$logn <- c(log(2),   0.5, 1)
 inp_sc2$priors$logr <- c(log(0.2), 0.2, 1)
 inp_sc2$priors$logsdi = list(
-      c(log(0.1), 0.1, 1),            # no prior for index 1
-      c(log(0.1), 0.2, 1),
+      c(log(0.1), 0.1, 1),            # prior for index 1 (CV ≈ 0.1)
+      c(log(0.1), 0.2, 1),            # prior for index 2 (CV ≈ 0.2)
       c(log(0.1), 0.2, 1) # prior for index 2 (CV ≈ 0.2)
     )
 

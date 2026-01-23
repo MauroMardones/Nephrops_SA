@@ -1,9 +1,9 @@
 # **Nephrops Stock Assessment and Exploratory Data Analysis (ICES Division 9A)**
 
-This repository contains the full workflow, data structures, and analytical tools used for the exploratory data analysis (EDA) and stock assessment of *Nephrops norvegicus* in ICES Division 9A.
-The project integrates fishery-dependent and fishery-independent information, implements standardized data cleaning and processing routines, and provides reproducible scripts for visualization, spatial analysis, and model evaluation.
+This repository contains the full analytical workflow, data structures, and documentation used for the exploratory data analysis (EDA) and stock assessment of *Nephrops norvegicus* in ICES Division 9A (Functional Unit 30).
+The project integrates fishery-dependent and fishery-independent data sources, applies standardized data processing and modelling procedures, and provides fully reproducible scripts for visualization, indicator development, and assessment model exploration.
 
-The structure and methods are designed to ensure transparency, reproducibility, and alignment with modern assessment frameworks used in ICES working groups.
+The repository is designed to support transparency, traceability, and reproducibility, in line with current practices within ICES working groups and benchmark processes.
 
 ---
 
@@ -11,77 +11,106 @@ The structure and methods are designed to ensure transparency, reproducibility, 
 
 ```
 .
-├── code/        # R scripts for data processing, EDA, spatial analysis, indicator calculation, and assessment models
-├── data/        # Raw and processed datasets (survey indices, landings, VMS, biological data)
-├── figs/        # All generated figures (diagnostics, maps, time series, model outputs)
-└── bib/         # Bibliography files (.bib) and citation styles for documentation and reports
+├── bib/        # Bibliographic databases (.bib) and citation styles used in reports
+├── code/       # R scripts for data processing, EDA, modelling, diagnostics, and figures
+├── data/       # Raw and processed datasets (surveys, landings, effort, biological data)
+├── docs/       # Reports, R Markdown / Word / PDF documents, and supporting material
+├── figs/       # All generated figures (time series, diagnostics, maps, HCRs)
+├── outputs/    # Model outputs, tables,  manage outputs forecasts, and scenario-based results
+├── README.md   # Project overview and documentation
+└── Nephrops_SA.Rproj
 ```
 
 ---
 
 ## **Objectives**
 
-This repository supports three primary objectives:
+This repository supports the following main objectives:
 
-1. **Exploratory Data Analysis (EDA)**
+### **1. Exploratory Data Analysis (EDA)**
 
-   * Examine long-term trends in fishery-dependent and fishery-independent indices.
-   * Evaluate spatial and temporal patterns in abundance, catch, and effort.
-   * Identify data quality issues prior to assessment.
+* Examine long-term trends in fishery-dependent and fishery-independent indices.
+* Explore spatial and temporal patterns in abundance, catch, and fishing effort.
+* Identify inconsistencies, gaps, and data quality issues prior to modelling.
 
 
-2. **Stock Assessment Framework**
+### **2. Stock Assessment and Model Exploration**
 
-   * Prepare input files for assessment models (e.g., SS3, Bayesian or state-space models).
-   * Evaluate model diagnostics and uncertainty.
-   * Support decision-making through biologically meaningful indicators and visualizations.
+* Prepare and evaluate SPiCT-based assessment scenarios.
+* Explore alternative data configurations and prior assumptions.
+* Assess uncertainty, diagnostics, and management-related outputs (HCRs, forecasts).
 
 ---
 
-## **Contents**
+## **Repository Contents**
 
-### **1. `code/`**
+### **`code/`**
 
-Contains R scripts for:
+R scripts covering:
 
-* Data import and cleaning, Scripts are written using the **tidyverse**, **sf**, **geosphere**, **marmap**, and related scientific libraries.
-* Handling survey time series (ARSA, ISUNEPCA, and model-based estimates)
-* Normalization and variance propagation
-* Spatial analysis (VMS/grid-based maps)
-* Visualization of trends, uncertainty ribbons, and model outputs
-* Assessment preparation and diagnostics in `SA_Neprhops_2025.Rmd` code
+* Data import, cleaning, and harmonisation (using **tidyverse**, **sf**, **geosphere**, etc.).
+* Processing of survey time series (ARSA, ISUNEPCA UWTV).
+* CPUE standardisation workflows.
+* Index normalization and uncertainty propagation.
+* SPiCT model fitting, scenario definition, and diagnostics.
+* Generation of figures and tables for reports.
 
+Key assessment documents are produced from R Markdown files (e.g. `SA_Nephrops_2025.Rmd`).
 
+---
 
-### **2. `data/`**
+### **`data/`**
 
 Includes:
 
-* Raw survey indices (ARSA, ISUNEPCA, model-based estimates)
-* Fishery-dependent data (landings, effort, size structure) (*not yet*)
-* Intermediate processed datasets
+* Raw survey indices (ARSA trawl surveys, ISUNEPCA UWTV).
+* Fishery-dependent datasets (landings, effort, size structure).
+* Intermediate and processed datasets generated programmatically.
 
-Raw data remain unmodified; derived datasets are created programmatically.
+Raw data remain unmodified; all derived datasets are generated through scripted workflows.
 
-### **3. `figs/`**
+---
 
-Stores output figures generated by the scripts:
+### **`cpue/`**
 
-* Time-series trends
-* Standardized/normalized indices
-* Uncertainty ribbons
-* Spatial distribution of effort and catch
-* Stock assessment model diagnostics
+Contains:
 
-Figures are organized logically for reporting and publications.
+* Input data for CPUE calculations.
+* Standardisation scripts and model outputs.
+* Intermediate and final CPUE indices used in assessment scenarios.
 
-### **4. `bib/`**
+---
 
-Bibliographic files for:
+### **`figs/`**
 
-* Scientific references cited in reports and supplementary materials
-* Citation styles (e.g., APA CSL) for reproducible documentation in R Markdown or bookdown
-* cover format (`.sty`)
+Stores all figures generated by the analysis:
+
+* Time-series trends of landings, indices, and effort.
+* Standardised and normalised abundance indices.
+* Diagnostic plots and uncertainty visualisations.
+* Spatial maps and management-related plots (e.g. HCRs).
+
+Figures are organised to facilitate direct inclusion in reports and publications.
+
+---
+
+### **`outputs/`**
+
+Includes:
+
+* Model outputs by scenario and run.
+* Tables of parameter estimates, reference points, states, and forecasts.
+* CSV files and intermediate results used for reporting and review.
+
+---
+
+### **`bib/`**
+
+Bibliographic resources for:
+
+* Scientific references cited in reports and supporting documents.
+* Citation styles (CSL) for reproducible reporting in R Markdown.
+* LaTeX style files used in PDF outputs.
 
 ---
 
@@ -92,20 +121,21 @@ Bibliographic files for:
    ```bash
    git clone https://github.com/MauroMardones/Nephrops_SA
    ```
-2. Open the project in RStudio or your preferred R environment.
-3. Run scripts in `code/` in the recommended order (see documentation inside each script).
-4. Generated outputs will appear automatically in `figs/` and processed data will be stored in appropriate subfolders.
+
+2. Open the project (`Nephrops_SA.Rproj`) in RStudio.
+
+3. Run scripts in `code/` following the order described within each script.
+
+4. Outputs (figures, tables, model results) will be written automatically to `figs/` and `outputs/`.
 
 ---
 
 ## **Contact**
 
-For questions, contributions, or collaborations:
+For questions, contributions, or collaboration:
 
 **Mauricio Mardones**
 Fisheries Researcher – Marine Population Dynamics
-IEO, Cádiz, Spain & Chile
+IEO (Spain) / Chile
+Mail:  [mauricio.mardones@csic.ieo.es](mauricio.mardones@csic.ieo.es)
 GitHub: [https://github.com/MauroMardones](https://github.com/MauroMardones)
-
----
-
