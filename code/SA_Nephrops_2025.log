@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  12 JAN 2026 14:31
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  22 JAN 2026 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -567,6 +567,9 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 140.
 LaTeX Warning: Label `tab:inputdata' multiply defined.
 
 
+LaTeX Warning: Label `tab:spictpriors' multiply defined.
+
+
 LaTeX Warning: Label `tab:newscenario' multiply defined.
 
 
@@ -984,6 +987,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [4]
 
+LaTeX Warning: Citation `ref-ref' on page 5 undefined on input line 238.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
@@ -991,9 +997,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [5]
-Underfull \hbox (badness 1418) in paragraph at lines 260--261
-\TU/lmr/m/n/12 APA/2883/2006, APA/2801/2007, ARM/2515/2009, ARM/58/2010, ARM/2457/2010,
- []
+
+LaTeX Warning: Reference `fig:landindex' on page 6 undefined on input line 250.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1003,9 +1008,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [6]
-
-LaTeX Warning: Citation `ref-ref' on page 7 undefined on input line 270.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1021,10 +1023,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[8]
+[8
 
-LaTeX Warning: Reference `fig:landindex' on page 9 undefined on input line 288.
-
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1040,95 +1041,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[10]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[11
+[10
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 436--436
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 437--437
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 438--438
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 439--439
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 440--440
-[]|\TU/lmr/m/n/8 Catches; ISUNEPCA UWTV
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[13
-
-]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[14]
-Underfull \hbox (badness 2245) in paragraph at lines 468--469
-[]|\TU/lmr/m/n/8 Scenario integrating total landings with normal-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 470--470
-\TU/lmr/m/n/8 dance (normalized); Standardised
- []
-
-
-Underfull \hbox (badness 2245) in paragraph at lines 470--471
-[]|\TU/lmr/m/n/8 Scenario integrating total landings with normal-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 471--471
-[]|\TU/lmr/m/n/8 CATCHES; ISUNEPCA UWTV
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[15]
-Underfull \hbox (badness 2512) in paragraph at lines 494--494
+Underfull \hbox (badness 2512) in paragraph at lines 445--445
 []|\TU/lmr/m/n/8 Default (package de-
  []
 
@@ -1139,7 +1055,116 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
+[11]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[12]
+
+LaTeX Warning: Citation `ref-ref' on page 13 undefined on input line 456.
+
+
+Overfull \hbox (5.03629pt too wide) in alignment at lines 464--469
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (5.03629pt too wide) in alignment at lines 469--474
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (5.03629pt too wide) in alignment at lines 474--476
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (5.03629pt too wide) in alignment at lines 476--478
+ [] [] [] [] 
+ []
+
+
+Overfull \vbox (12.41pt too high) detected at line 489
+ []
+
+
+Overfull \vbox (12.41002pt too high) detected at line 497
+ []
+
+
+Overfull \vbox (12.41pt too high) detected at line 503
+ []
+
+
+Overfull \vbox (12.41002pt too high) detected at line 511
+ []
+
+
+Overfull \hbox (5.03629pt too wide) in alignment at lines 478--512
+ [] [] [] [] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[13]
+Missing character: There is no α (U+03B1) in font [lmroman12-bold]:mapping=tex-text;!
+Missing character: There is no β (U+03B2) in font [lmroman12-bold]:mapping=tex-text;!
+Missing character: There is no α (U+03B1) in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no β (U+03B2) in font [lmroman12-regular]:mapping=tex-text;!
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[14]
+Underfull \hbox (badness 6893) in paragraph at lines 540--541
+[]|\TU/lmr/m/n/8 Baseline configuration using the default
+ []
+
+
+Underfull \hbox (badness 1552) in paragraph at lines 541--541
+[]|\TU/lmr/m/n/8 logbkfrac prior disabled; remaining
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
 [16]
+
+LaTeX Warning: Reference `figBiomassSC0' on page 17 undefined on input line 585.
+
+
+LaTeX Warning: Reference `figBiomassSC5' on page 17 undefined on input line 585.
+
+
+LaTeX Warning: Reference `figFishingMortalitySC0' on page 17 undefined on input line 586.
+
+
+LaTeX Warning: Reference `figFishingMortalitySC5' on page 17 undefined on input line 586.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1157,18 +1182,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [18]
 
-LaTeX Warning: Reference `figBiomassSC0' on page 19 undefined on input line 539.
-
-
-LaTeX Warning: Reference `figBiomassSC5' on page 19 undefined on input line 539.
-
-
-LaTeX Warning: Reference `figFishingMortalitySC0' on page 19 undefined on input line 540.
-
-
-LaTeX Warning: Reference `figFishingMortalitySC5' on page 19 undefined on input line 540.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
 (fancyhdr)                \setlength{\headheight}{34.65004pt}.
@@ -1184,56 +1197,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [20]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[21]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[22]
 File: ../figs/studyarea.png Graphic file (type bmp)
 <../figs/studyarea.png>
 File: ../figs/landings_nephrops_FU30.png Graphic file (type bmp)
 <../figs/landings_nephrops_FU30.png>
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[23]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[24]
 File: ../figs/indices_nephrops_FU30_all.png Graphic file (type bmp)
 <../figs/indices_nephrops_FU30_all.png>
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+LaTeX Warning: Float too large for page by 188.08144pt on input line 668.
 
-[25]
 File: ../figs/correlation_pearson_nephrops_FU30.png Graphic file (type bmp)
 <../figs/correlation_pearson_nephrops_FU30.png>
 File: SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf Graphic file (type pdf)
 <use SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf>
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.0pt on input line 727.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 727.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.00073pt on input line 727.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 727.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.99915pt on input line 727.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 727.
 File: ../figs/SPiCT_BRP_scenario_RUN_comparison.png Graphic file (type bmp)
 <../figs/SPiCT_BRP_scenario_RUN_comparison.png>
 File: ../figs/hindcast/hindcast_SC0_RUN4.png Graphic file (type bmp)
@@ -1297,22 +1285,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[26
-
-
-]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 981.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 981.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 981.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 981.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 981.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 981.
+[21]
 File: ../figs/Biomass_SC0.png Graphic file (type bmp)
 <../figs/Biomass_SC0.png>
 File: ../figs/Biomass_SC1.png Graphic file (type bmp)
@@ -1337,6 +1310,46 @@ File: ../figs/FishingMortality_SC4.png Graphic file (type bmp)
 <../figs/FishingMortality_SC4.png>
 File: ../figs/FishingMortality_SC5.png Graphic file (type bmp)
 <../figs/FishingMortality_SC5.png>
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[22]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[23]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[24]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[25]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[26]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1688,31 +1701,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[70]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[71]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[72]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[73
+[70
 
 ]
 
@@ -1722,21 +1711,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[74
+[71
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 1414--1415
-\TU/lmr/m/n/12 from [][]$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][] [] [][] [] [][] [] [][][][][] [] [][][][][][][][][][] [] [][] [] [] [] [][][][][][][][][] [] [][][] [] [][][][][][][][] []
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[75] (./SA_Nephrops_2025.aux)
+] (./SA_Nephrops_2025.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1745,12 +1722,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 23336 strings out of 478761
- 448809 string characters out of 5848546
- 1964991 words of memory out of 5000000
- 42955 multiletter control sequences out of 15000+600000
+ 23325 strings out of 478761
+ 448594 string characters out of 5848546
+ 1966991 words of memory out of 5000000
+ 42944 multiletter control sequences out of 15000+600000
  520773 words of font info for 99 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,13n,121p,2170b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,13n,121p,1608b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on SA_Nephrops_2025.pdf (76 pages).
+Output written on SA_Nephrops_2025.pdf (72 pages).

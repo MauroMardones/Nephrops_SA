@@ -43,9 +43,9 @@ library(pheatmap)
 # definir un directorio para guardar plott "figs"
 
 fig.path <- here("figs")
-if (!dir.exists(fig.path)) {
-  dir.create(fig.path)
-}
+# if (!dir.exists(fig.path)) {
+#   dir.create(fig.path)
+# }
 
 
 ## -------- Read Data--------------
@@ -64,7 +64,10 @@ bac <- read_csv(here("data",
     Effort = Total_Effort,
     LPUE_std = catch / Effort
   )
+# mean
 
+# bac_means <- bac %>%
+#   summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
 
 
 ## -------------Plot Catch Index-------------------------------------------
@@ -96,21 +99,35 @@ p_catch <- ggplot(
   ) +
   labs(y = "Landings (tons)",
        x = "", title = "Landings Nephrops time series")
-plot_index <- function(var_name, ylab){ # no indexar
-  ggplot(filter(bac_long, variable == var_name),
-         aes(x = year, y = value)) +
+plot_index <- function(var_name, panel_title){
+  ggplot(
+    filter(bac_long, variable == var_name),
+    aes(x = year, y = value)
+  ) +
     geom_point(color = "darkred", size = 2) +
-    geom_smooth(color = "darkred",
-                se = TRUE,
-                method = "loess",
-                formula = y ~ x,
-                linewidth = 0.8) +
+    geom_smooth(
+      color = "darkred",
+      se = TRUE,
+      method = "loess",
+      formula = y ~ x,
+      linewidth = 0.8
+    ) +
     theme_bw() +
     theme(
-      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)
+      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+      plot.title = element_text(
+        size = 11,
+        face = "bold",
+        hjust = 0.5
+      )
     ) +
-    labs(y = ylab, x = "", title = var_name)
+    labs(
+      x = "",
+      y = "",
+      title = panel_title
+    )
 }
+
 
 #Índices ARSA (completos)
 p1 <- plot_index("arsabio", "ARSA biomass index")
@@ -121,17 +138,16 @@ p5 <- plot_index("arsa_std_nor", "ARSA standardized index (normalized)")
 p6 <- plot_index("arsa_CV_std_nor", "ARSA CV (standardized)")
 
 # Índices ISUNEPCA (UWTV)
-p7  <- plot_index("isunepbio", "ISUNEPCA UWTV biomass index")
-p8  <- plot_index("isunepbio_nor", "ISUNEPCA biomass (normalized)")
-p9  <- plot_index("isunepabun", "ISUNEPCA UWTV abundance index")
-p10 <- plot_index("CV_isunep_nor", "ISUNEPCA CV (normalized)")
+p7  <- plot_index("isunep_bio1", "ISUNEPCA UWTV biomass index")
+p8  <- plot_index("isunep_bio1_nor", "ISUNEPCA biomass (normalized)")
+p9  <- plot_index("isunep_abun", "ISUNEPCA UWTV abundance index")
+p10 <- plot_index("CV_isunep_abun", "ISUNEPCA CV")
 
 # Índices dependientes de la pesquería
 p11 <- plot_index("LPUE_10%nep", "Commercial LPUE (≥10% Nephrops)")
-p12 <- plot_index("LPUE_std", "Standardized LPUE")
+p12 <- plot_index("LPUE_std", "Standardized LPUE") # Modificar
 p13 <- plot_index("Effort_10%nep", "Directed fishing effort (≥10% Nephrops)")
-p14 <- plot_index("Effort", "Fishing effort")
-p15 <- plot_index("Total_Effort", "Total fishing effort")
+p14 <- plot_index("Total_Effort", "Total fishing effort")
 
 # combinar y guuardar en "figs"
 fig_indices <- ggarrange(
@@ -139,18 +155,17 @@ fig_indices <- ggarrange(
   p4,  p5,  p6,
   p7,  p8,  p9,
   p10, p11, p12,
-  p13, p14, p15,
-  ncol = 5,
-  nrow = 3,
-  labels = "AUTO",
+  p13, p14,
+  ncol = 3,
+  nrow = 5,
   font.label = list(size = 10)
 )
 
 ggsave(
   filename = file.path(fig.path, "indices_nephrops_FU30_all.png"),
   plot = fig_indices,
-  width = 41,
-  height = 25,
+  width = 25,
+  height = 41,
   units = "cm",
   dpi = 300
 )
@@ -237,42 +252,42 @@ I_arsa_rendi_std_grh <- data.frame(
 # ARSA productivity – standardized (Kgh scale)
 I_arsa_rendi_std_kgh <- data.frame(
   obsI  = bac$arsarendistand_Kgh,
-  timeI = bac$year + 0.25
+  timeI = bac$year + 0.75
 )
 
 # ARSA standardized normalized index
 I_arsa_std_nor <- data.frame(
   obsI  = bac$arsa_std_nor,
-  timeI = bac$year + 0.25
+  timeI = bac$year + 0.75
 )
 
 # ARSA CV standardized normalized
 I_arsa_cv_std_nor <- data.frame(
   obsI  = bac$arsa_CV_std_nor,
-  timeI = bac$year + 0.25
+  timeI = bac$year + 0.75
 )
 
 # UWTV biomass index
 I_isunep_bio <- data.frame(
-  obsI  = bac$isunepbio,
+  obsI  = bac$isunep_bio1,
   timeI = bac$year + 0.5
 )
 
-# UWTV biomass normalized
+# UWTV biomass
 I_isunep_bio_nor <- data.frame(
-  obsI  = bac$isunepbio_nor,
+  obsI  = bac$isunep_bio1_nor,
   timeI = bac$year + 0.5
 )
 
 # UWTV abundance index
 I_isunep_abun <- data.frame(
-  obsI  = bac$isunepabun,
+  obsI  = bac$isunep_abun,
   timeI = bac$year + 0.5
 )
 
 # UWTV CV normalized
 I_isunep_cv_nor <- data.frame(
-  obsI  = bac$CV_isunep_nor,
+  obsI  = bac$CV_isunep_abun,
   timeI = bac$year + 0.5
 )
 # LPUE (10% Nephrops fleet)
@@ -290,12 +305,6 @@ I_Effort_10nep <- data.frame(
 # Total effort # work in progress
 I_Total_Effort <- data.frame(
   obsI  = bac$Total_Effort,
-  timeI = bac$year
-)
-
-# Effort (final series used in SPiCT) # work in progress
-I_Effort <- data.frame(
-  obsI  = bac$Effort,
   timeI = bac$year
 )
 
@@ -322,11 +331,11 @@ inp0 <- list(
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunepabun$timeI[ind:ind2]
+    I_isunep_abun$timeI[ind:ind2]
   ),
 
   obsI = list(
-    I_isunepabun$obsI[ind:ind2]
+    I_isunep_abun$obsI[ind:ind2]
   )
 )
 
@@ -400,62 +409,29 @@ inp4 <- list(
   )
 )
 
-# Scenario 5 — Catches; ISUNEPCA UWTV biomass (normalized); ARSA biomass (normalized)
+# new scenarios
+# Scenario 5 — Scenario combining total landings with ISUNEPCA UWTV abundance and normalized ARSA
+#yield indices to assess consistency between fishery-independent indices.
 
 inp5 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_arsa_std_nor$timeI[ind:ind2],
-    I_isunep_bio_nor$timeI[ind:ind2]
+    I_isunep_abun$timeI[ind:ind2],
+    I_arsa_rendi_std_kgh$timeI[ind:ind2]
     ),
 
   obsI = list(
-    I_arsa_std_nor$obsI[ind:ind2],
-    I_isunep_bio_nor$obsI[ind:ind2]
+    I_isunep_abun$obsI[ind:ind2],
+    I_arsa_rendi_std_kgh$obsI[ind:ind2]
    )
 )
 
-# Scenario 6-- Landings + ISUNEPCA UWTV biomass (normalized); Standardised LPUE
+# Scenario 6-- Scenario integrating total landings with  ISUNEPCA UWTV abundance and
+#a standardized LPUE index, combining fishery-independent and fishery-dependent information.
 
 inp6 <- list(
-  timeC = C_nep$timeC[ind:ind2],
-  obsC  = C_nep$obsC[ind:ind2],
-
-  timeI = list(
-    I_isunep_bio_nor$timeI[ind:ind2],
-    I_LPUE_std$timeI[ind:ind2]
-  ),
-
-  obsI = list(
-    I_isunep_bio_nor$obsI[ind:ind2],
-    I_LPUE_std$obsI[ind:ind2]
-  )
-)
-
-# Scenario 7-- Landings + normalized ISUNEPCA biomass + standardized LPUE
-
-inp7 <- list(
-  timeC = C_nep$timeC[ind:ind2],
-  obsC  = C_nep$obsC[ind:ind2],
-
-  timeI = list(
-    I_isunep_bio_nor$timeI[ind:ind2],
-    I_arsa_std_nor$timeI[ind:ind2],
-    I_LPUE_std$timeI[ind:ind2]
-  ),
-
-  obsI = list(
-    I_isunep_bio_nor$obsI[ind:ind2],
-    I_arsa_std_nor$obsI[ind:ind2],
-    I_LPUE_std$obsI[ind:ind2]
-  )
-)
-
-#Scenario 8 -- Landings + normalized ISUNEPCA biomass + normalized ARSA + standardized LPUE
-
-inp8 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
@@ -470,23 +446,66 @@ inp8 <- list(
   )
 )
 
-#Scenario 9 -- Scenario combines total landings with the ISUNEPCA UWTV biomass index (2015–2025),
+# Scenario 7-- Most information-rich configuration,
+#combining total landings with ISUNEPCA UWTV abundance,
+#normalized ARSA yield, and standardized LPUE indices
+
+inp7 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_abun$timeI[ind:ind2],
+    I_arsa_rendi_std_kgh$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunep_abun$obsI[ind:ind2],
+    I_arsa_rendi_std_kgh$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
+  )
+)
+
+#Scenario 8 -- Scenario integrating total landings with
+#normalized ISUNEPCA UWTV biomasss and a standardized LPUE index,
+#combining fishery-independent and fishery-dependent information.
+
+inp8 <- list(
+  timeC = C_nep$timeC[ind:ind2],
+  obsC  = C_nep$obsC[ind:ind2],
+
+  timeI = list(
+    I_isunep_bio$timeI[ind:ind2],
+    I_LPUE_std$timeI[ind:ind2]
+  ),
+
+  obsI = list(
+    I_isunep_bio$obsI[ind:ind2],
+    I_LPUE_std$obsI[ind:ind2]
+  )
+)
+
+#Scenario 9 -- Scenario combines total landings with the ISUNEPCA UWTV abundance (2015–2025),
 #ARSA biomass survey (1993–2012),
 #and the standardised commercial LPUE (2009–2024).
+# Scenario combines total landings with the ISUNEPCA UWTV biomass index,
+# ARSA yield, and the standardised commercial LPUE, integrating long-term
+# and recent information while ensuring consistency among data sources
 
 inp9 <- list(
   timeC = C_nep$timeC[ind:ind2],
   obsC  = C_nep$obsC[ind:ind2],
 
   timeI = list(
-    I_isunep_bio_nor$timeI[ind:ind2],
-    I_arsa_std_nor$timeI[7:26],
+    I_isunep_abun$timeI[ind:ind2],
+    I_arsa_rendi_std_kgh$timeI[7:26],
     I_LPUE_std$timeI[23:38]
   ),
 
   obsI = list(
-    I_isunep_bio_nor$obsI[ind:ind2],
-    I_arsa_std_nor$obsI[7:26],
+    I_isunep_abun$obsI[ind:ind2],
+    I_arsa_rendi_std_kgh$obsI[7:26],
     I_LPUE_std$obsI[23:38]
   )
 )
@@ -528,6 +547,12 @@ sapply(inp_list_checked, function(x) {
 # Priors list
 list.possible.priors()
 
+
+# --------------------------------------------------
+# old Prior configurations set
+# --------------------------------------------------
+
+
 priors_run1 <- list(
   name = "RUN1_default",
   priors = NULL
@@ -557,6 +582,59 @@ priors_run4 <- list(
   )
 )
 
+# --------------------------------------------------
+# New Prior configurations set
+# --------------------------------------------------
+
+# RUN5 — Default SPiCT priors
+priors_run5 <- list(
+  name   = "RUN5_default",
+  priors = NULL
+)
+
+# RUN6 — No prior on logbkfrac (n kept at Schaefer-type default)
+priors_run6 <- list(
+  name = "RUN6_no_logbkfrac_logn",
+  priors = list(
+      logn  = c(log(2), 0.5, 1),   # prior on n only (Schaefer-type)
+      logr  = c(log(0.5), 0.2, 1),
+      logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
+      logsdc = c(log(3), 0.5, 1), # prior decrease catch sd
+      logdf = c(log(0.1), 0.2, 1) # Decresase f error sd
+  )
+)
+
+# RUN7 — Prior on index observation uncertainty (CV ≈ 0.2)
+priors_run7 <- list(
+  name = "RUN7_index_cv",
+  priors = list(
+    # logbkfrac = c(log(0.5), 0.2, 1),
+    logsdi = c(log(0.1), 0.2, 1),
+    logn      = c(log(2),   0.5, 1),
+    logr      = c(log(0.5), 0.2, 1),
+    logsdb = c(log(0.2), 0.5),
+    logsdc = c(log(3), 0.5, 1),
+    logdf = c(log(0.1), 0.2, 1)
+  )
+)
+
+
+# RUN8 — Alpha and beta stabilising priors disabled
+priors_run8 <- list(
+  name = "RUN8_no_alpha_beta",
+  priors = list(
+    logbkfrac = c(log(0.5), 0.2, 1),
+    logalpha = c(1, 1, 0), # disable
+    logbeta  = c(1, 1, 0), # disable , to activate, change to (0,0,0)
+    logn      = c(log(2),   0.5, 1),
+    logr      = c(log(0.5), 0.2, 1),
+    logsdb = c(log(0.2), 0.5),
+    logsdc = c(log(3), 0.5, 1),
+    logdf = c(log(0.1), 0.2, 1)
+  )
+)
+
+# Collect runs
 # Grouped Scenarios and Priors
 # here we define wich combinations of scenarios and priors we want to run
 
@@ -573,10 +651,14 @@ scenarios_data <- list(
   SC9 = inp9
 )
 scenarios_priors <- list(
-  RUN1 = priors_run1,
-  RUN2 = priors_run2,
-  RUN3 = priors_run3,
-  RUN4 = priors_run4
+  # RUN1 = priors_run1,
+  # RUN2 = priors_run2,
+  # RUN3 = priors_run3,
+  # RUN4 = priors_run4,
+  RUN5 = priors_run5,
+  RUN6 = priors_run6,
+  RUN7 = priors_run7,
+  RUN8 = priors_run8
 )
 
 ###
@@ -642,14 +724,43 @@ for (sc_name in names(scenarios_data)) {
 names(results_by_scenario)
 
 # individual Scenario
-names(results_by_scenario$SC1)
+names(results_by_scenario$SC5)
 
 # Individual Scenario and run (e.i.)
-results_by_scenario$SC5$RUN4
+# SC5
+results_by_scenario$SC5$RUN5
+results_by_scenario$SC5$RUN6
+results_by_scenario$SC5$RUN7
+results_by_scenario$SC5$RUN8
+
+# SC6
+results_by_scenario$SC6$RUN5
+results_by_scenario$SC6$RUN6
+results_by_scenario$SC6$RUN7
+results_by_scenario$SC6$RUN8
+
+# SC7
+results_by_scenario$SC7$RUN5
+results_by_scenario$SC7$RUN6
+results_by_scenario$SC7$RUN7
+results_by_scenario$SC7$RUN8
+
+# SC8
+results_by_scenario$SC8$RUN5
+results_by_scenario$SC8$RUN6
+results_by_scenario$SC8$RUN7
+results_by_scenario$SC8$RUN8
+
+# SC9
+results_by_scenario$SC9$RUN5
+results_by_scenario$SC9$RUN6
+results_by_scenario$SC9$RUN7
+results_by_scenario$SC9$RUN8
+
 
 # genera  un .rsd por escenario
 
-saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
+#saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
 
 
 ### POSIBLE CORTE DE CODE ####
@@ -682,7 +793,7 @@ run_osa_diagnostics <- function(spict_obj,
   )
 
   # Guardar plot
-  png(filename = fname, width = 2000, height = 1600, res = 300)
+  png(filename = fname, width = 2400, height = 1800, res = 300)
   plotspict.diagnostic(res_osa, qlegend = FALSE)
   dev.off()
 
@@ -715,13 +826,13 @@ for (sc in names(results_by_scenario)) {
 
 
 # leer outputs por escenaruio
-# osa_results$SC1$RUN1
+osa_results$SC6$RUN5
 
 ## Save al outputs
-saveRDS(
-  osa_results,
-  file = "outputs/SPiCT_OSA_results_by_scenario.rds"
-)
+# saveRDS(
+#   osa_results,
+#   file = "outputs/SPiCT_OSA_results_by_scenario.rds"
+# )
 
 
 ## -------------------Plot initaial default----------------------------------------------
@@ -771,6 +882,56 @@ for (sc in names(results_by_scenario)) {
     )
   }
 }
+
+##-----------------------------Results Tables ------------------------------
+
+# Create base results folder
+dir.create("outputs/results", showWarnings = FALSE)
+
+scenarios <- paste0("SC", 5:9)
+runs <- paste0("RUN", 5:8)
+
+for (sc in scenarios) {
+  for (rn in runs) {
+
+    message("Processing ", sc, " / ", rn)
+
+    res <- results_by_scenario[[sc]][[rn]]
+
+    # Create folder results/SCx/RUNy
+    out_dir <- file.path("outputs/results", sc, rn)
+    dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+    # =========================
+    # Tables SPiCT parameters
+    # =========================
+
+    # Summary of estimates
+    write.csv(
+      round(sumspict.parest(res), 2),
+      file = file.path(out_dir, "SummaryEstimates.csv")
+    )
+
+    # Reference points (stochastic)
+    write.csv(
+      round(sumspict.srefpoints(res), 2),
+      file = file.path(out_dir, "RefPoints.csv")
+    )
+
+    # States
+    write.csv(
+      round(sumspict.states(res), 2),
+      file = file.path(out_dir, "States.csv")
+    )
+
+    # Predictions
+    write.csv(
+      round(sumspict.predictions(res), 2),
+      file = file.path(out_dir, "Predictions.csv")
+    )
+  }
+}
+
 
 ## ---------------------------Retros----------------------------------------
 ##
@@ -918,7 +1079,7 @@ mohn_table
 # guaerda la tabla en outputs/retro
 write.csv(
   mohn_table,
-  file = "outputs/retro/mohns_rho_by_scenario.csv",
+  file = "outputs/retro/mohns_rho_by_scenario_5_8.csv",
   row.names = FALSE
 )
 
@@ -949,7 +1110,7 @@ for (sc in names(results_by_scenario)) {
         Run = run,
         AIC = aic_val
       ) %>%
-        arrange(Scenario, AIC)
+        arrange(AIC)
     )
   }
 }
@@ -958,7 +1119,7 @@ aic_table
 
 write.csv(
   aic_table,
-  file = "outputs/AIC_by_scenario_run.csv",
+  file = "outputs/AIC_by_scenario_run_5_8.csv",
   row.names = FALSE
 )
 
@@ -1080,8 +1241,8 @@ for (sc in unique(kobebro_table$Scenario)) {
 
 ##  ----Hindcast MASE calculation ----
 
-sc0r1h <- hindcast(results_by_scenario$SC1$RUN4)
-plotspict.hindcast(sc0r1h)
+# sc0r1h <- hindcast(results_by_scenario$SC5$RUN8)
+# plotspict.hindcast(sc0r1h)
 
 dir.create("figs/hindcast", recursive = TRUE, showWarnings = FALSE)
 
@@ -1111,8 +1272,6 @@ for (sc in names(results_by_scenario)) {
     dev.off()
   }
 }
-
-
 
 
 ## -------------- Comparision plots -----------
@@ -1316,7 +1475,7 @@ p <- ggplot(srp_long,
 p
 
 ggsave(
-  filename = "figs/SPiCT_BRP_scenario_RUN_comparison.png",
+  filename = "figs/SPiCT_BRP_scenario_5_8_RUN_comparison.png",
   plot = p,
   width = 10,
   height = 4,
@@ -1343,93 +1502,109 @@ ggsave(
 # # example plot
 # plotspict.hcr(fit)
 
-out <- list()
+# ---- Apply HCRs and save results by scenario ----
 
-for (sc in names(results_by_scenario)) {
-  for (rn in names(results_by_scenario[[sc]])) {
+# Create base folder
+dir.create("outputs/HCR", recursive = TRUE, showWarnings = FALSE)
 
-    res <- tryCatch({
+scenarios <- paste0("SC", 5:9)
+runs <- paste0("RUN", 5:8)
 
-      fit <- manage(results_by_scenario[[sc]][[rn]])
-      tab <- as.data.frame(sumspict.manage(fit))
+for (sc in scenarios) {
+  for (rn in runs) {
 
-      tab$scenario <- sc
-      tab$run <- rn
-      tab$error <- NA_character_
+    message("Running HCR for ", sc, " / ", rn)
 
-      tab
+    tryCatch({
 
-    }, error = function(e) {
+      # 1. Base fitted model
+      base_fit <- results_by_scenario[[sc]][[rn]]
 
-      # Crear una fila NA cuando manage() falla
-      tab <- data.frame(
-        scenario = sc,
-        run = rn,
-        error = conditionMessage(e),
-        stringsAsFactors = FALSE
+      # 2. Add management scenarios
+      fit <- base_fit
+      fit <- add.man.scenario(fit, "F=0", ffac = 0)
+      fit <- add.man.scenario(fit, "F=Fsq", ffac = 1)
+      fit <- add.man.scenario(fit, "F=Fmsy")
+      fit <- add.man.scenario(
+        fit,
+        "F=Fmsy_C_fractile_35",
+        fractiles = list(catch = 0.35),
+        breakpointB = 0.5
       )
 
-      tab
-    })
+      # 3. Summarise management results
+      res <- sumspict.manage(
+        fit,
+        include.unc = TRUE,
+        include.abs = TRUE
+      )
 
-    out[[paste(sc, rn, sep = "_")]] <- res
+      # 4. Output folder per scenario
+      out_dir <- file.path("results", "HCR", sc)
+      dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+      # 5. Write CSV per SC × RUN
+      write.csv(
+        res,
+        file = file.path(out_dir, paste0("HCR_", sc, "_", rn, ".csv")),
+        row.names = TRUE
+      )
+
+    }, error = function(e) {
+      message("❌ Skipping ", sc, " / ", rn, " → ", e$message)
+    })
   }
 }
 
 
-out_clean <- lapply(out, function(x) {
-  x %>%
-    rownames_to_column(var = "Management_rule")
-})
+###----- Plots HCR ------------------
+dir.create("figs/hcr", recursive = TRUE, showWarnings = FALSE)
 
+scenarios <- paste0("SC", 5:9)
+runs <- paste0("RUN", 5:8)
 
-all_tables <- bind_rows(out_clean)
+for (sc in scenarios) {
+  for (rn in runs) {
 
+    message("Plotting HCR for ", sc, " / ", rn)
 
-write.csv(
-  all_tables,
-  "outputs/manage_summary_all_scenarios_runs.csv",
-  row.names = FALSE
-)
-# Save management summary
-saveRDS(
-  all_tables,
-  file = "outputs/manage_summary_all_scenarios_runs.rds"
-)
+    tryCatch({
 
-## Plots
-# dir.create("figs/hcr", recursive = TRUE, showWarnings = FALSE)
-# for (sc in names(results_by_scenario)) {
-#   for (rn in names(results_by_scenario[[sc]])) {
-#
-#     fit <- results_by_scenario[[sc]][[rn]]
-#
-#     p_hcr <- tryCatch(
-#       {
-#         plotspict.hcr(manage(fit))
-#       },
-#       error = function(e) {
-#         message("❌ Error in HCR plot ", sc, " ", rn, ": ", e$message)
-#         return(NULL)
-#       }
-#     )
-#
-#     if (!is.null(p_hcr)) {
-#       ggsave(
-#         filename = file.path(
-#           "figs/hcr",
-#           paste0("HCR_plot_", sc, "_", rn, ".png")
-#         ),
-#         plot = p_hcr,
-#         width = 24,
-#         height = 18,
-#         units = "cm",
-#         dpi = 300
-#       )
-#     }
-#   }
-# }
+      # 1. Base fitted model
+      base_fit <- results_by_scenario[[sc]][[rn]]
 
+      # 2. Add management scenarios (same HCRs as CSVs)
+      fit <- base_fit
+      fit <- add.man.scenario(fit, "F=0", ffac = 0)
+      fit <- add.man.scenario(fit, "F=Fsq", ffac = 1)
+      fit <- add.man.scenario(fit, "F=Fmsy")
+      fit <- add.man.scenario(
+        fit,
+        "F=Fmsy_C_fractile_35",
+        fractiles = list(catch = 0.35),
+        breakpointB = 0.5
+      )
+
+      # 3. Output folder per scenario
+      out_dir <- file.path("figs", "hcr", sc)
+      dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+      # 4. Save HCR plot
+      png(
+        filename = file.path(out_dir, paste0("HCR_", sc, "_", rn, ".png")),
+        width = 2400,
+        height = 2000,
+        res = 300
+      )
+
+      plotspict.hcr(fit)
+      dev.off()
+
+    }, error = function(e) {
+      message("❌ Skipping HCR plot ", sc, " / ", rn, " → ", e$message)
+    })
+  }
+}
 
 ## ----Final Tables Values -----
 
@@ -1563,6 +1738,11 @@ inp_sc2 <- list(
 inp_sc2$priors$logbkfrac <- c(log(0.5), 0.2, 1)
 inp_sc2$priors$logn <- c(log(2),   0.5, 1)
 inp_sc2$priors$logr <- c(log(0.2), 0.2, 1)
+inp_sc2$priors$logsdi = list(
+      c(log(0.1), 0.1, 1),            # no prior for index 1
+      c(log(0.1), 0.2, 1),
+      c(log(0.1), 0.2, 1) # prior for index 2 (CV ≈ 0.2)
+    )
 
 
 # Run SPiCT for SC2 with default priors
@@ -1571,25 +1751,15 @@ fit_sc2 <- fit.spict(
   verbose = TRUE
 )
 # Run OSA diagnostics
-osa_sc2 <- run_osa_diagnostics(
-  spict_obj = fit_sc2,
-  scenario  = "SC2",
-  run       = "Default"
-)
+# for fit_sc2
+res <- calc.osa.resid(fit_sc2)
+plotspict.diagnostic(res)
 # Run SPiCT plot
-spict_plot_sc2 <- run_spict_plot(
-  spict_obj = fit_sc2,
-  scenario  = "SC2",
-  run       = "Default",
-  CI = 0.8
-)
+
+plot(fit_sc2, CI = 0.8)
 # Run retrospective
-retro_sc2 <- run_spict_retro_simple(
-  fit = fit_sc2,
-  scenario = "SC2",
-  run = "Default",
-  nretroyear = 5
-)
+retro_sc2 <- retro(fit_sc2, nretroyear=5)
+plotspict.retro(retro_sc2)
 # Extract Mohn's rho
 mohn_sc2 <- extract_mohn_spict(retro_sc2)
 # Extract FFMSY and BBMSY
