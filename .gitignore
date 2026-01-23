@@ -42,3 +42,7 @@ code/*.tex
 .Rhistory
 .RData
 .Rproj.user/
+
+# --- BUT allow this specific file ---
+!data/inputdata_FU30_wkbmsyspict.csv
+
