@@ -66,8 +66,9 @@ Includes:
 * Raw survey indices (ARSA trawl surveys, ISUNEPCA UWTV).
 * Fishery-dependent datasets (landings, effort, size structure).
 * Intermediate and processed datasets generated programmatically.
+* `inputdata_FU30_wkbmsyspict.csv`; primary input for SPiCT assessments.
 
-Raw data remain unmodified; all derived datasets are generated through scripted workflows.
+(Raw data remain unmodified; all derived datasets are generated through scripted workflows.)
 
 ---
 
