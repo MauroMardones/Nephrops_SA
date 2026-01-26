@@ -52,11 +52,7 @@ fig.path <- here("figs")
 ## -------- Read Data--------------
 # Data actualizada
 bac <- read_csv(here("data",
-                     "inputdata_FU30_wkbmsyspict.csv")) %>%
-  mutate(
-    Effort = Total_Effort,
-    LPUE_std = catch / Effort
-  )
+                     "inputdata_FU30_wkbmsyspict.csv"))
 # mean
 
 # bac_means <- bac %>%
@@ -138,9 +134,10 @@ p10 <- plot_index("CV_isunep_abun", "ISUNEPCA CV")
 
 # Índices dependientes de la pesquería
 p11 <- plot_index("LPUE_10%nep", "Commercial LPUE (≥10% Nephrops)")
-p12 <- plot_index("LPUE_std", "Standardized LPUE") # Modificar
-p13 <- plot_index("Effort_10%nep", "Directed fishing effort (≥10% Nephrops)")
-p14 <- plot_index("Total_Effort", "Total fishing effort")
+p12 <- plot_index("LPUE_std_target_year", "Standardized LPUE (target year)") # Modificar
+p13 <- plot_index("LPUE_std_Vessel_RE", "Standardized LPUE (Vessel_RE)") # Modificar
+p14 <- plot_index("Effort_10%nep", "Directed fishing effort (≥10% Nephrops)")
+p15 <- plot_index("Total_Effort", "Total fishing effort")
 
 # combinar y guuardar en "figs"
 fig_indices <- ggarrange(
@@ -148,7 +145,7 @@ fig_indices <- ggarrange(
   p4,  p5,  p6,
   p7,  p8,  p9,
   p10, p11, p12,
-  p13, p14,
+  p13, p14, p15,
   ncol = 3,
   nrow = 5,
   font.label = list(size = 10)
@@ -183,17 +180,26 @@ data_log <- bac %>%
 cor_pearson  <- cor(data_log, use = "pairwise.complete.obs", method = "pearson")
 cor_spearman <- cor(data_log, use = "pairwise.complete.obs", method = "spearman")
 
-ph1 <- pheatmap(cor_pearson,
-         display_numbers = TRUE,
-         number_format = "%.2f",
-         main = "Correlation Heatmap (Pearson)",
-         color = colorRampPalette(c("blue", "white", "red"))(50))
+ph1 <- pheatmap(
+  cor_pearson,
+  display_numbers = TRUE,
+  number_format = "%.2f",
+  main = "Correlation Heatmap (Pearson)",
+  color = colorRampPalette(c("blue", "white", "red"))(50),
+  cluster_rows = FALSE,
+  cluster_cols = FALSE
+)
 
-ph2 <- pheatmap(cor_spearman,
-         display_numbers = TRUE,
-         number_format = "%.2f",
-         main = "Correlation Heatmap (Spearman)",
-         color = colorRampPalette(c("blue", "white", "red"))(50))
+ph2 <- pheatmap(
+  cor_spearman,
+  display_numbers = TRUE,
+  number_format = "%.2f",
+  main = "Correlation Heatmap (Pearson)",
+  color = colorRampPalette(c("blue", "white", "red"))(50),
+  cluster_rows = FALSE,
+  cluster_cols = FALSE
+)
+
 
 # save plots
 # ggsave(
@@ -303,7 +309,7 @@ I_Total_Effort <- data.frame(
 
 # Standardized LPUE # work in progress
 I_LPUE_std <- data.frame(
-  obsI  = bac$LPUE_std,
+  obsI  = bac$LPUE_std_target_year,
   timeI = bac$year
 )
 
