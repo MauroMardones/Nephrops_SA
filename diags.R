@@ -2,7 +2,7 @@
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
 # Table and plots
-results_by_scenario2<-readRDS("outputs/SPiCT_SC8_SC9_RUN5_results.rds")
+results_by_scenario<-readRDS("outputs/SPiCT_SC8_SC9_RUN8_results.rds")
 
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
@@ -109,50 +109,53 @@ for (sc in names(results_by_scenario)) {
 }
 
 ##-----------------------------Results Tables ------------------------------
+export_spict_results <- function(results_by_scenario,
+                                 base_dir = "outputs/results",
+                                 digits = 2) {
 
-# Create base results folder
-dir.create("outputs/results", showWarnings = FALSE)
+  # Create base output directory
+  dir.create(base_dir, recursive = TRUE, showWarnings = FALSE)
 
-scenarios <- paste0("SC", 8:9)
-runs <- paste0("RUN", 5)
+  for (sc in names(results_by_scenario)) {
 
-for (sc in scenarios) {
-  for (rn in runs) {
+    for (rn in names(results_by_scenario[[sc]])) {
 
-    message("Processing ", sc, " / ", rn)
+      message("Processing ", sc, " / ", rn)
 
-    res <- results_by_scenario[[sc]][[rn]]
+      res <- results_by_scenario[[sc]][[rn]]
 
-    # Create folder results/SCx/RUNy
-    out_dir <- file.path("outputs/results", sc, rn)
-    dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+      # Create output directory: outputs/results/SCx/RUNy
+      out_dir <- file.path(base_dir, sc, rn)
+      dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-    #
-    # Tables SPiCT parameters
-    #
+      # Safely write each output
+      tryCatch({
 
-    # Summary of estimates
-    write.csv(
-      round(sumspict.parest(res), 2),
-      file = file.path(out_dir, "SummaryEstimates.csv")
-    )
+        write.csv(
+          round(sumspict.parest(res), digits),
+          file = file.path(out_dir, "SummaryEstimates.csv")
+        )
 
-    # Reference points (stochastic)
-    write.csv(
-      round(sumspict.srefpoints(res), 2),
-      file = file.path(out_dir, "RefPoints.csv")
-    )
+        write.csv(
+          round(sumspict.srefpoints(res), digits),
+          file = file.path(out_dir, "RefPoints.csv")
+        )
 
-    # States
-    write.csv(
-      round(sumspict.states(res), 2),
-      file = file.path(out_dir, "States.csv")
-    )
+        write.csv(
+          round(sumspict.states(res), digits),
+          file = file.path(out_dir, "States.csv")
+        )
 
-    # Predictions
-    write.csv(
-      round(sumspict.predictions(res), 2),
-      file = file.path(out_dir, "Predictions.csv")
-    )
+        write.csv(
+          round(sumspict.predictions(res), digits),
+          file = file.path(out_dir, "Predictions.csv")
+        )
+
+      }, error = function(e) {
+        message("❌ Failed for ", sc, " / ", rn, ": ", e$message)
+      })
+    }
   }
+
+  invisible(TRUE)
 }

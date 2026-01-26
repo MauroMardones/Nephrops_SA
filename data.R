@@ -292,9 +292,9 @@ inp_list <- list(
 # here we define wich combinations of scenarios and priors we want to run
 
 scenarios_data <- list(
-  SC5 = inp5,
-  SC6 = inp6,
-  SC7 = inp7,
+  # SC5 = inp5,
+  # SC6 = inp6,
+  # SC7 = inp7,
   SC8 = inp8,
   SC9 = inp9
 )
