@@ -94,10 +94,7 @@ results_by_scenario$SC8$RUN5
 
 
 # genera  un .rsd por escenario
-out <- list(
-  SC8 = results_by_scenario$SC8$RUN5,
-  SC9 = results_by_scenario$SC9$RUN5
-)
+out <- list(results_by_scenario$SC8$RUN5,results_by_scenario$SC9$RUN5)
 
 saveRDS(out, "outputs/SPiCT_SC8_SC9_RUN5_results.rds")
 
