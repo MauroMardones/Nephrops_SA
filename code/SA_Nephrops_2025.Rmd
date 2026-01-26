@@ -165,7 +165,7 @@ bac_tab <- bac %>%
     ISUB = isunep_bio1,   # ISUNEPCA biomass index
     ISUA = isunep_abun,      # ISUNEPCA abundance index
     EFRT = Effort,          # Fishing effort (days)
-    CPUE = LPUE_std         # Standardised CPUE
+    CPUE = LPUE_std_target_year        # Standardised CPUE
   )
 kable(
   bac_tab,
@@ -429,7 +429,7 @@ scenarios_long2 <- data.frame(
       3
     ),
     rep(
-      "Scenario combines total landings with the ISUNEPCA UWTV biomass index, ARSA yield, and the standardised commercial LPUE, integrating long-term and recent information while ensuring consistency among data sources.",
+      "Scenario combines total landings with the ISUNEPCA UWTV abundance index, ARSA yield, and the standardised commercial LPUE, integrating long-term and recent information while ensuring consistency among data sources.",
       4
     )
   ),
@@ -597,7 +597,7 @@ kable(
 
 ```
 
-To ensure consistency and comparability across scenarios, all new configurations are fitted using the same set of four prior specifications previously defined in the analysis. Results will be presented comparatively across scenarios, including diagnostic plots, key stock status outputs, and management-related figures and summary tables, allowing a coherent evaluation of model behavior and management implications under alternative data combinations. A total of **20 SPiCT model runs** were conducted, corresponding to four new alternative prior configurations (RUN5–RUN8) applied consistently across nine model scenarios (SC0–SC8). This factorial design allowed for the evaluation of model behaviour, convergence and sensitivity to both data configuration and prior assumptions on key biological and production parameters.
+To ensure consistency and comparability across scenarios, all new configurations are fitted using the same set of four prior specifications previously defined in the analysis. Results will be presented comparatively across scenarios, including diagnostic plots, key stock status outputs, and management-related figures and summary tables, allowing a coherent evaluation of model behavior and management implications under alternative data combinations. A total of **20 SPiCT model runs** were conducted, corresponding to four new alternative prior configurations (RUN5–RUN8) applied consistently across 5 model scenarios (SC5–SC9). This factorial design allowed for the evaluation of model behavior, convergence and sensitivity to both data configuration and prior assumptions on key biological and production parameters.
 
 \newpage
 
@@ -609,7 +609,7 @@ To ensure consistency and comparability across scenarios, all new configurations
 The exploratory modelling scenarios SC0 to SC5 implemented in the present analysis are documented in detail in the technical report by @VilaQuinzan2024, where alternative configurations of fishery-dependent and fishery-independent data were systematically evaluated using the SPiCT framework for *Nephrops norvegicus* in Functional Unit 30. These scenarios form part of the broader exploratory analyses conducted to assess model behaviour, data sensitivity, and the robustness of stock status estimates under different information assumptions.
 
 
-The following sections present a synthesis of the key findings from these new scenarios, including diagnostic evaluations, stock dynamics, and management implications, while also referencing relevant results from the previously documented scenarios (`SC0` to `SC5`) for comparative purposes.
+The following sections present a synthesis of the key findings from these new scenarios, including diagnostic evaluations, stock dynamics, and management implications, while also referencing relevant results from the previously documented scenarios (`SC0` to `SC4`) for comparative purposes.
 
 
 ### New Scenarios 
@@ -770,183 +770,123 @@ surplusplot
 
 
 
-```{r brps, fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN8) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions.", out.width="\\textwidth"}
+
+```{r plotspictsc6r7, fig.cap="Plot Spict Scenario 6 RUN 7", out.width="\\textwidth"}
+knitr::include_graphics("../figs/spict_plots/SPICT_SC6_RUN7.png")
+```
+
+```{r plotspictsc7r7, fig.cap="Plot Spict Scenario 7 RUN 7", out.width="\\textwidth"}
+knitr::include_graphics("../figs/spict_plots/SPICT_SC7_RUN7.png")
+```
+
+
+
+```{r brps, out.width='40%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN8) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
 knitr::include_graphics("../figs/SPiCT_BRP_scenario_5_8_RUN_comparison.png")
 ```
 
-
-```{r plotspictsc5r5, fig.cap="Plot Spict Scenario 5 RUN 5", out.width="\\textwidth"}
-knitr::include_graphics("../figs/spict_plots/SPICT_SC5_RUN5.png")
+```{r retroSC6RUN8, fig.cap="Retrospective analysis diagnostics for Scenario SC6 under prior configuration RUN7.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_SC6_RUN7.png")
 ```
 
-```{r plotspictsc9r8, fig.cap="Plot Spict Scenario 9 RUN 8", out.width="\\textwidth"}
-knitr::include_graphics("../figs/spict_plots/SPICT_SC9_RUN8.png")
+```{r retroSC7RUN7, fig.cap="Retrospective analysis diagnostics for Scenario SC7 under prior configuration RUN7.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_SC7_RUN7.png")
 ```
 
-```{r retroSC0RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC0 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC0_RUN4.png")
+<!-- ```{r retroSC1RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN1.",      out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN1.png") -->
+<!-- ``` -->
+<!-- ```{r retroSC1RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN2.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN2.png") -->
+<!-- ``` -->
+
+<!-- ```{r retroSC1RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN3.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN3.png") -->
+<!-- ``` -->
+
+<!-- ```{r retroSC1RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN4.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN4.png") -->
+<!-- ``` -->
+
+
+
+```{r hindcastsc6run8, fig.cap="Hindcast diagnostics for Scenario SC6 under prior configuration RUN8.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/hindcast/hindcast_SC6_RUN8.png")
+```
+```{r hindcastsc7run8, fig.cap="Hindcast diagnostics for Scenario SC7 under prior configuration RUN8.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/hindcast/hindcast_SC7_RUN8.png")
 ```
 
-
-```{r retroSC1RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN1.",      out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC1_RUN1.png")
-```
-```{r retroSC1RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN2.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC1_RUN2.png")
-```
-
-```{r retroSC1RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN3.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC1_RUN3.png")
-```
-
-```{r retroSC1RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC1_RUN4.png")
-```
-
-
-```{r retroSC2RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC2 under prior configuration RUN1.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC2_RUN1.png")
-```
-
-```{r retroSC2RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC2 under prior configuration RUN2.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC2_RUN2.png")
-```
-
-```{r retroSC2RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC2 under prior configuration RUN3.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC2_RUN3.png")
-```
-
-```{r retroSC2RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC2 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC2_RUN4.png")
-```
-
-```{r retroSC3RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC3 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC3_RUN4.png")
-```
-
-```{r retroSC4RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC4 under prior configuration RUN1.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC4_RUN1.png")
-```
-
-```{r retroSC4RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC4 under prior configuration RUN2.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC4_RUN2.png")
-```
-
-```{r retroSC4RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC4 under prior configuration RUN3.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC4_RUN3.png")
-```
-
-```{r retroSC4RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC4 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC4_RUN4.png")
-```
-
-
-```{r retroSC5RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC5 under prior configuration RUN1.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC5_RUN1.png")
-```
-
-```{r retroSC5RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC5 under prior configuration RUN2.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC5_RUN2.png")
-```
-
-```{r retroSC5RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC5 under prior configuration RUN3.",  out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC5_RUN3.png")
-```
-
-```{r retroSC5RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC5 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC5_RUN4.png")
-```
-
-```{r hindcastsc0run4, fig.cap="Hindcast diagnostics for Scenario SC0 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC0_RUN4.png")
-```
-
-```{r hindcastsc1run1, fig.cap="Hindcast diagnostics for Scenario SC1 under prior configuration RUN1.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC1_RUN1.png")
-```
-
-```{r hindcastsc1run2, fig.cap="Hindcast diagnostics for Scenario SC1 under prior configuration RUN2.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC1_RUN2.png")
-```
-
-```{r hindcastsc1run3, fig.cap="Hindcast diagnostics for Scenario SC1 under prior configuration RUN3.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC1_RUN3.png")
-```
-
-```{r hindcastsc1run4, fig.cap="Hindcast diagnostics for Scenario SC1 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC1_RUN4.png")
-```
-
-```{r hindcastsc2run1, fig.cap="Hindcast diagnostics for Scenario SC2 under prior configuration RUN1.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC2_RUN1.png")
-```
-
-
-```{r hindcastsc2run2, fig.cap="Hindcast diagnostics for Scenario SC2 under prior configuration RUN2.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC2_RUN2.png")
-```
-
-```{r hindcastsc2run3, fig.cap="Hindcast diagnostics for Scenario SC2 under prior configuration RUN3.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC2_RUN3.png")
-```
-
-
-```{r hindcastsc2run4, fig.cap="Hindcast diagnostics for Scenario SC2 under prior configuration RUN4.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC2_RUN4.png")
+```{r comSC5,  fig.cap="Comparision SC5 all run.",       out.width="\\textwidth"}
+knitr::include_graphics("../figs/SPiCT_Comparison_SC5_all_RUN.png")
 ```
 
 
 
-
-
-
-```{r figBiomassSC0,  fig.cap="Estimated relative biomass trajectory for Scenario SC0 derived from the SPiCT model.",       out.width="\\textwidth"}
-knitr::include_graphics("../figs/Biomass_SC0.png")
+```{r comSC6,  fig.cap="Comparision SC6 all run.",       out.width="\\textwidth"}
+knitr::include_graphics("../figs/SPiCT_Comparison_SC6_all_RUN.png")
 ```
 
-```{r figBiomassSC1, fig.cap="Estimated relative biomass trajectory for Scenario SC1 derived from the SPiCT model.",       out.width="\\textwidth"}
-knitr::include_graphics("../figs/Biomass_SC1.png")
+
+
+```{r comSC7,  fig.cap="Comparision SC7 all run.",       out.width="\\textwidth"}
+knitr::include_graphics("../figs/SPiCT_Comparison_SC7_all_RUN.png")
 ```
 
-```{r figBiomassSC2, fig.cap="Estimated relative biomass trajectory for Scenario SC2 derived from the SPiCT model.",       out.width="\\textwidth"}
-knitr::include_graphics("../figs/Biomass_SC2.png")
+
+
+```{r comSC8,  fig.cap="Comparision SC8 all run.",       out.width="\\textwidth"}
+knitr::include_graphics("../figs/SPiCT_Comparison_SC8_all_RUN.png")
 ```
 
-```{r figBiomassSC3, fig.cap="Estimated relative biomass trajectory for Scenario SC3 derived from the SPiCT model.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/Biomass_SC3.png")
+
+```{r comSC9,  fig.cap="Comparision SC9 all run.",       out.width="\\textwidth"}
+knitr::include_graphics("../figs/SPiCT_Comparison_SC9_all_RUN.png")
 ```
 
-```{r figBiomassSC4, fig.cap="Estimated relative biomass trajectory for Scenario SC4 derived from the SPiCT model.",       out.width="\\textwidth"}
-knitr::include_graphics("../figs/Biomass_SC4.png")
-```
 
-```{r figBiomassSC5, fig.cap="Estimated relative biomass trajectory for Scenario SC5 derived from the SPiCT model.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/Biomass_SC5.png")
-```
+<!-- ```{r figBiomassSC5,  fig.cap="Estimated relative biomass trajectory for Scenario SC0 derived from the SPiCT model.",       out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/Biomass_SC0.png") -->
+<!-- ``` -->
 
-```{r figFishingMortalitySC0, fig.cap="Estimated fishing mortality trajectory for Scenario SC0 derived from the SPiCT model.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/FishingMortality_SC0.png")
-```
+<!-- ```{r figBiomassSC6, fig.cap="Estimated relative biomass trajectory for Scenario SC1 derived from the SPiCT model.",       out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/Biomass_SC1.png") -->
+<!-- ``` -->
 
-```{r figFishingMortalitySC1, fig.cap="Estimated fishing mortality trajectory for Scenario SC1 derived from the SPiCT model.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/FishingMortality_SC1.png")
-```
+<!-- ```{r figBiomassSC7, fig.cap="Estimated relative biomass trajectory for Scenario SC2 derived from the SPiCT model.",       out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/Biomass_SC2.png") -->
+<!-- ``` -->
 
-```{r figFishingMortalitySC2, fig.cap="Estimated fishing mortality trajectory for Scenario SC2 derived from the SPiCT model.",       out.width="\\textwidth"}
-knitr::include_graphics("../figs/FishingMortality_SC2.png")
-```
+<!-- ```{r figBiomassSC8, fig.cap="Estimated relative biomass trajectory for Scenario SC3 derived from the SPiCT model.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/Biomass_SC3.png") -->
+<!-- ``` -->
 
-```{r figFishingMortalitySC3, fig.cap="Estimated fishing mortality trajectory for Scenario SC3 derived from the SPiCT model.",      out.width="\\textwidth"}
-knitr::include_graphics("../figs/FishingMortality_SC3.png")
-```
+<!-- ```{r figBiomassSC9, fig.cap="Estimated relative biomass trajectory for Scenario SC4 derived from the SPiCT model.",       out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/Biomass_SC4.png") -->
+<!-- ``` -->
 
-```{r figFishingMortalitySC4, fig.cap="Estimated fishing mortality trajectory for Scenario SC4 derived from the SPiCT model.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/FishingMortality_SC4.png")
-```
 
-```{r figFishingMortalitySC5, fig.cap="Estimated fishing mortality trajectory for Scenario SC5 derived from the SPiCT model.",    out.width="\\textwidth"}
-knitr::include_graphics("../figs/FishingMortality_SC5.png")
-```
+<!-- ```{r figFishingMortalitySC5, fig.cap="Estimated fishing mortality trajectory for Scenario SC0 derived from the SPiCT model.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/FishingMortality_SC0.png") -->
+<!-- ``` -->
+
+<!-- ```{r figFishingMortalitySC6, fig.cap="Estimated fishing mortality trajectory for Scenario SC1 derived from the SPiCT model.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/FishingMortality_SC1.png") -->
+<!-- ``` -->
+
+<!-- ```{r figFishingMortalitySC7, fig.cap="Estimated fishing mortality trajectory for Scenario SC2 derived from the SPiCT model.",       out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/FishingMortality_SC2.png") -->
+<!-- ``` -->
+
+<!-- ```{r figFishingMortalitySC8, fig.cap="Estimated fishing mortality trajectory for Scenario SC3 derived from the SPiCT model.",      out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/FishingMortality_SC3.png") -->
+<!-- ``` -->
+
+<!-- ```{r figFishingMortalitySC9, fig.cap="Estimated fishing mortality trajectory for Scenario SC4 derived from the SPiCT model.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/FishingMortality_SC4.png") -->
+<!-- ``` -->
+
+\newpage
 
 ## Tables
 
@@ -957,8 +897,8 @@ kable(
   spr_table,
   format = "latex",
   booktabs = TRUE,
-  caption = "Stochastic biological reference points and estimated current catch (Cp) by SPiCT scenario and prior configuration (RUN) for Nephrops FU30.",
-  col.names = c("Scenario", "Run", "$B_{MSY}$", "$F_{MSY}$", "MSY", "Cp"),
+  caption = "Stochastic biological reference points by SPiCT scenario and prior configuration (RUN) for Nephrops FU30.",
+  col.names = c("Scenario", "Run", "$B_{MSY}$", "$F_{MSY}$", "MSY"),
   align = "lccccc"
 ) %>%
   kable_styling(
@@ -967,6 +907,44 @@ kable(
   )
 
 ```
+
+```{r retrosummary, results='asis'}
+
+retro_tab <- data.frame(
+  Scenario = c(
+    rep("SC5", 4),
+    rep("SC6", 4),
+    rep("SC7", 4),
+    rep("SC8", 4),
+    rep("SC9", 4)
+  ),
+  Run = rep(paste0("RUN", 5:8), times = 5),
+  Status = c(
+    "Not converged", "Not converged", "OK", "Not converged",
+    "Not converged", "OK", "OK", "OK",
+    "Not converged", "Not converged", "OK", "Not converged",
+    "Not converged", "OK", "OK", "OK",
+    "Not converged", "OK", "OK", "OK"
+  ),
+  Notes = c(
+    NA, NA, NA, NA,
+    NA, NA, NA, NA,
+    NA, NA, "Excluded 1 retrospective run", NA,
+    NA, "Excluded runs: 3, 4", NA, "Excluded runs: 3, 4",
+    NA, NA, NA, NA
+  )
+)
+
+kbl(retro_tab,
+    format = "latex",
+    booktabs = TRUE,
+    caption = "Summary of retrospective runs and convergence status"
+) %>%
+  kable_styling(latex_options = c("hold_position", "striped"))
+
+```
+
+
 
 ```{r mohnsrho, results='asis'}
 mohns_rho_by_scenario <- read_csv(here("outputs",
@@ -1000,67 +978,98 @@ kable(
 ```
 
 
-```{r managementsummary, results='asis'}
-manage_summary_all_scenarios_runs <- readr::read_csv(
-  here("outputs", "manage_summary_all_scenarios_runs.csv")
+```{r managementsummarySC6R8, results='asis'}
+manage_summary <- readr::read_csv(
+  here("outputs", 
+       "HCR",
+       "SC6",
+       "HCR_SC6_RUN8.csv")
 )
 
-manage_tab <- manage_summary_all_scenarios_runs %>%
-  mutate(
-    est.C = round(est.C, 2),
-    est.B.Bmsy = round(est.B.Bmsy, 2),
-    est.F.Fmsy = round(est.F.Fmsy, 2)
+manage_summary %>%
+  select(1:6) %>%   # corta la tabla hasta Fishing mortality
+  kable(
+    format = "latex",
+    booktabs = TRUE,
+    caption = "Summary of management strategy evaluation in SC6 Run 8 under alternative harvest control rules (HCRs).",
+    col.names = c(
+      "Management scenario",
+      "Catch",
+      "B/Bmsy",
+      "F/Fmsy",
+      "Biomass",
+      "Fishing mortality"
+    ),
+    align = c("l", rep("c", 5))
   ) %>%
-  arrange(scenario, run, Management_rule) %>%
-  select(
-    Scenario = scenario,
-    Run = run,
-    Management_rule,
-    Catch = est.C,
-    `B/Bmsy` = est.B.Bmsy,
-    `F/Fmsy` = est.F.Fmsy
-  )
-
-# Crear tabla base SIN Scenario / Run como columnas visibles
-kbl <- kable(
-  manage_tab %>% select(-Scenario, -Run),
-  format = "latex",
-  booktabs = TRUE,
-  longtable = TRUE,
-  caption = paste(
-    "Projected stock status and catch outcomes under alternative management rules",
-    "by scenario and prior configuration (RUN) for the SPiCT-based Nephrops FU30 assessment."
-  ),
-  align = c("p{6cm}", "c", "c", "c")
-) %>%
   kable_styling(
     latex_options = c("repeat_header", "scale_down"),
     font_size = 8
   )
 
-# Definir bloques jerárquicos Scenario → RUN
-group_sizes <- manage_tab %>%
-  count(Scenario, Run)
+```
 
-row_start <- 1
-for (i in seq_len(nrow(group_sizes))) {
-  row_end <- row_start + group_sizes$n[i] - 1
 
-  kbl <- kbl %>%
-    group_rows(
-      group_label = paste(
-        "Scenario", group_sizes$Scenario[i],
-        "–", group_sizes$Run[i]
-      ),
-      start_row = row_start,
-      end_row = row_end,
-      bold = TRUE
-    )
+```{r managementsummarySC7R8, results='asis'}
+manage_summary <- readr::read_csv(
+  here("outputs", 
+       "HCR",
+       "SC7",
+       "HCR_SC7_RUN8.csv")
+)
 
-  row_start <- row_end + 1
-}
+manage_summary %>%
+  select(1:6) %>%   # corta la tabla hasta Fishing mortality
+  kable(
+    format = "latex",
+    booktabs = TRUE,
+    caption = "Summary of management strategy evaluation in SC7 Run 8 under alternative harvest control rules (HCRs).",
+    col.names = c(
+      "Management scenario",
+      "Catch",
+      "B/Bmsy",
+      "F/Fmsy",
+      "Biomass",
+      "Fishing mortality"
+    ),
+    align = c("l", rep("c", 5))
+  ) %>%
+  kable_styling(
+    latex_options = c("repeat_header", "scale_down"),
+    font_size = 8
+  )
 
-kbl
+```
+
+```{r managementsummarySC8R8, results='asis'}
+manage_summary <- readr::read_csv(
+  here("outputs", 
+       "HCR",
+       "SC8",
+       "HCR_SC8_RUN8.csv")
+)
+
+manage_summary %>%
+  select(1:6) %>%   # corta la tabla hasta Fishing mortality
+  kable(
+    format = "latex",
+    booktabs = TRUE,
+    caption = "Summary of management strategy evaluation in SC8 Run 8 under alternative harvest control rules (HCRs).",
+    col.names = c(
+      "Management scenario",
+      "Catch",
+      "B/Bmsy",
+      "F/Fmsy",
+      "Biomass",
+      "Fishing mortality"
+    ),
+    align = c("l", rep("c", 5))
+  ) %>%
+  kable_styling(
+    latex_options = c("repeat_header", "scale_down"),
+    font_size = 8
+  )
+
 ```
 
 

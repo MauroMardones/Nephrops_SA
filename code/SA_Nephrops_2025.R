@@ -233,19 +233,19 @@ C_nep <- data.frame(
 # ARSA biomass index
 I_arsa_bio <- data.frame(
   obsI  = bac$arsabio,
-  timeI = bac$year + 0.25
+  timeI = bac$year + 0.75
 )
 
 # ARSA productivity index (raw)
 I_arsa_rendi <- data.frame(
   obsI  = bac$arsarendi,
-  timeI = bac$year + 0.25
+  timeI = bac$year + 0.75
 )
 
 # ARSA productivity – standardized (GRH scale)
 I_arsa_rendi_std_grh <- data.frame(
   obsI  = bac$arsarendistand_grh,
-  timeI = bac$year + 0.25
+  timeI = bac$year + 0.75
 )
 
 # ARSA productivity – standardized (Kgh scale)
@@ -508,20 +508,20 @@ inp9 <- list(
   )
 )
 
-# 1. Inicializar stdevfacI con 1s para todos los índices
-inp9$stdevfacI <- list(
-  rep(1, length(inp9$obsI[[1]])),
-  rep(1, length(inp9$obsI[[2]])),
-  rep(1, length(inp9$obsI[[3]]))
-)
-
-# 2. Aplicar incertidumbre extra a ARSA (Índice 2)
-# Buscamos la posición de los años 2020 y 2024 dentro del vector de tiempo de ARSA
-años_con_incertidumbre <- c(2020, 2024)
-idx_arsa <- which(inp9$timeI[[2]] %in% años_con_incertidumbre)
-
-# Asignamos un factor (ejemplo: 10 para indicar que el dato es casi irrelevante)
-inp9$stdevfacI[[2]][idx_arsa] <- 10
+# # 1. Inicializar stdevfacI con 1s para todos los índices
+# inp9$stdevfacI <- list(
+#   rep(1, length(inp9$obsI[[1]])),
+#   rep(1, length(inp9$obsI[[2]])),
+#   rep(1, length(inp9$obsI[[3]]))
+# )
+#
+# # 2. Aplicar incertidumbre extra a ARSA (Índice 2)
+# # Buscamos la posición de los años 2020 y 2024 dentro del vector de tiempo de ARSA
+# años_con_incertidumbre <- c(2020, 2024)
+# idx_arsa <- which(inp9$timeI[[2]] %in% años_con_incertidumbre)
+#
+# # Asignamos un factor (ejemplo: 10 para indicar que el dato es casi irrelevante)
+# inp9$stdevfacI[[2]][idx_arsa] <- 10
 
 
 
@@ -607,6 +607,7 @@ priors_run5 <- list(
 priors_run6 <- list(
   name = "RUN6_no_logbkfrac_logn",
   priors = list(
+    #logbkfrac = c(log(0.5), 0.2, 1),
       logn  = c(log(2), 0.5, 1),   # prior on n only (Schaefer-type)
       logr  = c(log(0.5), 0.2, 1),
       logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
@@ -619,7 +620,7 @@ priors_run6 <- list(
 priors_run7 <- list(
   name = "RUN7_index_cv",
   priors = list(
-    # logbkfrac = c(log(0.5), 0.2, 1),
+    #logbkfrac = c(log(0.5), 0.2, 1),
     logsdi = c(log(0.1), 0.2, 1),
     logn      = c(log(2),   0.5, 1),
     logr      = c(log(0.5), 0.2, 1),
@@ -633,7 +634,7 @@ priors_run7 <- list(
 priors_run8 <- list(
   name = "RUN8_no_alpha_beta",
   priors = list(
-    logbkfrac = c(log(0.5), 0.2, 1),
+    #logbkfrac = c(log(0.5), 0.2, 1),
     logalpha = c(1, 1, 0), # disable
     logbeta  = c(1, 1, 0), # disable , to activate, change to (0,0,0)
     logn      = c(log(2),   0.5, 1),
@@ -768,18 +769,17 @@ results_by_scenario$SC9$RUN7
 results_by_scenario$SC9$RUN8
 
 
-# genera  un .rsd por escenario
+# genera  un .rds por escenario
 
 #saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
 
-
+out <- list(
+  results_by_scenario$SC8$RUN5,
+  results_by_scenario$SC9$RUN5
+)
 ### POSIBLE CORTE DE CODE ####
 
-
 #------- RESULTS-----------
-
-
-
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
 # Table and plots
@@ -836,13 +836,7 @@ for (sc in names(results_by_scenario)) {
 
 
 # leer outputs por escenaruio
-osa_results$SC6$RUN5
-
-## Save al outputs
-# saveRDS(
-#   osa_results,
-#   file = "outputs/SPiCT_OSA_results_by_scenario.rds"
-# )
+osa_results$SC9$RUN6
 
 
 ## -------------------Plot initaial default----------------------------------------------
@@ -1190,65 +1184,6 @@ write.csv(
   row.names = FALSE
 )
 
-# Plots
-
-plot_kobe_scenario <- function(df, scenario_name) {
-
-  ggplot(
-    df %>% filter(Scenario == scenario_name),
-    aes(x = FFMSY, y = BBMSY)
-  ) +
-    # Cuadrantes Kobe
-    annotate("rect", xmin = 1, xmax = Inf, ymin = 1, ymax = Inf,
-             fill = "orange", alpha = 0.4) +
-    annotate("rect", xmin = 0, xmax = 1, ymin = 1, ymax = Inf,
-             fill = "red", alpha = 0.4) +
-    annotate("rect", xmin = 1, xmax = Inf, ymin = 0, ymax = 1,
-             fill = "lightgreen", alpha = 0.4) +
-    annotate("rect", xmin = 0, xmax = 1, ymin = 0, ymax = 1,
-             fill = "orange", alpha = 0.4) +
-
-    # Trayectoria temporal
-    geom_path(color = "black", linewidth = 0.8) +
-    geom_point(aes(color = year), size = 2) +
-
-    geom_vline(xintercept = 1, linetype = "dashed") +
-    geom_hline(yintercept = 1, linetype = "dashed") +
-
-    scale_color_viridis_c(name = "Year") +
-
-    facet_wrap(~Run, ncol = 2) +
-
-    coord_cartesian(xlim = c(0, max(df$FFMSY, na.rm = TRUE) * 1.1),
-                    ylim = c(0, max(df$BBMSY, na.rm = TRUE) * 1.1)) +
-
-    labs(
-      title = paste("Kobe plot –", scenario_name),
-      x = expression(F/F[MSY]),
-      y = expression(B/B[MSY])
-    ) +
-
-    theme_bw() +
-    theme(
-      legend.position = "bottom",
-      strip.text = element_text(face = "bold")
-    )
-}
-# Generate and save plots for each scenario
-for (sc in unique(kobebro_table$Scenario)) {
-  p_kobe <- plot_kobe_scenario(kobebro_table, sc)
-
-  ggsave(
-    filename = file.path(fig.path, paste0("Kobe_plot_", sc, ".png")),
-    plot = p_kobe,
-    width = 18,
-    height = 12,
-    units = "cm",
-    dpi = 300
-  )
-}
-
-
 ##  ----Hindcast MASE calculation ----
 
 # sc0r1h <- hindcast(results_by_scenario$SC5$RUN8)
@@ -1396,6 +1331,103 @@ for (sc in unique(BF_all$Scenario)) {
     dpi = 300
   )
 }
+# Comparison plot SC5 to SC9
+png(
+  filename = "figs/SPiCT_Comparison_SC5_all_RUN.png",
+  width = 2800,
+  height = 2200,
+  res = 300
+)
+
+plotspict.compare(
+  list(
+    "RUN5"       = results_by_scenario$SC5$RUN5,
+    "RUN6"       = results_by_scenario$SC5$RUN6,
+    "RUN7"       = results_by_scenario$SC5$RUN7,
+    "RUN8"       = results_by_scenario$SC5$RUN8
+  ),
+  varname = c("B", "F", "C", "P"),
+  CI = 0.1
+)
+
+dev.off()
+
+png(
+  filename = "figs/SPiCT_Comparison_SC6_all_RUN.png",
+  width = 2800,
+  height = 2200,
+  res = 300
+)
+
+plotspict.compare(
+  list(
+    "RUN5"       = results_by_scenario$SC6$RUN5,
+    "RUN6"       = results_by_scenario$SC6$RUN6,
+    "RUN7"       = results_by_scenario$SC6$RUN7,
+    "RUN8"       = results_by_scenario$SC6$RUN8
+  ),
+  varname = c("B", "F", "C", "P"),
+  CI = 0.1
+)
+
+dev.off()
+png(
+  filename = "figs/SPiCT_Comparison_SC7_all_RUN.png",
+  width = 2800,
+  height = 2200,
+  res = 300
+)
+
+plotspict.compare(
+  list(
+    "RUN5"       = results_by_scenario$SC7$RUN5,
+    "RUN6"       = results_by_scenario$SC7$RUN6,
+    "RUN7"       = results_by_scenario$SC7$RUN7,
+    "RUN8"       = results_by_scenario$SC7$RUN8
+  ),
+  varname = c("B", "F", "C", "P"),
+  CI = 0.1
+)
+
+dev.off()
+png(
+  filename = "figs/SPiCT_Comparison_SC8_all_RUN.png",
+  width = 2800,
+  height = 2200,
+  res = 300
+)
+
+plotspict.compare(
+  list(
+    "RUN5"       = results_by_scenario$SC8$RUN5,
+    "RUN6"       = results_by_scenario$SC8$RUN6,
+    "RUN7"       = results_by_scenario$SC8$RUN7,
+    "RUN8"       = results_by_scenario$SC8$RUN8
+  ),
+  varname = c("B", "F", "C", "P"),
+  CI = 0.1
+)
+
+dev.off()
+png(
+  filename = "figs/SPiCT_Comparison_SC9_all_RUN.png",
+  width = 2800,
+  height = 2200,
+  res = 300
+)
+
+plotspict.compare(
+  list(
+    "RUN5"       = results_by_scenario$SC9$RUN5,
+    "RUN6"       = results_by_scenario$SC9$RUN6,
+    "RUN7"       = results_by_scenario$SC9$RUN7,
+    "RUN8"       = results_by_scenario$SC9$RUN8
+  ),
+  varname = c("B", "F", "C", "P"),
+  CI = 0.1
+)
+
+dev.off()
 
 ## ----------------------- BRPs ---------------------------------------
 
@@ -1403,14 +1435,13 @@ for (sc in unique(BF_all$Scenario)) {
 get_spict_report <- function(fit) {
 
   if (is.null(fit$report)) {
-    return(tibble(Bmsy = NA, Fmsy = NA, MSY = NA, Cp = NA))
+    return(tibble(Bmsy = NA, Fmsy = NA, MSY = NA))
   }
 
   tibble(
     Bmsy = fit$report$Bmsy[1],
     Fmsy = fit$report$Fmsy[1],
-    MSY  = fit$report$MSY[1],
-    Cp   = fit$report$Cp[1]
+    MSY  = fit$report$MSY[1]
   )
 }
 
@@ -1426,8 +1457,7 @@ srp_table <- imap_dfr(results_by_scenario, function(scen_list, scen_name) {
       Run      = run_name,
       Bmsy     = rp$Bmsy,
       Fmsy     = rp$Fmsy,
-      MSY      = rp$MSY,
-      Cp       = rp$Cp
+      MSY      = rp$MSY
     )
   })
 })
@@ -1436,12 +1466,11 @@ srp_table_clean <- srp_table %>%
   mutate(
     Bmsy = ifelse(Bmsy <= 0 | abs(Bmsy) > 1e12, NA, Bmsy),
     Fmsy = ifelse(Fmsy <= 0 | abs(Fmsy) > 10, NA, Fmsy),
-    MSY  = ifelse(MSY  <= 0 | abs(MSY)  > 1e6, NA, MSY),
-    Cp   = ifelse(Cp   <= 0 | Cp > 1e6, NA, Cp)
+    MSY  = ifelse(MSY  <= 0 | abs(MSY)  > 1e6, NA, MSY)
   )
 
 srp_table_final <- srp_table_clean %>%
-  mutate(across(c(Bmsy, Fmsy, MSY, Cp), ~ round(.x, 3)))
+  mutate(across(c(Bmsy, Fmsy, MSY), ~ round(.x, 3)))
 
 write.csv(
   srp_table_final,
@@ -1453,7 +1482,7 @@ write.csv(
 
 srp_long <- srp_table_final %>%
   pivot_longer(
-    cols = c(Bmsy, Fmsy, MSY, Cp),
+    cols = c(Bmsy, Fmsy, MSY),
     names_to = "Variable",
     values_to = "Value"
   )
@@ -1466,13 +1495,13 @@ p <- ggplot(srp_long,
              position = position_dodge(width = 0.6),
              na.rm = TRUE) +
 
-  facet_wrap(~ Variable, scales = "free_y", ncol = 4) +
+  facet_wrap(~ Variable, scales = "free_y", ncol = 1) +
   scale_color_viridis_d(option = "H")+
   labs(
     title = "",
     x = "Scenario",
     y = "Estimated value",
-    colour = "Prior (RUN)"
+    colour = "Prior (Set)"
   ) +
 
   theme_bw(base_size = 12) +
@@ -1487,8 +1516,8 @@ p
 ggsave(
   filename = "figs/SPiCT_BRP_scenario_5_8_RUN_comparison.png",
   plot = p,
-  width = 10,
-  height = 4,
+  width = 6,
+  height = 10,
   dpi = 300
 )
 
@@ -1568,23 +1597,20 @@ for (sc in scenarios) {
 
 
 ###----- Plots HCR ------------------
+## problemas con este loop para hacer los plots de HCR!!!
 dir.create("figs/hcr", recursive = TRUE, showWarnings = FALSE)
 
-scenarios <- paste0("SC", 5:9)
-runs <- paste0("RUN", 5:8)
-
-for (sc in scenarios) {
-  for (rn in runs) {
+for (sc in names(results_by_scenario)) {
+  for (rn in names(results_by_scenario[[sc]])) {
 
     message("Plotting HCR for ", sc, " / ", rn)
 
     tryCatch({
 
       # 1. Base fitted model
-      base_fit <- results_by_scenario[[sc]][[rn]]
+      fit <- results_by_scenario[[sc]][[rn]]
 
-      # 2. Add management scenarios (same HCRs as CSVs)
-      fit <- base_fit
+      # 2. Add management scenarios
       fit <- add.man.scenario(fit, "F=0", ffac = 0)
       fit <- add.man.scenario(fit, "F=Fsq", ffac = 1)
       fit <- add.man.scenario(fit, "F=Fmsy")
@@ -1595,11 +1621,18 @@ for (sc in scenarios) {
         breakpointB = 0.5
       )
 
-      # 3. Output folder per scenario
+      # 3. Run management (CRITICAL STEP)
+      fit <- sumspict.manage(
+        fit,
+        include.unc = TRUE,
+        include.abs = TRUE
+      )
+
+      # 4. Output folder
       out_dir <- file.path("figs", "hcr", sc)
       dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-      # 4. Save HCR plot
+      # 5. Save plot
       png(
         filename = file.path(out_dir, paste0("HCR_", sc, "_", rn, ".png")),
         width = 2400,
@@ -1611,7 +1644,7 @@ for (sc in scenarios) {
       dev.off()
 
     }, error = function(e) {
-      message("❌ Skipping HCR plot ", sc, " / ", rn, " → ", e$message)
+      message("❌ Skipping HCR plot ", sc, " / ", rn, ": ", e$message)
     })
   }
 }
@@ -1679,8 +1712,6 @@ get_Bmsy_prodcurve <- function(fit) {
   }
   NA_real_
 }
-# Sensitivity
-# B/BMSY ..
 
 
 # Create summary table
