@@ -70,31 +70,32 @@ C_nep <- data.frame(
 # ARSA biomass index (otoño)
 I_arsa_bio <- data.frame(
   obsI  = bac$arsabio,
-  timeI = bac$year + 0.75
+  timeI = bac$year + 0.25
 )
 
 # ARSA productivity index (raw) (otoño)
 I_arsa_rendi <- data.frame(
   obsI  = bac$arsarendi,
-  timeI = bac$year + 0.75
+  timeI = bac$year + 0.25
 )
 
 # ARSA productivity – standardized (GRH scale)
 I_arsa_rendi_std_grh <- data.frame(
   obsI  = bac$arsarendistand_grh,
-  timeI = bac$year + 0.75
+  timeI = bac$year + 0.25
 )
 
 # ARSA productivity – standardized (Kgh scale)
 I_arsa_rendi_std_kgh <- data.frame(
   obsI  = bac$arsarendistand_Kgh,
-  timeI = bac$year + 0.75
+  timeI = bac$year + 0.25
 )
 
 # ARSA standardized normalized index
 I_arsa_std_nor <- data.frame(
   obsI  = bac$arsa_std_nor,
-  timeI = bac$year + 0.75
+  timeI = bac$year + 0.25,
+  stdevfacI = bac$arsa_CV_std_nor
 )
 
 # ARSA CV standardized normalized
@@ -106,8 +107,9 @@ I_arsa_cv_std_nor <- data.frame(
 # UWTV biomass index
 I_isunep_bio <- data.frame(
   obsI  = bac$isunep_bio1,
-  timeI = bac$year + 0.5
-)
+  timeI = bac$year + 0.5,
+  stdevfacI = 0.2)
+
 
 # UWTV biomass
 I_isunep_bio_nor <- data.frame(
@@ -118,8 +120,8 @@ I_isunep_bio_nor <- data.frame(
 # UWTV abundance index
 I_isunep_abun <- data.frame(
   obsI  = bac$isunep_abun,
-  timeI = bac$year + 0.5
-)
+  timeI = bac$year + 0.5,
+  stdevfacI = bac$CV_isunep_abun)
 
 # UWTV CV normalized
 I_isunep_cv_nor <- data.frame(
@@ -147,7 +149,8 @@ I_Total_Effort <- data.frame(
 # Standardized LPUE # work in progress
 I_LPUE_std <- data.frame(
   obsI  = bac$LPUE_std_target_year,
-  timeI = bac$year
+  timeI = bac$year,
+  stdevfacI =bac$CV_LPUE_std_target_year
 )
 
 # Indices time range
@@ -169,12 +172,12 @@ inp5 <- list(
 
   timeI = list(
     I_isunep_abun$timeI[ind:ind2],
-    I_arsa_rendi_std_kgh$timeI[ind:ind2]
+    I_arsa_std_nor$timeI[ind:ind2]
   ),
 
   obsI = list(
     I_isunep_abun$obsI[ind:ind2],
-    I_arsa_rendi_std_kgh$obsI[ind:ind2]
+    I_arsa_std_nor$obsI[ind:ind2]
   )
 )
 
@@ -193,8 +196,14 @@ inp6 <- list(
   obsI = list(
     I_isunep_abun$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
-  )
-)
+  ),
+  stdevfacI = list(
+    I_isunep_abun$stdevfacI[ind:ind2],
+    I_LPUE_std$stdevfacI[ind:ind2]
+))
+
+
+
 
 # Scenario 7-- Most information-rich configuration,
 #combining total landings with ISUNEPCA UWTV abundance,
@@ -206,16 +215,20 @@ inp7 <- list(
 
   timeI = list(
     I_isunep_abun$timeI[ind:ind2],
-    I_arsa_rendi_std_kgh$timeI[ind:ind2],
+    I_arsa_std_nor$timeI[ind:ind2],
     I_LPUE_std$timeI[ind:ind2]
   ),
 
   obsI = list(
     I_isunep_abun$obsI[ind:ind2],
-    I_arsa_rendi_std_kgh$obsI[ind:ind2],
+    I_arsa_std_nor$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
+  ),
+  stdevfacI = list(
+    I_isunep_abun$stdevfacI[ind:ind2],
+    I_arsa_std_nor$stdevfacI[ind:ind2],
+    I_LPUE_std$stdevfacI[ind:ind2])
   )
-)
 
 #Scenario 8 -- Scenario integrating total landings with
 #normalized ISUNEPCA UWTV biomasss and a standardized LPUE index,
@@ -233,7 +246,10 @@ inp8 <- list(
   obsI = list(
     I_isunep_bio$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
-  )
+  ),
+  stdevfacI = list(
+    I_isunep_bio$stdevfacI[ind:ind2],
+    I_LPUE_std$stdevfacI[ind:ind2])
 )
 
 #Scenario 9 -- Scenario combines total landings with the ISUNEPCA UWTV abundance (2015–2025),
@@ -249,32 +265,36 @@ inp9 <- list(
 
   timeI = list(
     I_isunep_abun$timeI[ind:ind2],      # Índice 1
-    I_arsa_rendi_std_kgh$timeI[7:26],   # Índice 2 (ARSA)
+    I_arsa_std_nor$timeI[7:26],   # Índice 2 (ARSA)
     I_LPUE_std$timeI[ind:ind2]            # Índice 3
   ),
 
   obsI = list(
     I_isunep_abun$obsI[ind:ind2],
-    I_arsa_rendi_std_kgh$obsI[7:26], #1993:2012
+    I_arsa_std_nor$obsI[7:26], #1993:2012
     I_LPUE_std$obsI[ind:ind2]
-  )
+  ),
+  stdevfacI = list(
+    I_isunep_abun$stdevfacI[ind:ind2],
+    I_arsa_std_nor$stdevfacI[7:26],
+    I_LPUE_std$stdevfacI[ind:ind2])
 )
 
-# 1. Inicializar stdevfacI con 1s para todos los índices
-inp9$stdevfacI <- list(
-  rep(1, length(inp9$obsI[[1]])),
-  rep(1, length(inp9$obsI[[2]])),
-  rep(1, length(inp9$obsI[[3]]))
-)
-
-# 2. Aplicar incertidumbre extra a ARSA (Índice 2)
-# Buscamos la posición de los años 2020 y 2024 dentro del vector de tiempo de ARSA
-años_con_incertidumbre <- c(2020, 2024)
-idx_arsa <- which(inp9$timeI[[2]] %in% años_con_incertidumbre)
-
-# Asignamos un factor (ejemplo: 10 para indicar que el dato es casi irrelevante)
-inp9$stdevfacI[[2]][idx_arsa] <- 10
-
+# # 1. Inicializar stdevfacI con 1s para todos los índices
+# inp9$stdevfacI <- list(
+#   rep(1, length(inp9$obsI[[1]])),
+#   rep(1, length(inp9$obsI[[2]])),
+#   rep(1, length(inp9$obsI[[3]]))
+# )
+#
+# # 2. Aplicar incertidumbre extra a ARSA (Índice 2)
+# # Buscamos la posición de los años 2020 y 2024 dentro del vector de tiempo de ARSA
+# años_con_incertidumbre <- c(2020, 2024)
+# idx_arsa <- which(inp9$timeI[[2]] %in% años_con_incertidumbre)
+#
+# # Asignamos un factor (ejemplo: 10 para indicar que el dato es casi irrelevante)
+# inp9$stdevfacI[[2]][idx_arsa] <- 10
+#
 
 
 # must be set before check.inp
@@ -292,10 +312,10 @@ inp_list <- list(
 # here we define wich combinations of scenarios and priors we want to run
 
 scenarios_data <- list(
-  # SC5 = inp5,
-  # SC6 = inp6,
-  # SC7 = inp7,
-  SC8 = inp8,
+  #SC5 = inp5,
+  SC6 = inp6,
+  SC7 = inp7,
+  #SC8 = inp8,
   SC9 = inp9
 )
 
@@ -303,19 +323,19 @@ scenarios_data <- list(
  saveRDS(scenarios_data,  file = "data/scenarios_data.rds")
 #------------------------------------------------------
 # Check inputs
-
-inp_list_checked <- lapply(inp_list, function(inp) {
-  inp$dteuler <- 1 / 16
-  inp <- check.inp(inp)
-  return(inp)
-})
-
-sapply(inp_list_checked, function(x) {
-  c(
-    n_catch = length(x$obsC),
-    n_index = x$nindex,
-    dtc_min = min(x$dtc),
-    dtc_max = max(x$dtc)
-  )
-})
+#
+# inp_list_checked <- lapply(inp_list, function(inp) {
+#   inp$dteuler <- 1 / 16
+#   inp <- check.inp(inp)
+#   return(inp)
+# })
+#
+# sapply(inp_list_checked, function(x) {
+#   c(
+#     n_catch = length(x$obsC),
+#     n_index = x$nindex,
+#     dtc_min = min(x$dtc),
+#     dtc_max = max(x$dtc)
+#   )
+# })
 #------------------------------------------------------
