@@ -88,9 +88,9 @@ priors_run8 <- list(
 )
 
 scenarios_priors <- list(
-  # RUN5 = priors_run5,
-  # RUN6 = priors_run6,
-  # RUN7 = priors_run7,
+  RUN5 = priors_run5,
+  RUN6 = priors_run6,
+  RUN7 = priors_run7,
   RUN8 = priors_run8
 )
 

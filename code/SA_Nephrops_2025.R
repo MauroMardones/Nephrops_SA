@@ -43,9 +43,9 @@ library(pheatmap)
 # definir un directorio para guardar plott "figs"
 
 fig.path <- here("figs")
-# lapply(c("figs", "outputs"),
-#        function(x) if(!dir.exists(x))
-#          dir.create(x, recursive = TRUE))
+lapply(c("figs", "outputs"),
+       function(x) if(!dir.exists(x))
+         dir.create(x, recursive = TRUE))
 
 
 
@@ -507,7 +507,6 @@ inp9 <- list(
     I_LPUE_std$obsI[23:38]
   )
 )
-
 # # 1. Inicializar stdevfacI con 1s para todos los índices
 # inp9$stdevfacI <- list(
 #   rep(1, length(inp9$obsI[[1]])),
@@ -522,7 +521,7 @@ inp9 <- list(
 #
 # # Asignamos un factor (ejemplo: 10 para indicar que el dato es casi irrelevante)
 # inp9$stdevfacI[[2]][idx_arsa] <- 10
-
+#
 
 
 # must be set before check.inp
@@ -608,11 +607,11 @@ priors_run6 <- list(
   name = "RUN6_no_logbkfrac_logn",
   priors = list(
     #logbkfrac = c(log(0.5), 0.2, 1),
-      logn  = c(log(2), 0.5, 1),   # prior on n only (Schaefer-type)
-      logr  = c(log(0.5), 0.2, 1),
-      logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
-      logsdc = c(log(3), 0.5, 1), # prior decrease catch sd
-      logdf = c(log(0.1), 0.2, 1) # Decresase f error sd
+      logn  = c(log(2), 0.5, 1)   # prior on n only (Schaefer-type)
+      # logr  = c(log(0.5), 0.2, 1),
+      # logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
+      # logsdc = c(log(3), 0.5, 1), # prior decrease catch sd
+      # logdf = c(log(0.1), 0.2, 1) # Decresase f error sd
   )
 )
 
@@ -621,12 +620,12 @@ priors_run7 <- list(
   name = "RUN7_index_cv",
   priors = list(
     #logbkfrac = c(log(0.5), 0.2, 1),
-    logsdi = c(log(0.1), 0.2, 1),
+    #logsdi = c(log(0.1), 0.2, 1),
     logn      = c(log(2),   0.5, 1),
-    logr      = c(log(0.5), 0.2, 1),
-    logsdb = c(log(0.2), 0.5),
-    logsdc = c(log(3), 0.5, 1),
-    logdf = c(log(0.1), 0.2, 1)
+    logr      = c(log(0.5), 0.2, 1)
+    # logsdb = c(log(0.2), 0.5),
+    # logsdc = c(log(3), 0.5, 1),
+    # logdf = c(log(0.1), 0.2, 1)
   )
 )
 
@@ -638,10 +637,10 @@ priors_run8 <- list(
     logalpha = c(1, 1, 0), # disable
     logbeta  = c(1, 1, 0), # disable , to activate, change to (0,0,0)
     logn      = c(log(2),   0.5, 1),
-    logr      = c(log(0.5), 0.2, 1),
-    logsdb = c(log(0.2), 0.5),
-    logsdc = c(log(3), 0.5, 1),
-    logdf = c(log(0.1), 0.2, 1)
+    logr      = c(log(0.5), 0.2, 1)
+    # logsdb = c(log(0.2), 0.5),
+    # logsdc = c(log(3), 0.5, 1),
+    # logdf = c(log(0.1), 0.2, 1)
   )
 )
 
@@ -655,10 +654,10 @@ scenarios_data <- list(
   # SC2 = inp2,
   # SC3 = inp3,
   # SC4 = inp4,
-  SC5 = inp5,
+  #SC5 = inp5,
   SC6 = inp6,
   SC7 = inp7,
-  SC8 = inp8,
+  #SC8 = inp8,
   SC9 = inp9
 )
 scenarios_priors <- list(
