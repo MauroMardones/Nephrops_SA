@@ -607,11 +607,11 @@ priors_run6 <- list(
   name = "RUN6_no_logbkfrac_logn",
   priors = list(
     #logbkfrac = c(log(0.5), 0.2, 1),
-      logn  = c(log(2), 0.5, 1)   # prior on n only (Schaefer-type)
-      # logr  = c(log(0.5), 0.2, 1),
-      # logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
-      # logsdc = c(log(3), 0.5, 1), # prior decrease catch sd
-      # logdf = c(log(0.1), 0.2, 1) # Decresase f error sd
+      logn  = c(log(2), 0.5, 1),   # prior on n only (Schaefer-type)
+      logr  = c(log(0.5), 0.2, 1),
+      logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
+      logsdc = c(log(3), 0.5, 1), # prior decrease catch sd
+      logdf = c(log(0.1), 0.2, 1) # Decresase f error sd
   )
 )
 
@@ -634,8 +634,8 @@ priors_run8 <- list(
   name = "RUN8_no_alpha_beta",
   priors = list(
     #logbkfrac = c(log(0.5), 0.2, 1),
-    logalpha = c(1, 1, 0), # disable
-    logbeta  = c(1, 1, 0), # disable , to activate, change to (0,0,0)
+    logalpha = c(0, 0, 0), # disable
+    logbeta  = c(0, 0, 0), # disable , to activate, change to (0,0,0)
     logn      = c(log(2),   0.5, 1),
     logr      = c(log(0.5), 0.2, 1)
     # logsdb = c(log(0.2), 0.5),
@@ -671,6 +671,9 @@ scenarios_priors <- list(
   RUN8 = priors_run8
 )
 
+# if we read rds
+scenarios_data<-readRDS("data/scenarios_data.rds")
+scenarios_priors<-readRDS("data/scenarios_priors.rds")
 ###
 # Create all combinations of scenarios and priors.
 #Now "spict_scenarios" objetct contains all combinations of data scenarios and prior configurations
@@ -1265,6 +1268,7 @@ for (sc in names(results_by_scenario)) {
 
 # Combinar todo en un solo data frame
 BF_all <- bind_rows(BF_list)
+
 ## Guardar resultados
 write.csv(
   BF_all,

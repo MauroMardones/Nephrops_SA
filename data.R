@@ -150,7 +150,7 @@ I_Total_Effort <- data.frame(
 I_LPUE_std <- data.frame(
   obsI  = bac$LPUE_std_target_year,
   timeI = bac$year,
-  stdevfacI =bac$CV_LPUE_std_target_year
+  stdevfacI = 0.2#bac$CV_LPUE_std_target_year
 )
 
 # Indices time range
@@ -196,12 +196,10 @@ inp6 <- list(
   obsI = list(
     I_isunep_abun$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
-  ),
-  stdevfacI = list(
-    I_isunep_abun$stdevfacI[ind:ind2],
-    I_LPUE_std$stdevfacI[ind:ind2]
-))
-
+  )
+)
+inp6$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
+inp6$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
 
 
 
@@ -223,12 +221,12 @@ inp7 <- list(
     I_isunep_abun$obsI[ind:ind2],
     I_arsa_std_nor$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
-  ),
-  stdevfacI = list(
-    I_isunep_abun$stdevfacI[ind:ind2],
-    I_arsa_std_nor$stdevfacI[ind:ind2],
-    I_LPUE_std$stdevfacI[ind:ind2])
   )
+)
+
+inp7$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
+inp7$stdevfacI_arsa <- bac$arsa_std_nor[ind:ind2]
+inp7$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
 
 #Scenario 8 -- Scenario integrating total landings with
 #normalized ISUNEPCA UWTV biomasss and a standardized LPUE index,
@@ -246,11 +244,11 @@ inp8 <- list(
   obsI = list(
     I_isunep_bio$obsI[ind:ind2],
     I_LPUE_std$obsI[ind:ind2]
-  ),
-  stdevfacI = list(
-    I_isunep_bio$stdevfacI[ind:ind2],
-    I_LPUE_std$stdevfacI[ind:ind2])
+  )
 )
+
+#inp8$stdevfacI_isub <- 0.2
+inp8$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
 
 #Scenario 9 -- Scenario combines total landings with the ISUNEPCA UWTV abundance (2015–2025),
 #ARSA biomass survey (1993–2012),
@@ -273,13 +271,11 @@ inp9 <- list(
     I_isunep_abun$obsI[ind:ind2],
     I_arsa_std_nor$obsI[7:26], #1993:2012
     I_LPUE_std$obsI[ind:ind2]
-  ),
-  stdevfacI = list(
-    I_isunep_abun$stdevfacI[ind:ind2],
-    I_arsa_std_nor$stdevfacI[7:26],
-    I_LPUE_std$stdevfacI[ind:ind2])
+  )
 )
-
+inp9$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
+inp9$stdevfacI_arsa <- bac$arsa_std_nor[7:26]
+inp9$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
 # # 1. Inicializar stdevfacI con 1s para todos los índices
 # inp9$stdevfacI <- list(
 #   rep(1, length(inp9$obsI[[1]])),
@@ -306,6 +302,23 @@ inp_list <- list(
   SC9 = inp9
 )
 
+# Check inputs
+
+inp_list_checked <- lapply(inp_list, function(inp) {
+  inp$dteuler <- 1 / 16
+  inp <- check.inp(inp)
+  return(inp)
+})
+
+sapply(inp_list_checked, function(x) {
+  c(
+    n_catch = length(x$obsC),
+    n_index = x$nindex,
+    dtc_min = min(x$dtc),
+    dtc_max = max(x$dtc)
+  )
+})
+
 
 # Collect runs
 # Grouped Scenarios and Priors
@@ -313,10 +326,10 @@ inp_list <- list(
 
 scenarios_data <- list(
   #SC5 = inp5,
-  SC6 = inp6,
-  SC7 = inp7,
-  #SC8 = inp8,
-  SC9 = inp9
+  SC6 = inp6
+  # SC7 = inp7,
+  # SC8 = inp8
+  # SC9 = inp9
 )
 
 #guardar Rdata
