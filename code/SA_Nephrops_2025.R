@@ -1114,7 +1114,7 @@ mohn_table
 # guaerda la tabla en outputs/retro
 write.csv(
   mohn_table,
-  file = "outputs/retro/mohns_rho_by_scenario_5_8.csv",
+  file = "outputs/retro/mohns_rho_by_scenario_5_9.csv",
   row.names = FALSE
 )
 

@@ -23,22 +23,24 @@
 #using ˝results_by_scenario˝ list from fits
 
 # Create base folder
-dir.create("outputs/HCR", recursive = TRUE, showWarnings = FALSE)
+##---------------- HCR tables ------------------
 
-scenarios <- paste0("SC", 5:9)
-runs <- paste0("RUN", 5:8)
+out_base <- file.path("outputs", "HCR")
+dir.create(out_base, recursive = TRUE, showWarnings = FALSE)
 
-for (sc in scenarios) {
-  for (rn in runs) {
+for (sc in names(results_by_scenario)) {
+
+  if (length(results_by_scenario[[sc]]) == 0) next
+
+  for (rn in names(results_by_scenario[[sc]])) {
 
     message("Running HCR for ", sc, " / ", rn)
 
     tryCatch({
 
-      # 1. Base fitted model
       base_fit <- results_by_scenario[[sc]][[rn]]
+      if (is.null(base_fit)) next
 
-      # 2. Add management scenarios
       fit <- base_fit
       fit <- add.man.scenario(fit, "F=0", ffac = 0)
       fit <- add.man.scenario(fit, "F=Fsq", ffac = 1)
@@ -50,18 +52,15 @@ for (sc in scenarios) {
         breakpointB = 0.5
       )
 
-      # 3. Summarise management results
       res <- sumspict.manage(
         fit,
         include.unc = TRUE,
         include.abs = TRUE
       )
 
-      # 4. Output folder per scenario
-      out_dir <- file.path("results", "HCR", sc)
+      out_dir <- file.path(out_base, sc)
       dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-      # 5. Write CSV per SC × RUN
       write.csv(
         res,
         file = file.path(out_dir, paste0("HCR_", sc, "_", rn, ".csv")),
@@ -75,21 +74,24 @@ for (sc in scenarios) {
 }
 
 
-###----- Plots HCR ------------------
-## problemas con este loop para hacer los plots de HCR!!!
-dir.create("figs/hcr", recursive = TRUE, showWarnings = FALSE)
+##---------------- HCR plots ------------------
+
+fig_base <- file.path("figs", "hcr")
+dir.create(fig_base, recursive = TRUE, showWarnings = FALSE)
 
 for (sc in names(results_by_scenario)) {
+
+  if (length(results_by_scenario[[sc]]) == 0) next
+
   for (rn in names(results_by_scenario[[sc]])) {
 
     message("Plotting HCR for ", sc, " / ", rn)
 
     tryCatch({
 
-      # 1. Base fitted model
       fit <- results_by_scenario[[sc]][[rn]]
+      if (is.null(fit)) next
 
-      # 2. Add management scenarios
       fit <- add.man.scenario(fit, "F=0", ffac = 0)
       fit <- add.man.scenario(fit, "F=Fsq", ffac = 1)
       fit <- add.man.scenario(fit, "F=Fmsy")
@@ -100,18 +102,9 @@ for (sc in names(results_by_scenario)) {
         breakpointB = 0.5
       )
 
-      # 3. Run management (CRITICAL STEP)
-      fit <- sumspict.manage(
-        fit,
-        include.unc = TRUE,
-        include.abs = TRUE
-      )
-
-      # 4. Output folder
-      out_dir <- file.path("figs", "hcr", sc)
+      out_dir <- file.path(fig_base, sc)
       dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-      # 5. Save plot
       png(
         filename = file.path(out_dir, paste0("HCR_", sc, "_", rn, ".png")),
         width = 2400,
