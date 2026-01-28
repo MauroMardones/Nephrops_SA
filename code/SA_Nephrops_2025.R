@@ -745,6 +745,10 @@ results_by_scenario$SC5$RUN5
 results_by_scenario$SC5$RUN6
 results_by_scenario$SC5$RUN7
 results_by_scenario$SC5$RUN8
+results_by_scenario$SC5$RUN9
+results_by_scenario$SC5$RUN10
+results_by_scenario$SC5$RUN11
+results_by_scenario$SC5$RUN12
 
 # SC6
 results_by_scenario$SC6$RUN5
@@ -775,10 +779,10 @@ results_by_scenario$SC9$RUN8
 
 #saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
 
-out <- list(
-  results_by_scenario$SC8$RUN5,
-  results_by_scenario$SC9$RUN5
-)
+# out <- list(
+#   results_by_scenario$SC8$RUN5,
+#   results_by_scenario$SC9$RUN5
+# )
 ### POSIBLE CORTE DE CODE ####
 
 #------- RESULTS-----------
@@ -1676,6 +1680,114 @@ for (sc in names(results_by_scenario)) {
     })
   }
 }
+
+
+
+## ----Final Tables Values -----
+
+get_conv <- function(x) {
+  if (is.null(x)) return(NA)
+  if (!is.null(x$opt$convergence)) x$opt$convergence == 0 else NA
+}
+
+get_pdhess <- function(x) {
+  if (is.null(x)) return(NA)
+  x$pdHess %||% NA
+}
+
+get_aic <- function(x) {
+  if (is.null(x)) return(NA)
+  tryCatch(get.AIC(x), error = function(e) NA)
+}
+get_biomass_2025 <- function(x) {
+  if (is.null(x)) return(NA_real_)
+
+  b <- exp(as.data.frame(get.par("logB", x)))
+  b$year <- round(as.numeric(rownames(b)), 0)
+
+  b_2025 <- b %>% filter(year == 2025)
+  if (nrow(b_2025) == 0) return(NA_real_)
+
+  sum(b_2025$est, na.rm = TRUE)
+}
+
+get_fishingmortality_2025 <- function(x) {
+  if (is.null(x)) return(NA_real_)
+
+  f <- exp(as.data.frame(get.par("logF", x)))
+  f$year <- round(as.numeric(rownames(f)), 0)
+
+  f_2025 <- f %>% filter(year == 2025)
+  if (nrow(f_2025) == 0) return(NA_real_)
+
+  mean(f_2025$est, na.rm = TRUE)
+}
+
+get_Bmsy_prodcurve <- function(fit) {
+  if (is.null(fit)) return(NA_real_)
+    out <- tryCatch(
+    calc.bmsyk(fit),
+    error = function(e) NA
+  )
+    # si falla o es NA
+  if (length(out) == 0 || all(is.na(out))) return(NA_real_)
+    # caso 1: escalar numérico
+  if (is.atomic(out) && length(out) == 1) {
+    return(as.numeric(out))
+  }
+    # caso 2: vector con nombre Bmsy
+  if (is.atomic(out) && "Bmsy" %in% names(out)) {
+    return(as.numeric(out["Bmsy"]))
+  }
+
+  # caso 3: lista
+  if (is.list(out) && "Bmsy" %in% names(out)) {
+    return(as.numeric(out$Bmsy))
+  }
+  NA_real_
+}
+
+
+# Create summary table
+
+
+summary_table <- data.frame()
+
+for (sc in names(results_by_scenario)) {
+  for (rn in names(results_by_scenario[[sc]])) {
+
+    fit <- results_by_scenario[[sc]][[rn]]
+
+    summary_table <- rbind(
+      summary_table,
+      data.frame(
+        Scenario = sc,
+        Run = rn,
+        Convergence = get_conv(fit),
+        PDHess = get_pdhess(fit),
+        AIC = get_aic(fit),
+        Biomass_2025 = get_biomass_2025(fit),
+        FishingMortality_2025 = get_fishingmortality_2025(fit),
+        ProdCurve = get_Bmsy_prodcurve(fit)
+      )
+    )
+  }
+}
+
+
+summary_table <- summary_table %>%
+  left_join(
+    mohn_table,
+    by = c("Scenario", "Run")
+  )
+
+# Save summary table
+write.csv(
+  summary_table,
+  "outputs/SPiCT_summary_table_all_scenarios_runs.csv",
+  row.names = FALSE
+)
+
 
 ## ----Final Tables Values -----
 

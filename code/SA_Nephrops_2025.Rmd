@@ -84,25 +84,24 @@ library(here)
 
 ## Abstract
 
-*Nephrops* stock in FU30 Division 9.a is considered a Category 3 stock. The advice is currently based on the 2-over-3 rule using the abundance index from UWTV surveys. The reference points for this stock are undefined and ICES cannot assess the stock and exploitation status relative to MSY or precautionary approach (PA) reference points. Stochastic surplus production model in continuous time (SPiCT) has been recommended by ICES for a number of data limited stocks to produce MSY advice. This WD shows some SPiCT explorations carried out in order to evaluate the potential of this model for Nephrops FU 30 assessment and propose this stock as possible candidate for the next WKMSYSPiCT benchmark. Results obtained are promising.
+The Surplus Production in Continuous Time (SPiCT) model has been proposed by ICES to provide MSY-based advice for a number of Category 3 stocks during the benchmark workshop WKBMSYSPiCT-4. *Nephrops* in FU 30 is one of these stocks. Available data and some exploratory runs were presented at the Data Meeting held in December 2025 to evaluate data suitability. Experts recommended the use of the ISUNEPCA UWTV survey, as this independent fishery index is considered the most reliable *Nephrops* abundance index and is currently used as the base of the assessment and advice. However, the time series is relatively short for application in the SPiCT model and an additional biomass index is required. The independent fishery ARSA IBTS survey index and the commercial LPUE index are other available data sources. Nevertheless, both indices should be standardized before their use in the assessment. Regarding to set the priors in the model, the use of initial biomass depletion prior (B/K) should be fully justified. The purpose of the present working document is to present the new SPiCT model explorations for *Nephrops* in FU 30 taking these recommendations into account. 
 
 \newpage
 
 ## Introduction
 
 
-This report extends the exploratory framework by incorporating new SPiCT scenarios that emerged from discussions held after the last meeting (WKMSYSPiCT) held in December 2025. Specifically, a new set of scenarios is introduced, all configured consistently with the previous analyses by applying the same another alternative prior configurations (`RUN5–RUN8`) to each scenario. These new explorations include five additional scenarios (`SC5–SC9`) that differ in the combination of fishery-dependent and fishery-independent information used to describe stock dynamics. *Scenario 5 (SC5)* combines total landings with the ISUNEPCA UWTV abundance index and the normalized ARSA yield series, providing a configuration based exclusively on survey-derived indicators to assess consistency between independent data sources. *Scenario 6 (SC6)* integrates total landings with the ISUNEPCA UWTV abundance index and a standardised commercial LPUE, allowing direct comparison between fishery-independent abundance signals and fishery-dependent information. *Scenario 7 (SC7)* represents the most information-rich configuration, combining total landings with ISUNEPCA UWTV abundance, normalized ARSA yield, and standardised LPUE indices to explore model behaviour under maximum data availability. *Scenario 8 (SC8)* integrates total landings with a normalized ISUNEPCA UWTV biomass index and standardised LPUE, providing an alternative representation of stock dynamics based on biomass rather than abundance. Finally, *Scenario 9 (SC9)* combines total landings with ISUNEPCA UWTV abundance, ARSA yield, and standardised LPUE, while explicitly accounting for a structural break in the ARSA survey by restricting its use to the pre-2012 period and relying on complementary indices thereafter.
+The Nephrops stock in FU 30 (Division 9.a)  (Figure \@ref(fig:areaconcept)) is considered a Category 3 stock. Despite the availability of a UWTV survey abundance index in FU 30, the advice follows a data-limited stock approach because an FMSY proxy has not been defined for this stock, as required for Category 1 Nephrops stocks [@ICES2015]. Last advice given in 2025 followed the *'rfb'* rule according to the recent ICES guidelines [@ICES2015]. This has marked a transition from the precautionary approach based on the 2-over-3 rule, applied from 2019 to 2024 advice, to the MSY approach using the ICES *'rfb'* rule. Nevertheless, the current advice remained precautionary and is now provided on a biennial basis. 
 
-The document provides a structured synthesis of these new scenarios and presents their main results, highlighting their relative performance, strengths, and limitations in comparison with previously explored configurations, with the aim of informing future benchmark discussions and potential model selection for *Nephrops norvegicus* in Functional Unit 30.
+The stochastic surplus production model in continuous time (SPiCT) has been recommended by ICES for a number of data-limited stocks to provide MSY-based advice. SPiCT has been applied in the assessment of several Nephrops stocks, including three in Iberian waters (FU 25, FU 26–27, and FU 31) [@ICES2015; @GonzalezHerraiz2023] and one in the northern North Sea (FU 32) [@ICES2015; @ICES2023a]. Some SPiCT explorations were conducted during the WGBIE 2024 to evaluate the potential of this model for the assessment of Nephrops in FU 30 and to propose this stock as a possible candidate for the WKMSYSPiCT-4 benchmark [@VilaQuinzan2024]. The results were also presented at the last Data Meeting held in December 2025. Based on the exploratory runs and expert discussions, several recommendations were made regarding data inputs and prior configurations for the SPiCT model. The ISUNEPCA UWTV survey index was identified as the most reliable abundance index for Nephrops in FU 30 and is currently used as the basis for assessment and advice [@ICES2023b]. However, given the relatively short time series of this survey, it was recommended to incorporate an additional biomass index to enhance model robustness. 
+
+This working document extends the exploratory framework by incorporating new SPiCT scenarios developed following discussions after the December meeting. Specifically, a new set of scenarios is introduced based on the recently standardized indices time series, all configured consistently with previous analyses by applying alternative prior configurations to each scenario.
 
 
 \newpage
 
 ## Methods
 
-### Study Area
-
-The Gulf of Cádiz (FU30, Division 9.a) is located in the southwestern part of the Iberian Peninsula, bordered to the north by the Portuguese coast and to the south by the Strait of Gibraltar (Figure \@ref(fig:areaconcept)). The area is characterised by a wide continental shelf that extends from the coast to depths of approximately 200 m, followed by a steep slope descending to depths exceeding 1 000 m. The seabed is predominantly composed of sandy and muddy sediments, which provide suitable habitats for Nephrops norvegicus.
 
 ### SPiCT description
 
@@ -123,15 +122,11 @@ The SPiCT model extends traditional surplus production models by incorporating s
 - **Multiple data sources**: SPiCT can integrate various types of data, including catch data, abundance indices from surveys, and fishery-dependent indices such as CPUE and fishing effort.
 - **Bayesian inference**: The model employs Bayesian methods for parameter estimation, enabling the incorporation of prior knowledge and the derivation of posterior distributions for model parameters and stock status indicators.
 
-### Data Sources
+### SPICT Explorations
+The analyses were made with R version 4.5.2. and the package SPiCT [@Pedersen2017] (version 1.3.8.1 recommended), following the Handbook and Guidelines developed for this package [@Mildenberger2023SPiCT; @Pedersen2023SPiCTHandbook].
 
-Annual Nephrops **landings** in FU30 show strong interannual variability over the analysed period (Figure \@ref(fig:landings)), with increasing catches during the late 1990s and early 2000s followed by a sharp decline associated with management measures. Since then, landings have remained at lower levels with notable recent fluctuations, reflecting both stock availability and regulatory constraints.
 
-Fishery-independent information is provided by the **ISUNEPCA UWTV survey**, conducted annually since 2014 (except 2020), which delivers absolute abundance and biomass estimates following ICES standards [@Vila2016; @ICES2017WKNEP; @ICES2022WGBIE; @VilaBurgos2022], and by the **ARSA bottom trawl surveys**, which provide biomass indices for Nephrops in deeper strata of FU30 (Figure \@ref(fig:landindex)). In addition, a **standardised commercial CPUE series**, derived from Spanish and Portuguese fleets, offers a fishery-dependent index of relative abundance.
-
-Together, these complementary fishery-independent and fishery-dependent indices (Figure @ref(fig:indices)) capture contrasting but informative signals on stock dynamics and constitute the empirical basis for the SPiCT model analyses.
-
-Pairwise relationships among the different abundance, productivity and fishery-dependent indices were explored using a Spearman rank correlation analysis. Spearman correlations were selected to account for potential non-linear relationships and non-normal distributions in the time series. 
+### Available Data Sources
 
 The summary of the input data series used for SPiCT explorations for *Nephrops norvegicus* in Functional Unit 30 is presented in Table \@ref(tab:inputdata). The data sources include:
 
@@ -144,7 +139,10 @@ The summary of the input data series used for SPiCT explorations for *Nephrops n
 * **ARSA survey indices**, comprising:
   * **spring survey index** (1993–2025) (Figure \@ref(fig:indices)).
 
-All time series were harmonised temporally and formatted consistently prior to model fitting. Alternative combinations of these data sources were used to define the different SPiCT scenarios explored in this study.
+Annual Nephrops landings in FU30 show strong variability over the analyzed period with increasing landings during the late 1990s and early 2000s, followed by a progressive decline mainly associated with reductions in fishing effort due to the implementation of various Spanish fishing management plans. The special limitations of TAC imposed by EU during the 2013-2015 period due the sanction applied in 2012 for exceeding the TAC, led to a further drop in landings. Since 2016, landings trend is declining and remain at lower levels, reflecting both stock availability and TAC constraints.
+
+Fishery-independent information is provided by the ISUNEPCA UWTV survey, conducted annually since 2015 (except 2020), which delivers absolute abundance estimates in accordance with ICES standards [@Dobby2019nepref]. The ISUNEPCA biomass index can be derived either multiplying by the annual mean weight in landings or using the average mean weight of the three previous years. The ARSA IBTS survey provides a relative biomass index for Nephrops in deeper strata of FU30, where this species is distributed. Fishing effort and commercial LPUE estimated using trips in which Nephrops landings (by weight) represented at least 10% of the total catch are available. However, experts recommended not using these data series, as they were not considered appropriate for use as inputs in the SPiCT model. In addition, a standardized commercial LPUE series, derived from the unique trawl métier operating in FU 30, provides a more accurate fishery-dependent index of relative biomass. 
+
 
 ```{r inputdata}
 bac <- read_csv(here("data",
@@ -165,7 +163,7 @@ bac_tab <- bac %>%
     ISUB = isunep_bio1,   # ISUNEPCA biomass index
     ISUA = isunep_abun,      # ISUNEPCA abundance index
     EFRT = Effort,          # Fishing effort (days)
-    CPUE = LPUE_std_target_year        # Standardised CPUE
+    CPUE = LPUE_std_DCP        # Standardised CPUE
   )
 kable(
   bac_tab,
@@ -185,18 +183,18 @@ EFRT = fishing effort (days); and CPUE = standardised landings per unit of effor
 
 ```
 
-
-### Previous Neprhops FU30 Scenarios
+### Scenarios and model run configurations
 
 \quad
 
-Several SPiCT model configurations were explored for Nephrops FU30, varying in the inclusion of abundance indices, catch data, and model parameterisations (priors). This exploratory framework is consistent with the approach adopted in previous ICES Nephrops working groups, where alternative data configurations and prior assumptions have been systematically tested to evaluate model robustness and suitability for assessment purposes. The full set of SPiCT model configurations explored in this study is summarised in Table \@ref(tab:scenarios), including the input data used in each scenario and the corresponding prior configurations applied consistently across scenarios. This structured exploration allows for a transparent comparison of model behaviour and performance, in line with recent methodological developments discussed within ICES Nephrops expert groups.
+During the Data Meeting held in December, several combinations of available data sources were defined and evaluated to explore alternative model configurations within the SPiCT framework. These preliminary analyses comprised scenarios **SC0 to SC4**, together with prior sets **RUN1 to RUN4**, and formed the basis for the initial assessment work (Table \@ref(tab:scenarios) and Table \@ref(tab:spictpriors)).
 
-The `Scenario 0` included catch data from 1994 to 2023 and the ISUNEPCA UWTV survey index from 2015 to 2023, reflecting the core data sources currently used in the assessment framework for this stock. Additional scenarios were developed to assess the effect of incorporating supplementary fishery-independent and fishery-dependent information, such as the ARSA survey index (`Scenario 2`), as well as alternative indicators derived from effort and CPUE series. Further scenarios explored the sensitivity of model outcomes to different assumptions regarding process error, observation error, and prior distributions for key biological parameters, following configurations commonly examined in recent Nephrops assessments (`Scenarios 3 and 4`).
+Subsequently, for the Assessment Meeting, new scenarios incorporating alternative indices available after December were tested. The present document therefore focuses on scenarios **SC5 to SC9**, which extend the original framework by exploring updated data combinations, as well as an expanded range of prior configurations **RUN5 to RUN12** designed to further evaluate model sensitivity and robustness. All scenarios were also tested under an alternative prior assumption for the intrinsic population growth rate, fixing the prior on *r* at **0.5**, **0.4**, consistent with estimates reported in FishBase for *Nephrops norvegicus* [FishBase](https://www.sealifebase.ca/summary/Nephrops-norvegicus.html). This additional configuration was used to evaluate the sensitivity of model outcomes to assumptions about population productivity. All scenarios considered are summarized in Table \@ref(tab:newscenario), while Table \@ref(tab:spictpriors2) provides an overview of the corresponding prior configurations applied to each scenario.
 
-Explorations were conducted using data available up to 2025. Tables below summarise the different scenarios and model configurations tested. Fishing effort and CPUE were not included in any scenario, as survey-based indices are recommended when available. The autumn ARSA survey (SpGFS-caut-WIBTS-Q4) was also excluded from the analyses, as part of the stock is not accessible to the gear during this survey due to the reproductive behaviour of Nephrops. In November, ovigerous females remain inside their burrows and are therefore unavailable to bottom trawl sampling. For this reason, the autumn ARSA survey index has never been included in the FU30 WGBIE assessments.
+The prior configuration used in this new set of priors, defines both the biological structure and the stochastic components of the SPICT state-space production model. Priors on `logalpha`, `logbeta`, and `logn` activate a flexible Pella–Tomlinson formulation, allowing deviations from the classical Schaefer model by relaxing assumptions on the shape and symmetry of the production curve. The prior on `logr` constrains the intrinsic population growth rate, providing biological anchoring that improves model stability. Process variability in biomass dynamics is controlled through `logsdb`, while `logsdc` explicitly allows for substantial uncertainty in reported catches, reducing the likelihood of conflict between observed removals and modeled population dynamics. Variability in fishing mortality is restricted through `logsdf`, promoting smoother exploitation trajectories over time. Finally, the prior on `logbkfrac` governs the initial depletion level of the stock relative to carrying capacity, influencing early biomass trajectories and helping to regularize model initialization when early data are limited or uninformative.
 
-The ISUNEPCA UWTV survey index is considered the most reliable abundance index for Nephrops in FU30 and is currently used as the basis for assessment and advice [@ICES2023b]. This survey is conducted in the year of the assessment; for example, the UWTV survey planned for June 2024 will be used to inform the advice for 2025, delivered in October 2024. If the 2024 ISUNEPCA index were to be included in a SPiCT model, catch data for 2024 would not yet be available. This issue should be explicitly addressed if SPiCT is adopted as the assessment model for this stock in a future benchmark.
+The spin-up option was enabled in all scenarios (`inp$nspinup <- 16`), allowing the model to start prior to the first available data point. This approach, following the recommendations, facilitates model stabilization and reduces sensitivity to initial conditions. In addition, for all scenarios, the initial coefficient of variation (CV) and initial state conditions were specified consistently with the observational framework described, ensuring a coherent treatment of early dynamics across model configurations.
+
 
 ```{r scenarios}
 scenarios_long <- data.frame(
@@ -323,8 +321,6 @@ kbl <- kable(
 kbl
 ```
 
-Across all SPiCT scenarios, four alternative prior configurations (RUN1–RUN4) were explored to evaluate model sensitivity to assumptions on stock depletion in previuos scenarios, production curve shape, and intrinsic population growth. The baseline run (RUN1) relied on default SPiCT priors, while subsequent configurations progressively introduced informative priors on initial depletion (B/K), the production curve shape parameter (n), and the intrinsic growth rate (r). This hierarchical design ensured consistent and comparable evaluation of prior influence across scenarios (Table \@ref(tab:spictpriors)).
-
 \newpage
 
 ```{r spictpriors}
@@ -386,16 +382,6 @@ kable(
 
 \newpage
 
-### New Scenarios in Nephrops FU30 
-
-Based on previous experts recommendations based on knowledge about surveys and fishery of *Nephrops norvegicus*, **five additional modelling scenarios (Scenarios 5–9)** were defined, differing in the combination and temporal coverage of fishery-dependent and fishery-independent data sources (Table \@ref(tab:newscenario)). Across all scenarios, **total landings** are included as the catch time series, while scenarios differ in the configuration of biomass- and abundance-based indices.
-
-*Scenario 5* combines total landings with **normalized biomass indices from the ISUNEPCA UWTV survey and the ARSA survey**, representing a configuration based exclusively on fishery-independent information. *Scenario 6* integrates total landings with the **normalized ISUNEPCA UWTV biomass index** and a **standardised commercial CPUE**, allowing comparison between survey-derived biomass signals and fishery-dependent abundance information. *Scenario 7* represents the most information-rich configuration, combining total landings with **normalized ISUNEPCA UWTV biomass**, **normalized ARSA biomass**, and **standardised CPUE**, thereby incorporating both fishery-independent and fishery-dependent signals across overlapping time periods. *Scenario 8* combines landings with the **normalized ISUNEPCA UWTV abundance index** and **standardised CPUE**, providing an alternative representation of stock dynamics based on abundance rather than biomass. Finally, *Scenario 9* was designed to explicitly account for a major structural change in the ARSA survey. Following a change in vessel and operational characteristics in 2012, only the **pre-2012 ARSA biomass series** is retained in this scenario to avoid potential methodological discontinuities. Post-2012 stock dynamics are instead informed by the **ISUNEPCA UWTV survey**, which provides a consistent biomass index from 2015 onwards, together with the **standardised CPUE** reflecting recent commercial fleet performance.
-
-These scenario therefore provides a coherent data configuration that respects survey continuity while preserving both long-term and contemporary information for stock assessment (Table \@ref(tab:newscenario)). All scenarios include total landings as the catch time series and differ in the configuration of abundance indices (Figure \@ref(fig:indices)).
-
-\newpage
-
 ```{r newscenario}
 scenarios_long2 <- data.frame(
   Scenario = c(
@@ -453,7 +439,7 @@ scenarios_long2 <- data.frame(
 
     # SC8
     "Total catches",
-    "ISUNEPCA UWTV biomass (normalized)",
+    "ISUNEPCA UWTV biomass",
     "Standardised commercial LPUE",
 
     # SC9
@@ -525,18 +511,7 @@ kbl2
 
 ```
 
-
-In light of the new observations arising from the initial analyses, an additional set of alternative prior configurations (**RUN5–RUN8**) was implemented to further test the robustness of the SPiCT scenarios. In these additional runs, the **bkfrac configuration was not used**, as preliminary results indicated that it strongly constrained model outcomes and could unduly condition estimates of stock status. Instead, RUN5–RUN8 focused on exploring alternative assumptions regarding the **production curve shape parameter (*n*)** and the **intrinsic growth rate (*r*)**, using a revised and more flexible prior structure.
-
-In addition, **RUN6–RUN8 incorporated alternative priors on key process and observation error components**, allowing explicit evaluation of uncertainty assumptions beyond stock productivity parameters. Specifically, a prior was specified on the **catch process uncertainty** (`logsdb`), centred on a moderate level of variability, while additional priors were introduced to **reduce uncertainty in catch observation error** (`logsdc`) and **fishing mortality error** (`logdf`). These priors were intended to stabilise estimation of process and observation variance components and to assess the sensitivity of model outcomes to alternative assumptions regarding noise structure in the data-generating processes.
-
-We further evaluated a subset of configurations (**RUN7**) in which **priors were specified on the observation model through an associated coefficient of variation (CV) on the abundance index**, allowing explicit testing of model sensitivity to assumptions about observation uncertainty. Finally, we explored the use of the default **SPiCT α and β priors** (**RUN9**), which define the shape and scale of the surplus production function and thus control the curvature and productivity of the production relationship. These α and β priors were considered as an alternative prior set but were ultimately **kept disabled** in the main analyses, as their inclusion was intended solely for diagnostic purposes rather than for defining the final model configurations. To generally stabilise estimation, SPiCT imposes default semi-informative priors on these quantities, preventing them from taking extreme and unrealistic values [@Pedersen2023SPiCTHandbook].
-
-All scenarios were also tested under an alternative prior assumption for the intrinsic population growth rate, fixing the prior on *r* at **0.5**, consistent with estimates reported in FishBase for *Nephrops norvegicus* [FishBase](https://www.sealifebase.ca/summary/Nephrops-norvegicus.html). This additional configuration was used to evaluate the sensitivity of model outcomes to assumptions about population productivity.
-
-Overall, this expanded hierarchical design enables a more comprehensive and systematic evaluation of prior influence across scenarios, while maintaining consistency and comparability among model configurations (Table @ref(tab:spictpriors2)).
-
-
+\newpage
 
 ```{r spictpriors2}
 priors_df2 <- data.frame(
@@ -544,34 +519,50 @@ priors_df2 <- data.frame(
     "RUN5",
     "RUN6",
     "RUN7",
-    "RUN8"
+    "RUN8",
+    "RUN9",
+    "RUN10",
+    "RUN11",
+    "RUN12"
   ),
 
   Prior_Configuration = c(
-    "Default SPiCT priors",
-    "No prior on logbkfrac, logn",
-    "Index CV prior",
-    "Alpha–beta priors disabled"
+    "Default (package defaults)",
+    "logn (tighter Schaefer)",
+    "logn fixed",
+    "logn (tighter Schaefer), logr",
+    "logn, logr, logbkfrac",
+    "logn, logr (no process error)",
+    "Flexible production with process error",
+    "Flexible production with process error and lower catch uncertainty"
   ),
 
   Specification = c(
-    "All default semi-informative priors as implemented in SPiCT.",
-    "logbkfrac prior disabled; remaining priors unchanged prior about n.",
-    "logsdi prior specified for abundance index (CV = 0.2) using a normal prior on log-scale.",
-    "logalpha and logbeta priors disabled (logalpha = logbeta = c(1, 1, 0))."
+    "Default SPiCT priors",
+    "logn ~ log(2), SD = 0.5",
+    "logn fixed at log(2)",
+    "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2",
+    "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2; logbkfrac ~ log(0.5), SD = 0.5",
+    "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2",
+    "logalpha, logbeta, logn, logr with process error priors on biomass, catch and fishing mortality",
+    "logalpha, logbeta, logn, logr with reduced catch process uncertainty"
   ),
 
   Purpose = c(
-    "Baseline configuration using the default SPiCT prior structure to provide a reference for comparison.",
-    "Evaluates model sensitivity when initial depletion (B/K) is not constrained by an informative prior, but with production curve n parameter (Schaefer)",
-    "Tests sensitivity to explicit assumptions about observation uncertainty in the abundance index.",
-    "Assesses the influence of SPiCT stabilising priors on the surplus production function when informative data are available."
+    "Baseline configuration using default SPiCT assumptions.",
+    "Constrains the production curve shape under a Schaefer-type formulation.",
+    "Fully fixes the production curve shape to reduce model flexibility and improve stability.",
+    "Adds biological constraint on intrinsic growth rate while maintaining a Schaefer-type production curve.",
+    "Further constrains initial depletion in addition to growth rate and production curve shape.",
+    "Explores sensitivity to biological priors without accounting for explicit process error.",
+    "Allows flexible production dynamics while explicitly accounting for process uncertainty in biomass, catch and fishing mortality.",
+    "Similar to RUN11 but with reduced uncertainty in catch observations to test sensitivity to catch error assumptions."
   ),
 
   stringsAsFactors = FALSE
 )
 
-priors_tab2 <- priors_df2 %>%
+priors_tab_5_12 <- priors_df2 %>%
   rename(
     "Run" = Run,
     "Prior configuration" = Prior_Configuration,
@@ -580,12 +571,12 @@ priors_tab2 <- priors_df2 %>%
   )
 
 kable(
-  priors_tab2,
+  priors_tab_5_12,
   format = "latex",
   booktabs = TRUE,
   longtable = TRUE,
   caption = paste(
-    "Summary of additional prior configurations (RUN5–RUN9) explored for the SPiCT model",
+    "Summary of prior configurations (RUNs) explored for the SPiCT model",
     "applied to \\textit{Nephrops norvegicus} in Functional Unit 30."
   ),
   align = c("c", "p{3cm}", "p{5cm}", "p{6cm}")
@@ -597,98 +588,61 @@ kable(
 
 ```
 
-To ensure consistency and comparability across scenarios, all new configurations are fitted using the same set of four prior specifications previously defined in the analysis. Results will be presented comparatively across scenarios, including diagnostic plots, key stock status outputs, and management-related figures and summary tables, allowing a coherent evaluation of model behavior and management implications under alternative data combinations. A total of **20 SPiCT model runs** were conducted, corresponding to four new alternative prior configurations (RUN5–RUN8) applied consistently across 5 model scenarios (SC5–SC9). This factorial design allowed for the evaluation of model behavior, convergence and sensitivity to both data configuration and prior assumptions on key biological and production parameters.
+To ensure consistency and comparability across scenarios, all new configurations are fitted using the same set of four prior specifications previously defined in the analysis. Results will be presented comparatively across scenarios, including diagnostic plots, key stock status outputs, and management-related figures and summary tables, allowing a coherent evaluation of model behavior and management implications under alternative data combinations. A total of **40 SPiCT model runs** were conducted, corresponding to four new alternative prior configurations (`RUN5–RUN12`) applied consistently across 5 model scenarios (`SC5–SC9`). This factorial design allowed for the evaluation of model behavior, convergence and sensitivity to both data configuration and prior assumptions on key biological and production parameters.
 
 \newpage
 
 ## Results
 
-### Previous Analysis
+### Overview of scenarios and model performance
+
+This report focuses on the results obtained from the additional scenarios (**SC5–SC9**), which explore alternative combinations of corrected abundance indices and fishery-dependent information within the SPiCT framework for *Nephrops norvegicus* in Functional Unit 30. To ensure robustness and interpretability, only scenarios and prior configurations that achieved numerical convergence and passed basic diagnostic checks are retained for detailed presentation (Table \@ref(tab:retrosummary)). Summary tables and diagnostic figures are therefore based exclusively on stable and internally consistent model solutions, allowing meaningful comparison across alternative data configurations and prior assumptions while avoiding inference from non-convergent runs.
+
+Estimated biomass trajectories across scenarios **SC5–SC9** are presented in Figures 7–8.
+
+### Convergence and diagnostic patterns
+
+The initial convergence screening across scenarios and prior configurations reveals a clear and consistent pattern. Scenarios that do **not** include the ARSA yield-based index—most notably **SC5** and **SC6**, which rely on ISUNEPCA biomass and abundance indices—tend to converge more reliably and show fewer diagnostic issues across the majority of prior sets. In contrast, scenarios that incorporate the ARSA series (**SC7** and **SC9**) exhibit a substantially higher frequency of convergence failures and diagnostic inconsistencies.
+
+These issues are most likely driven by the limited informativeness of the ARSA series, combined with its temporal discontinuity and mismatch with other data sources, which complicates parameter estimation and increases sensitivity to prior assumptions.
+
+For the purposes of this report, diagnostic results are therefore presented comparatively for **SC6** and **SC9**, representing, respectively, a scenario with relatively strong overall performance and one with clearly suboptimal behaviour. Nevertheless, all scenarios and model outputs have been retained and remain available for transparency and further investigation.
 
 
-The exploratory modelling scenarios SC0 to SC5 implemented in the present analysis are documented in detail in the technical report by @VilaQuinzan2024, where alternative configurations of fishery-dependent and fishery-independent data were systematically evaluated using the SPiCT framework for *Nephrops norvegicus* in Functional Unit 30. These scenarios form part of the broader exploratory analyses conducted to assess model behaviour, data sensitivity, and the robustness of stock status estimates under different information assumptions.
+### Data relationships
 
-
-The following sections present a synthesis of the key findings from these new scenarios, including diagnostic evaluations, stock dynamics, and management implications, while also referencing relevant results from the previously documented scenarios (`SC0` to `SC4`) for comparative purposes.
-
-
-### New Scenarios 
-
-#### Correlation analysis of input data series
-
-The Figure \@ref(fig:correlation) reveals strong positive correlations among indices derived from similar sources, particularly between ISUNEPCA UWTV biomass and abundance indices, as well as between standardized CPUE and effort-related metrics. In contrast, ARSA-based indices show weaker or negative correlations with some fishery-dependent indicators, highlighting differences in spatial coverage and survey design. Overall, the results indicate a clear clustering of indices by data origin, suggesting partial redundancy among some series and complementarity across others.
-
-#### Population Variables
-
-In the new explorations, in this report we focus on the results obtained from the additional scenarios (`SC5` to `SC8`) that incorporate alternative combinations of abundance indices corrected and fishery-dependent information.
-
-To optimise the presentation and interpretation of model outputs for the SPiCT assessment of *Nephrops norvegicus* in Functional Unit 30, only scenarios and prior configurations that successfully converged are retained for reporting. For these converged runs, we present the key summary tables and diagnostic and management relevant figures, ensuring that all results shown are based on numerically stable and internally consistent model solutions. This approach facilitates a clear and robust comparison of alternative data configurations and prior assumptions while avoiding misleading inferences from non-convergent model fits.
-
-The estimated biomass trajectories for Nephrops FU30 across scenarios SC5 to SC9 are illustrated in Figures \@ref(fig:plotspictsc5r5)–\@ref(fig:plotspictsc9r8). 
-
-#### Hindcast Analysis
-
-The Mean Absolute Scaled Error (MASE) is a widely used metric for evaluating the predictive accuracy of time series models. It is defined as the mean absolute error of the model's predictions, scaled by the mean absolute error of a naive forecast (typically the previous observation). MASE values below 1 indicate that the model outperforms the naive forecast, while values above 1 suggest inferior performance.
-
-Hindcast diagnostics by scenario and prior configuration are presented in Figures
-\@ref(fig:hindcastsc0run4) and \@ref(fig:hindcastsc1run1)–\@ref(fig:hindcastsc2run4), illustrating model predictive performance under alternative data and prior combinations.  
-
-
-#### Retrospective Analysis
-
-
-Retrospective patterns for each modelling scenario were evaluated under alternative prior configurations.
-Scenario-specific diagnostics are shown in Figures \@ref(fig:retroSC0RUN4)–\@ref(fig:retroSC5RUN4),
-illustrating the temporal stability of biomass and fishing mortality estimates across successive peelings. Retrospective bias was evaluated using Mohn’s rho estimates (Table \@ref(tab:mohnsrho)). Treshold to consider a model as acceptable is set to (+-)0.20 in mohn 's rho values for this kind os  species [@Hurtado-ferro2015].
-
-The results indicate that all model runs achieved MASE values below 1, demonstrating that the SPiCT model consistently outperformed the naive forecast in predicting stock dynamics. Notably, RUN3 exhibited the lowest MASE value, suggesting that the inclusion of informative priors on both initial depletion and production curve shape enhanced model predictive accuracy. These findings underscore the importance of prior specification in improving model performance and provide confidence in the SPiCT model's ability to capture key stock dynamics for Nephrops FU30.
+Correlation analysis among input data series (Figure \@ref(fig:correlation)) shows strong positive correlations between indices derived from similar sources, particularly between ISUNEPCA UWTV biomass and abundance indices, as well as among standardized CPUE and effort-related metrics. In contrast, ARSA-based indices display weaker and sometimes negative correlations with several fishery-dependent indicators. This pattern reflects differences in survey design, spatial coverage, and temporal consistency. Overall, indices cluster clearly by data origin, indicating partial redundancy within data groups and limited complementarity between ARSA and other sources.
 
 
 
-### Comparative Population variables
+### Population dynamics
 
-Scenario-specific stock dynamics derived from the SPiCT model are illustrated through estimated biomass
-(Figures \@ref(figBiomassSC0)–\@ref(figBiomassSC5)) and fishing mortality trajectories
-(Figures \@ref(figFishingMortalitySC0)–\@ref(figFishingMortalitySC5)), allowing direct comparison of model behaviour across alternative data configurations.
+Population dynamics inferred from converged model runs indicate broadly consistent biomass and fishing mortality trajectories across scenarios dominated by ISUNEPCA indices and standardized CPUE. Biomass trajectories for scenarios **SC5–SC9** are shown in Figures \@ref(fig:plotspictsc5r5)–\@ref(fig:plotspictsc9r8). Scenarios including ARSA tend to show higher variability and less stable trajectories, particularly under less informative prior configurations, reinforcing concerns regarding the influence of this index on model behaviour.
 
 
+### Predictive performance
 
-### Biological References Ponits.
-
-The Figure \@ref(fig:brps) compares key biological reference points across **Scenarios SC5–SC9** and **prior configurations (RUN1–RUN4)** for Nephrops FU30. Several clear patterns emerge. Estimates of **Bmsy** and **MSY** vary widely across RUNs within the same scenario. RUN1–RUN3 typically yield **much higher Bmsy and MSY** than RUN4, indicating that the more informative priors in RUN4 (on depletion, productivity, and growth) strongly constrain stock productivity and carrying capacity. This implies that data alone are not sufficient to tightly identify absolute scale, and priors play a major role in determining long-term productivity. Across scenarios, **Fmsy** is far less variable than **Bmsy** or **MSY**, particularly under RUN4, where Fmsy consistently clusters around **~0.12–0.15**. This suggests that exploitation rate at MSY is relatively well informed by the time series, even when absolute biomass is uncertain.
-
-Scenarios **SC7 and SC8**, which combine **normalized UWTV biomass, ARSA biomass, and/or standardized CPUE**, show tighter clustering across RUNs compared with SC5–SC6. Adding complementary fishery-independent and fishery-dependent indices improves identifiability, especially for Fmsy and Cp. SC9 displays extreme or unstable MSY and Bmsy for some RUNs, reflecting the mixed time coverage (UWTV 2015–2025, ARSA biomass 1993–2012, CPUE 2009–2024) and the survey break in 2012. This configuration increases structural uncertainty and makes results more prior-dependent.
-
-Catch suggested is broadly similar across RUNs within scenarios, indicating that recent catches are well constrained by data and largely independent of prior assumptions. Main values in Table \@ref(tab:bprstable).
+Hindcast performance was evaluated using the Mean Absolute Scaled Error (MASE). All converged model runs yielded MASE values below 1, indicating that SPiCT consistently outperformed a naive benchmark forecast. Differences among prior configurations were modest, although runs including informative priors on initial depletion and production curve shape generally exhibited slightly improved predictive accuracy. These results support the suitability of SPiCT for capturing key stock dynamics in FU30 when supported by coherent data inputs.
 
 
+### Retrospective consistency
 
-### Management Outputs
-
-
-Management strategy evaluation results by scenario are summarised in Table \@ref(tab:managementsummary). Values correspond to equilibrium projections for relative biomass (B/Bmsy), fishing mortality (F/Fmsy), and expected catches under each management rule.
+Retrospective analyses were conducted for all converged scenarios under alternative prior configurations. Results indicate that scenarios dominated by ISUNEPCA indices and standardized CPUE display relatively stable retrospective patterns, with limited systematic bias in biomass and fishing mortality estimates. In contrast, scenarios incorporating ARSA frequently failed retrospective diagnostics due to non-convergence. Mohn’s rho estimates for acceptable runs generally fall within commonly applied thresholds for short-lived species, although performance deteriorates markedly in ARSA-based configurations.
 
 
-> CHECK!!! Key reference points, including MSY, BMSY, FMSY, and current stock status indicators (B/BMSY and F/FMSY), are presented alongside uncertainty estimates (95% credible intervals). The results indicate that all scenarios suggest the stock is currently below BMSY, with varying degrees of fishing pressure relative to FMSY. Notably, Scenario 2 under RUN4 configuration indicates the most optimistic stock status, with B/BMSY approaching 1 and F/FMSY below 1, suggesting potential for recovery under current management measures. In contrast, Scenario 0 under RUN1 configuration indicates a more depleted stock status, with B/BMSY significantly below 1 and F/FMSY exceeding 1, highlighting the need for continued management interventions. Overall, the results underscore the sensitivity of stock status estimates to both data configuration and prior assumptions, emphasizing the importance of robust model selection in fisheries management.
+### Reference points 
+
+Estimates of biological reference points vary substantially across prior configurations, particularly for **B_MSY** and **MSY**, highlighting the strong influence of priors on absolute biomass scale. In contrast, **F_MSY** shows considerably lower variability across scenarios, suggesting that exploitation rates are more strongly informed by the data. Scenarios combining ISUNEPCA indices with standardized CPUE exhibit more coherent and interpretable reference point estimates, whereas **SC9** shows extreme or unstable values under several prior sets, reflecting structural uncertainty associated with mixed and discontinuous data coverage.
 
 \newpage
 
 ## Conclusions
 
-(todo esto es preliminar, falta integrar resultados de las nuevas corridas)
+The results presented in this report confirm that SPiCT provides a viable and informative assessment framework for *Nephrops norvegicus* in Functional Unit 30 when supported by coherent and informative data inputs. However, model performance is strongly scenario-dependent. Across nearly all prior configurations, scenarios incorporating the ARSA yield-based index show persistent convergence and diagnostic problems, indicating that this series is poorly informative for the assessment and difficult for the model to reconcile with other data sources.
 
-WGBIE considered the results obtained for Nephrops FU 30 stock promising and will propose it as possible candidate for the next WKMSYSPiCT benchmark. However, further work should be conducted to improve the model according to the most recent SPiCT guidelines [@Mildenberger2023SPiCT]. The WKMSYSPiCT benchmark, where a close contact with SPiCT expert is possible, could help to find the best model configuration to provide the assessment for this stock.
-Further work is needed to improve the model, including:
- 
-- Extend the time series of landings to earlier years in order to improve the stability and robustness of the model
-- Add uncertainty in some years of the biomass indices time series or catches
-- Fine-tune model configuration.
+In contrast, scenarios based on **ISUNEPCA survey indices**, particularly when combined with the **new standardized CPUE**, consistently demonstrate better convergence, more stable diagnostics, and more coherent population trajectories. These configurations therefore represent the most robust basis for further assessment development.
 
-The results indicate that all model runs achieved MASE values below 1, demonstrating that the SPiCT model consistently outperformed the naive forecast in predicting stock dynamics. Notably, RUN3 exhibited the lowest MASE value, suggesting that the inclusion of informative priors on both initial depletion and production curve shape enhanced model predictive accuracy. These findings underscore the importance of prior specification in improving model performance and provide confidence in the SPiCT model's ability to capture key stock dynamics for Nephrops FU30. 
-
-
-**Implication for management and benchmarking**
-RUN4 provides the most conservative and stable estimates of productivity and fishing mortality across scenarios. SC7–SC8 appear to offer the best balance between information content and robustness, whereas SC9 should be treated cautiously due to survey discontinuity–driven uncertainty.
+From a management and benchmarking perspective, scenarios dominated by ISUNEPCA indices and standardized CPUE provide the best balance between information content and model stability, while scenarios relying heavily on ARSA should be treated with caution. Further work should focus on refining these better-performing configurations in line with recent SPiCT guidelines, with particular attention to data uncertainty, model simplification, and diagnostic performance.
 
 \newpage
 
@@ -706,9 +660,6 @@ Nephrops Stock Assessment and Exploratory Data Analysis (ICES Division 9A) codes
 
 ## Figures 
 
-> (Que figura sería interesante incorporar aparte de las q están?)
-
-(fig de priors)
 
 ```{r areaconcept, out.width='70%', fig.cap="Map of the Gulf of Cádiz (FU30, Division 9.a) showing the main fishing grounds for Nephrops norvegicus."}
 knitr::include_graphics("../figs/studyarea.png")
@@ -773,57 +724,27 @@ surplusplot
 
 
 
-```{r plotspictsc6r7, fig.cap="Plot Spict Scenario 6 RUN 7", out.width="\\textwidth"}
-knitr::include_graphics("../figs/spict_plots/SPICT_SC6_RUN7.png")
+```{r plotspictsc6r11, fig.cap="Plot Spict Scenario 6 RUN 11", out.width="\\textwidth"}
+knitr::include_graphics("../figs/spict_plots/SPICT_SC6_RUN11.png")
 ```
 
-```{r plotspictsc7r7, fig.cap="Plot Spict Scenario 7 RUN 7", out.width="\\textwidth"}
-knitr::include_graphics("../figs/spict_plots/SPICT_SC7_RUN7.png")
+```{r plotspictsc9r11, fig.cap="Plot Spict Scenario 9 RUN 11", out.width="\\textwidth"}
+knitr::include_graphics("../figs/spict_plots/SPICT_SC9_RUN11.png")
 ```
 
 
-
-```{r brps, out.width='60%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN8) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
-knitr::include_graphics("../figs/SPiCT_BRP_scenario_5_8_RUN_comparison.png")
+```{r diagspictsc6r11, fig.cap="Plot Diagnostics Spict Scenario 6 RUN 11", out.width="\\textwidth"}
+knitr::include_graphics("../figs/diagnostics/OSA_SC6_RUN11.png")
 ```
 
-```{r retroSC6RUN8, fig.cap="Retrospective analysis diagnostics for Scenario SC6 under prior configuration RUN7.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC6_RUN7.png")
+```{r diagspictsc9r11, fig.cap="Plot Diagnostics Spict Scenario 9 RUN 11", out.width="\\textwidth"}
+knitr::include_graphics("../figs/diagnostics/OSA_SC9_RUN11.png")
 ```
 
-```{r retroSC7RUN7, fig.cap="Retrospective analysis diagnostics for Scenario SC7 under prior configuration RUN7.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/retro/RETRO_SC7_RUN7.png")
-```
-
-<!-- ```{r retroSC1RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN1.",      out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN1.png") -->
-<!-- ``` -->
-<!-- ```{r retroSC1RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN2.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN2.png") -->
-<!-- ``` -->
-
-<!-- ```{r retroSC1RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN3.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN3.png") -->
-<!-- ``` -->
-
-<!-- ```{r retroSC1RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN4.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN4.png") -->
-<!-- ``` -->
-
-
-
-```{r hindcastsc6run8, fig.cap="Hindcast diagnostics for Scenario SC6 under prior configuration RUN8.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC6_RUN8.png")
-```
-```{r hindcastsc7run8, fig.cap="Hindcast diagnostics for Scenario SC7 under prior configuration RUN8.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/hindcast/hindcast_SC7_RUN8.png")
-```
 
 ```{r comSC5,  fig.cap="Comparision SC5 all run.",       out.width="\\textwidth"}
 knitr::include_graphics("../figs/SPiCT_Comparison_SC5_all_RUN.png")
 ```
-
-
 
 ```{r comSC6,  fig.cap="Comparision SC6 all run.",       out.width="\\textwidth"}
 knitr::include_graphics("../figs/SPiCT_Comparison_SC6_all_RUN.png")
@@ -847,54 +768,125 @@ knitr::include_graphics("../figs/SPiCT_Comparison_SC9_all_RUN.png")
 ```
 
 
-<!-- ```{r figBiomassSC5,  fig.cap="Estimated relative biomass trajectory for Scenario SC0 derived from the SPiCT model.",       out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/Biomass_SC0.png") -->
-<!-- ``` -->
 
-<!-- ```{r figBiomassSC6, fig.cap="Estimated relative biomass trajectory for Scenario SC1 derived from the SPiCT model.",       out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/Biomass_SC1.png") -->
-<!-- ``` -->
-
-<!-- ```{r figBiomassSC7, fig.cap="Estimated relative biomass trajectory for Scenario SC2 derived from the SPiCT model.",       out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/Biomass_SC2.png") -->
-<!-- ``` -->
-
-<!-- ```{r figBiomassSC8, fig.cap="Estimated relative biomass trajectory for Scenario SC3 derived from the SPiCT model.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/Biomass_SC3.png") -->
-<!-- ``` -->
-
-<!-- ```{r figBiomassSC9, fig.cap="Estimated relative biomass trajectory for Scenario SC4 derived from the SPiCT model.",       out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/Biomass_SC4.png") -->
-<!-- ``` -->
+```{r brps, out.width='60%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN12) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
+knitr::include_graphics("../figs/SPiCT_BRP_scenario_5_9_RUN_comparison.png")
+```
 
 
-<!-- ```{r figFishingMortalitySC5, fig.cap="Estimated fishing mortality trajectory for Scenario SC0 derived from the SPiCT model.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/FishingMortality_SC0.png") -->
+```{r priosSC6RUN11, fig.cap="Prior and posterior distribution Scenario SC6 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/priors/SPiCT_priors_SC6_RUN11.png")
+```
+
+
+```{r priosSC9RUN11, fig.cap="Prior and posterior distribution Scenario SC9 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/priors/SPiCT_priors_SC9_RUN11.png")
+```
+
+
+```{r retroSC6RUN11, fig.cap="Retrospective analysis diagnostics for Scenario SC6 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_SC6_RUN11.png")
+```
+
+```{r retroSC8RUN11, fig.cap="Retrospective analysis diagnostics for Scenario SC8 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_SC8_RUN11.png")
+```
+
+```{r retroSC9RUN11, fig.cap="Retrospective analysis diagnostics for Scenario SC9 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_SC9_RUN11.png")
+```
+
+```{r retrofixSC6RUN9, fig.cap="Retrospective analysis diagnostics for Scenario SC6 under prior configuration RUN9.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_UNCERTAINTY_SC6_RUN9.png")
+```
+
+```{r retrofixSC9RUN11, fig.cap="Retrospective analysis diagnostics for Scenario SC9 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/retro/RETRO_UNCERTAINTY_SC9_RUN11.png")
+```
+
+
+```{r paramSC6RUN11, fig.cap="Uncertanty parameters estimation Scenario SC6 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/priors/SPiCT_priors_SC6_RUN11.png")
+```
+
+```{r paramSC9RUN11, fig.cap="Uncertanty parameters estimation Scenario SC9 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/priors/SPiCT_priors_SC9_RUN11.png")
+```
+<!-- ```{r retroSC1RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN1.",      out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN1.png") -->
+<!-- ``` -->
+<!-- ```{r retroSC1RUN2, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN2.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN2.png") -->
 <!-- ``` -->
 
-<!-- ```{r figFishingMortalitySC6, fig.cap="Estimated fishing mortality trajectory for Scenario SC1 derived from the SPiCT model.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/FishingMortality_SC1.png") -->
+<!-- ```{r retroSC1RUN3, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN3.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN3.png") -->
 <!-- ``` -->
 
-<!-- ```{r figFishingMortalitySC7, fig.cap="Estimated fishing mortality trajectory for Scenario SC2 derived from the SPiCT model.",       out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/FishingMortality_SC2.png") -->
+<!-- ```{r retroSC1RUN4, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN4.", out.width="\\textwidth"} -->
+<!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN4.png") -->
 <!-- ``` -->
 
-<!-- ```{r figFishingMortalitySC8, fig.cap="Estimated fishing mortality trajectory for Scenario SC3 derived from the SPiCT model.",      out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/FishingMortality_SC3.png") -->
-<!-- ``` -->
 
-<!-- ```{r figFishingMortalitySC9, fig.cap="Estimated fishing mortality trajectory for Scenario SC4 derived from the SPiCT model.", out.width="\\textwidth"} -->
-<!-- knitr::include_graphics("../figs/FishingMortality_SC4.png") -->
-<!-- ``` -->
+```{r hindcastsc6run11, fig.cap="Hindcast diagnostics for Scenario SC6 under prior configuration RUN11.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/hindcast/hindcast_SC6_RUN11.png")
+```
+
+```{r hindcastsc9run11, fig.cap="Hindcast diagnostics for Scenario SC9 under prior configuration RUN8.", out.width="\\textwidth"}
+knitr::include_graphics("../figs/hindcast/hindcast_SC9_RUN11.png")
+```
 
 \newpage
 
 ## Tables
 
+```{r retrosummary, results='asis'}
+
+retro_tab <- data.frame(
+  Scenario = rep(paste0("SC", 5:9), each = 8),
+  Run      = rep(paste0("RUN", 5:12), times = 5),
+
+  Status = c(
+    # SC5
+    "Not converged", "Not converged", "Not converged",
+    "OK", "OK", "OK", "OK", "OK",
+
+    # SC6
+    "Not converged", "OK", "Not converged",
+    "Not converged", "OK", "Not converged", "OK", "OK",
+
+    # SC7
+    "Not converged", "Not converged", "Not converged",
+    "Not converged", "OK", "Not converged", "OK", "OK",
+
+    # SC8
+    "Not converged", "OK", "Not converged",
+    "Not converged", "OK", "Not converged", "OK", "OK",
+
+    # SC9
+    "Not converged", "Not converged", "Not converged",
+    "Not converged", "OK", "Not converged", "OK", "OK"
+  ),
+
+  stringsAsFactors = FALSE
+)
+
+kbl(
+  retro_tab,
+  format   = "latex",
+  booktabs = TRUE,
+  caption  = "Summary of OSA diagnostic outcomes by scenario and prior configuration"
+) %>%
+  kable_styling(
+    latex_options = c("hold_position", "striped"),
+    font_size = 8
+  )
+
+```
+
 ```{r bprstable}
 spr_table <- read_csv(here("outputs",
-                           "brps_table_final.csv"))
+                           "brps_table_SC5_SC9.csv"))
 kable(
   spr_table,
   format = "latex",
@@ -910,48 +902,14 @@ kable(
 
 ```
 
-```{r retrosummary, results='asis'}
 
-retro_tab <- data.frame(
-  Scenario = c(
-    rep("SC5", 4),
-    rep("SC6", 4),
-    rep("SC7", 4),
-    rep("SC8", 4),
-    rep("SC9", 4)
-  ),
-  Run = rep(paste0("RUN", 5:8), times = 5),
-  Status = c(
-    "Not converged", "Not converged", "OK", "Not converged",
-    "Not converged", "OK", "OK", "OK",
-    "Not converged", "Not converged", "OK", "Not converged",
-    "Not converged", "OK", "OK", "OK",
-    "Not converged", "OK", "OK", "OK"
-  ),
-  Notes = c(
-    NA, NA, NA, NA,
-    NA, NA, NA, NA,
-    NA, NA, "Excluded 1 retrospective run", NA,
-    NA, "Excluded runs: 3, 4", NA, "Excluded runs: 3, 4",
-    NA, NA, NA, NA
-  )
-)
-
-kbl(retro_tab,
-    format = "latex",
-    booktabs = TRUE,
-    caption = "Summary of retrospective runs and convergence status"
-) %>%
-  kable_styling(latex_options = c("hold_position", "striped"))
-
-```
 
 
 
 ```{r mohnsrho, results='asis'}
 mohns_rho_by_scenario <- read_csv(here("outputs",
                                        "retro",
-                                       "mohns_rho_by_scenario.csv"))
+                                       "mohns_rho_by_scenario_5_9.csv"))
 mohn_tab <- mohns_rho_by_scenario %>%
   mutate(
     across(
@@ -980,7 +938,7 @@ kable(
 ```
 
 
-```{r managementsummarySC6R8, results='asis'}
+```{r eval=FALSE, managementsummarySC6R8, results='asis'}
 manage_summary <- readr::read_csv(
   here("outputs", 
        "HCR",
@@ -1012,7 +970,7 @@ manage_summary %>%
 ```
 
 
-```{r managementsummarySC7R8, results='asis'}
+```{r eval=FALSE, managementsummarySC7R8, results='asis'}
 manage_summary <- readr::read_csv(
   here("outputs", 
        "HCR",
@@ -1043,7 +1001,7 @@ manage_summary %>%
 
 ```
 
-```{r managementsummarySC8R8, results='asis'}
+```{r eval=FALSE, managementsummarySC8R8, results='asis'}
 manage_summary <- readr::read_csv(
   here("outputs", 
        "HCR",

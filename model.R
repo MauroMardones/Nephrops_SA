@@ -21,6 +21,8 @@ library(here)
 # para pheatmap
 library(pheatmap)
 
+
+# read this object if anytime you changes  scenarios data or scenarios priors
 scenarios_data<-readRDS("data/scenarios_data.rds")
 scenarios_priors<-readRDS("data/scenarios_priors.rds")
 
@@ -40,11 +42,11 @@ for (sc_name in names(scenarios_data)) {
     )
   }
 }
+#
 
 
-##############################################################################
-# Run SPICT ----
-##############################################################################
+# Run SPICT
+
 results_by_scenario <- list()
 
 for (sc_name in names(scenarios_data)) {
@@ -81,21 +83,62 @@ for (sc_name in names(scenarios_data)) {
   }
 }
 
+
+## --------------------Read Scenarios----------------------------------------------
+
 ## --------------------Read Scenarios----------------------------------------------
 
 # Example access to results
 
 names(results_by_scenario)
 
-# # individual Scenario
-# names(results_by_scenario$SC8)
-#
-# results_by_scenario$SC8$RUN5
+# individual Scenario
+names(results_by_scenario$SC5)
+
+# Individual Scenario and run (e.i.)
+# SC5
+results_by_scenario$SC5$RUN5
+results_by_scenario$SC5$RUN6
+results_by_scenario$SC5$RUN7
+results_by_scenario$SC5$RUN8
+results_by_scenario$SC5$RUN9
+results_by_scenario$SC5$RUN10
+results_by_scenario$SC5$RUN11
+results_by_scenario$SC5$RUN12
+
+# SC6
+results_by_scenario$SC6$RUN5
+results_by_scenario$SC6$RUN6
+results_by_scenario$SC6$RUN7
+results_by_scenario$SC6$RUN8
+results_by_scenario$SC6$RUN9
+results_by_scenario$SC6$RUN10
+results_by_scenario$SC6$RUN11
+results_by_scenario$SC6$RUN12
 
 
-# genera  un .rsd por escenario
-out <- results_by_scenario
+# SC7
+results_by_scenario$SC7$RUN5
+results_by_scenario$SC7$RUN6
+results_by_scenario$SC7$RUN7
+results_by_scenario$SC7$RUN8
 
-saveRDS(out, "outputs/SPiCT_SC8_SC9_RUN8_results.rds")
+# SC8
+results_by_scenario$SC8$RUN5
+results_by_scenario$SC8$RUN6
+results_by_scenario$SC8$RUN7
+results_by_scenario$SC8$RUN8
+
+# SC9
+results_by_scenario$SC9$RUN5
+results_by_scenario$SC9$RUN6
+results_by_scenario$SC9$RUN7
+results_by_scenario$SC9$RUN8
+
+
+# genera  un .rds por escenario example
+#saveRDS(results_by_scenario$SC5$RUN(), "outputs/SPiCT_full_results_SC5_R8.rds")
+#o todo el objeto con los resultados
+#saveRDS(results_by_scenario, "outputs/SPiCT_full_results.rds")
 
 

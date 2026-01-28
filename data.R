@@ -148,7 +148,7 @@ I_Total_Effort <- data.frame(
 
 # Standardized LPUE # work in progress
 I_LPUE_std <- data.frame(
-  obsI  = bac$LPUE_std_target_year,
+  obsI  = bac$LPUE_std_DCP,
   timeI = bac$year,
   stdevfacI = 0.2#bac$CV_LPUE_std_target_year
 )
@@ -180,6 +180,7 @@ inp5 <- list(
     I_arsa_std_nor$obsI[ind:ind2]
   )
 )
+inp5$nspinup <- 16
 
 # Scenario 6-- Scenario integrating total landings with  ISUNEPCA UWTV abundance and
 #a standardized LPUE index, combining fishery-independent and fishery-dependent information.
@@ -201,7 +202,7 @@ inp6 <- list(
 inp6$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
 inp6$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
 
-# añadir inp6$nspinup <- 16
+inp6$nspinup <- 16
 
 # Scenario 7-- Most information-rich configuration,
 #combining total landings with ISUNEPCA UWTV abundance,
@@ -226,8 +227,8 @@ inp7 <- list(
 
 inp7$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
 inp7$stdevfacI_arsa <- bac$arsa_std_nor[ind:ind2]
-inp7$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
-
+inp7$stdevfacI_lpue <- bac$CV_LPUE_std_DCP[ind:ind2]
+inp7$nspinup <- 16
 #Scenario 8 -- Scenario integrating total landings with
 #normalized ISUNEPCA UWTV biomasss and a standardized LPUE index,
 #combining fishery-independent and fishery-dependent information.
@@ -248,8 +249,8 @@ inp8 <- list(
 )
 
 #inp8$stdevfacI_isub <- 0.2
-inp8$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
-
+inp8$stdevfacI_lpue <- bac$CV_LPUE_std_DCP[ind:ind2]
+inp8$nspinup <- 16
 #Scenario 9 -- Scenario combines total landings with the ISUNEPCA UWTV abundance (2015–2025),
 #ARSA biomass survey (1993–2012),
 #and the standardised commercial LPUE (2009–2024).
@@ -275,7 +276,8 @@ inp9 <- list(
 )
 inp9$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
 inp9$stdevfacI_arsa <- bac$arsa_std_nor[7:26]
-inp9$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
+inp9$stdevfacI_lpue <- bac$CV_LPUE_std_DCP[ind:ind2]
+inp9$nspinup <- 16
 # # 1. Inicializar stdevfacI con 1s para todos los índices
 # inp9$stdevfacI <- list(
 #   rep(1, length(inp9$obsI[[1]])),

@@ -85,8 +85,6 @@ for (sc in names(results_by_scenario)) {
   }
 }
 
-#Objetos retros guardados en "retro_results"
-
 
 ### -------Extract rho parametrer by scenario--------
 #
@@ -145,6 +143,30 @@ mohn_table
 # guaerda la tabla en outputs/retro
 write.csv(
   mohn_table,
-  file = "outputs/retro/mohns_rho_by_scenario_5_8.csv",
+  file = "outputs/retro/mohns_rho_by_scenario_5_9.csv",
   row.names = FALSE
 )
+
+
+# plot de uncertantainty
+# using this plotspict.retro.fixed(retro_results$SC6$RUN11)
+
+for (sc in names(retro_results)) {
+  for (run in names(retro_results[[sc]])) {
+
+    png(
+      filename = file.path(
+        "figs/retro",
+        paste0("RETRO_UNCERTAINTY_", sc, "_", run, ".png")
+      ),
+      width = 2400,
+      height = 1800,
+      res = 300
+    )
+
+    plotspict.retro.fixed(retro_results[[sc]][[run]])
+
+    dev.off()
+  }
+}
+
