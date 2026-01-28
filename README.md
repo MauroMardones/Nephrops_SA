@@ -57,6 +57,42 @@ R scripts covering:
 
 Key assessment documents are produced from R Markdown files (e.g. `SA_Nephrops_2025.Rmd`).
 
+The `code/` directory contains all scripts used to prepare data, configure model settings, run SPiCT models, and generate diagnostics and outputs for the assessment of *Nephrops norvegicus* in Functional Unit 30. The scripts are designed to be executed sequentially, as each step builds on objects created in previous stages.
+
+The recommended execution order is as follows:
+
+1. **`1_data.R`**
+   Reads, cleans, and formats all input data used in the assessment, including survey indices, catch data, and fishery-dependent information. All datasets are standardized and prepared for use in the SPiCT model framework.
+
+2. **`2_prior.R`**
+   Defines the prior configurations (RUNs) explored in the assessment. This script specifies alternative prior assumptions for biological parameters, initial conditions, and process error components.
+
+3. **`3_model.R`**
+   Runs the SPiCT model for all defined scenarios and prior configurations. Model fits are stored for subsequent diagnostics and analyses.
+
+4. **`4_diags.R`**
+   Performs convergence checks and core diagnostic analyses, including likelihood components and basic model performance indicators.
+
+5. **`5_comparision.R`**
+   Produces comparative summaries across scenarios and prior configurations, focusing on key population variables and reference points.
+
+6. **`6_retro.R`**
+   Conducts retrospective analyses for converged model runs and generates retrospective diagnostics and figures.
+
+7. **`7_hindcast.R`**
+   Evaluates predictive performance through hindcast analyses, including calculation of error metrics such as MASE.
+
+8. **`8_manage.R`**
+   Generates management-relevant outputs, including estimates of biological reference points and catch advice indicators.
+
+---
+
+If you want, I can also add:
+
+* a **short “Quick start” block** (3 lines),
+* or a **dependency diagram** (script → outputs), which is often appreciated in WG reports.
+
+
 ---
 
 ### **`data/`**
@@ -66,7 +102,7 @@ Includes:
 * Raw survey indices (ARSA trawl surveys, ISUNEPCA UWTV).
 * Fishery-dependent datasets (landings, effort, size structure).
 * Intermediate and processed datasets generated programmatically.
-* `inputdata_FU30_wkbmsyspict.csv`; primary input for SPiCT assessments.
+* `inputdata_FU30_wkbmsyspict.csv`; primary input for SPiCT assessments callled in **`1_data.R`**.
 
 (Raw data remain unmodified; all derived datasets are generated through scripted workflows.)
 
