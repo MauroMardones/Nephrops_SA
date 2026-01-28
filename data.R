@@ -201,7 +201,7 @@ inp6 <- list(
 inp6$stdevfacI_isu <- bac$CV_isunep_abun[ind:ind2]
 inp6$stdevfacI_lpue <- 0.2 #bac$CV_LPUE_std_target_year[ind:ind2]
 
-
+# añadir inp6$nspinup <- 16
 
 # Scenario 7-- Most information-rich configuration,
 #combining total landings with ISUNEPCA UWTV abundance,
@@ -325,15 +325,15 @@ sapply(inp_list_checked, function(x) {
 # here we define wich combinations of scenarios and priors we want to run
 
 scenarios_data <- list(
-  #SC5 = inp5,
-  SC6 = inp6
-  # SC7 = inp7,
-  # SC8 = inp8
-  # SC9 = inp9
+  SC5 = inp5,
+  SC6 = inp6,
+  SC7 = inp7,
+  SC8 = inp8,
+  SC9 = inp9
 )
 
 #guardar Rdata
- saveRDS(scenarios_data,  file = "data/scenarios_data.rds")
+saveRDS(scenarios_data,  file = "data/scenarios_data.rds")
 #------------------------------------------------------
 # Check inputs
 #

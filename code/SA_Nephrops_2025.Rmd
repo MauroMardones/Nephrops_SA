@@ -708,6 +708,8 @@ Nephrops Stock Assessment and Exploratory Data Analysis (ICES Division 9A) codes
 
 > (Que figura sería interesante incorporar aparte de las q están?)
 
+(fig de priors)
+
 ```{r areaconcept, out.width='70%', fig.cap="Map of the Gulf of Cádiz (FU30, Division 9.a) showing the main fishing grounds for Nephrops norvegicus."}
 knitr::include_graphics("../figs/studyarea.png")
 ```
@@ -781,7 +783,7 @@ knitr::include_graphics("../figs/spict_plots/SPICT_SC7_RUN7.png")
 
 
 
-```{r brps, out.width='40%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN8) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
+```{r brps, out.width='60%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN8) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
 knitr::include_graphics("../figs/SPiCT_BRP_scenario_5_8_RUN_comparison.png")
 ```
 

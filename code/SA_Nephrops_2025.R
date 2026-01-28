@@ -1026,6 +1026,31 @@ for (sc in names(results_by_scenario)) {
 }
 
 #Objetos retros guardados en "retro_results"
+# por cada retro_result, haz un plotsipct.retro.fixed() plot y guardalo en  la csarpeta de fig de retro
+fig_dir <- file.path("retro", "figs")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+
+for (sc in names(retro_results)) {
+
+  for (run in names(retro_results[[sc]])) {
+
+    retro_obj <- retro_results[[sc]][[run]]
+
+    # nombre del archivo
+    file_out <- file.path(
+      fig_dir,
+      paste0("SIPCT_retro_", sc, "_", run, ".pdf")
+    )
+
+    pdf(file_out, width = 7, height = 7)
+    plotsipct.retro.fixed(retro_obj)
+    dev.off()
+  }
+}
+
+
+
+
 
 
 ### -------Extract rho parametrer by scenario--------
