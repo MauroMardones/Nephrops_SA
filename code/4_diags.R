@@ -108,49 +108,60 @@ for (sc in names(results_by_scenario)) {
   }
 }
 
-##-----------------------------Results Tables ------------------------------
-dir.create("outputs/results", showWarnings = FALSE)
-# ojo aca. Cambiar los valores de escenarios y runs según corresponda
-scenarios <- paste0("SC", 5:9)
-runs <- paste0("RUN", 5:12)
+##----------------------------- Results Tables ------------------------------
 
-for (sc in scenarios) {
-  for (rn in runs) {
+out_base <- file.path("outputs", "results")
+dir.create(out_base, recursive = TRUE, showWarnings = FALSE)
+
+# recorrer escenarios existentes
+for (sc in names(results_by_scenario)) {
+
+  # saltar escenarios vacíos
+  if (length(results_by_scenario[[sc]]) == 0) next
+
+  for (rn in names(results_by_scenario[[sc]])) {
 
     message("Processing ", sc, " / ", rn)
 
     res <- results_by_scenario[[sc]][[rn]]
 
-    # Create folder results/SCx/RUNy
-    out_dir <- file.path("outputs/results", sc, rn)
+    # saltar runs nulos o fallidos
+    if (is.null(res)) next
+
+    # crear carpeta outputs/results/SCx/RUNy
+    out_dir <- file.path(out_base, sc, rn)
     dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-    #
-    # Tables SPiCT parameters
-    #
+    ##
+    ## Tables SPiCT outputs
+    ##
 
-    # Summary of estimates
+    # Summary of parameter estimates
     write.csv(
       round(sumspict.parest(res), 2),
-      file = file.path(out_dir, "SummaryEstimates.csv")
+      file = file.path(out_dir, "SummaryEstimates.csv"),
+      row.names = TRUE
     )
 
-    # Reference points (stochastic)
+    # Stochastic reference points
     write.csv(
       round(sumspict.srefpoints(res), 2),
-      file = file.path(out_dir, "RefPoints.csv")
+      file = file.path(out_dir, "RefPoints.csv"),
+      row.names = TRUE
     )
 
-    # States
+    # State estimates (biomass, F, etc.)
     write.csv(
       round(sumspict.states(res), 2),
-      file = file.path(out_dir, "States.csv")
+      file = file.path(out_dir, "States.csv"),
+      row.names = TRUE
     )
 
-    # Predictions
+    # Model predictions
     write.csv(
       round(sumspict.predictions(res), 2),
-      file = file.path(out_dir, "Predictions.csv")
+      file = file.path(out_dir, "Predictions.csv"),
+      row.names = TRUE
     )
   }
 }

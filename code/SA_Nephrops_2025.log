@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  28 JAN 2026 17:19
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  28 JAN 2026 17:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1164,6 +1164,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [14]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 34.65004pt, for example:
+(fancyhdr)                \setlength{\headheight}{34.65004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
+
+[16]
 File: ../figs/studyarea.png Graphic file (type bmp)
 <../figs/studyarea.png>
 File: ../figs/landings_nephrops_FU30.png Graphic file (type bmp)
@@ -1175,7 +1191,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[15]
+[17]
 File: ../figs/indices_nephrops_FU30_all.png Graphic file (type bmp)
 <../figs/indices_nephrops_FU30_all.png>
 
@@ -1185,7 +1201,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[16]
+[18]
 File: ../figs/correlation_pearson_nephrops_FU30.png Graphic file (type bmp)
 <../figs/correlation_pearson_nephrops_FU30.png>
 
@@ -1195,7 +1211,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[17]
+[19]
 File: SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf Graphic file (type pdf)
 <use SA_Nephrops_2025_files/figure-latex/surplusplot-1.pdf>
 
@@ -1205,7 +1221,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[18]
+[20]
 File: ../figs/spict_plots/SPICT_SC6_RUN11.png Graphic file (type bmp)
 <../figs/spict_plots/SPICT_SC6_RUN11.png>
 
@@ -1215,7 +1231,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[19]
+[21]
 File: ../figs/spict_plots/SPICT_SC9_RUN11.png Graphic file (type bmp)
 <../figs/spict_plots/SPICT_SC9_RUN11.png>
 
@@ -1225,7 +1241,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[20]
+[22]
 File: ../figs/diagnostics/OSA_SC6_RUN11.png Graphic file (type bmp)
 <../figs/diagnostics/OSA_SC6_RUN11.png>
 
@@ -1235,7 +1251,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[21]
+[23]
 File: ../figs/diagnostics/OSA_SC9_RUN11.png Graphic file (type bmp)
 <../figs/diagnostics/OSA_SC9_RUN11.png>
 
@@ -1245,7 +1261,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[22]
+[24]
 File: ../figs/SPiCT_Comparison_SC5_all_RUN.png Graphic file (type bmp)
 <../figs/SPiCT_Comparison_SC5_all_RUN.png>
 
@@ -1255,7 +1271,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[23]
+[25]
 File: ../figs/SPiCT_Comparison_SC6_all_RUN.png Graphic file (type bmp)
 <../figs/SPiCT_Comparison_SC6_all_RUN.png>
 
@@ -1265,7 +1281,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[24]
+[26]
 File: ../figs/SPiCT_Comparison_SC7_all_RUN.png Graphic file (type bmp)
 <../figs/SPiCT_Comparison_SC7_all_RUN.png>
 
@@ -1275,7 +1291,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[25]
+[27]
 File: ../figs/SPiCT_Comparison_SC8_all_RUN.png Graphic file (type bmp)
 <../figs/SPiCT_Comparison_SC8_all_RUN.png>
 
@@ -1285,7 +1301,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[26]
+[28]
 File: ../figs/SPiCT_Comparison_SC9_all_RUN.png Graphic file (type bmp)
 <../figs/SPiCT_Comparison_SC9_all_RUN.png>
 
@@ -1295,7 +1311,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[27]
+[29]
 File: ../figs/SPiCT_BRP_scenario_5_9_RUN_comparison.png Graphic file (type bmp)
 <../figs/SPiCT_BRP_scenario_5_9_RUN_comparison.png>
 
@@ -1305,7 +1321,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[28]
+[30]
 File: ../figs/priors/SPiCT_priors_SC6_RUN11.png Graphic file (type bmp)
 <../figs/priors/SPiCT_priors_SC6_RUN11.png>
 
@@ -1315,7 +1331,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[29]
+[31]
 File: ../figs/priors/SPiCT_priors_SC9_RUN11.png Graphic file (type bmp)
 <../figs/priors/SPiCT_priors_SC9_RUN11.png>
 
@@ -1325,7 +1341,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[30]
+[32]
 File: ../figs/retro/RETRO_SC6_RUN11.png Graphic file (type bmp)
 <../figs/retro/RETRO_SC6_RUN11.png>
 
@@ -1335,7 +1351,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[31]
+[33]
 File: ../figs/retro/RETRO_SC8_RUN11.png Graphic file (type bmp)
 <../figs/retro/RETRO_SC8_RUN11.png>
 
@@ -1345,7 +1361,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[32]
+[34]
 File: ../figs/retro/RETRO_SC9_RUN11.png Graphic file (type bmp)
 <../figs/retro/RETRO_SC9_RUN11.png>
 
@@ -1355,7 +1371,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[33]
+[35]
 File: ../figs/retro/RETRO_UNCERTAINTY_SC6_RUN9.png Graphic file (type bmp)
 <../figs/retro/RETRO_UNCERTAINTY_SC6_RUN9.png>
 
@@ -1365,29 +1381,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
-[34]
+[36]
 File: ../figs/retro/RETRO_UNCERTAINTY_SC9_RUN11.png Graphic file (type bmp)
 <../figs/retro/RETRO_UNCERTAINTY_SC9_RUN11.png>
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[35]
-File: ../figs/priors/SPiCT_priors_SC6_RUN11.png Graphic file (type bmp)
-<../figs/priors/SPiCT_priors_SC6_RUN11.png>
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 34.65004pt, for example:
-(fancyhdr)                \setlength{\headheight}{34.65004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
-
-[36]
-File: ../figs/priors/SPiCT_priors_SC9_RUN11.png Graphic file (type bmp)
-<../figs/priors/SPiCT_priors_SC9_RUN11.png>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1425,17 +1421,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [40]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 826.
+(Font)              scaled to size 8.0pt on input line 806.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 826.
+(Font)              scaled to size 5.0pt on input line 806.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 826.
+(Font)              scaled to size 8.00073pt on input line 806.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 826.
+(Font)              scaled to size 5.00046pt on input line 806.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 826.
+(Font)              scaled to size 7.99915pt on input line 806.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 826.
+(Font)              scaled to size 4.99947pt on input line 806.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1496,10 +1492,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22922 strings out of 478761
- 436726 string characters out of 5848546
+ 22920 strings out of 478761
+ 436688 string characters out of 5848546
  1891991 words of memory out of 5000000
- 42561 multiletter control sequences out of 15000+600000
+ 42559 multiletter control sequences out of 15000+600000
  520765 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,13n,121p,1444b,537s stack positions out of 10000i,1000n,20000p,200000b,200000s

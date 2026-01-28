@@ -804,14 +804,6 @@ knitr::include_graphics("../figs/retro/RETRO_UNCERTAINTY_SC6_RUN9.png")
 knitr::include_graphics("../figs/retro/RETRO_UNCERTAINTY_SC9_RUN11.png")
 ```
 
-
-```{r paramSC6RUN11, fig.cap="Uncertanty parameters estimation Scenario SC6 under prior configuration RUN11.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/priors/SPiCT_priors_SC6_RUN11.png")
-```
-
-```{r paramSC9RUN11, fig.cap="Uncertanty parameters estimation Scenario SC9 under prior configuration RUN11.", out.width="\\textwidth"}
-knitr::include_graphics("../figs/priors/SPiCT_priors_SC9_RUN11.png")
-```
 <!-- ```{r retroSC1RUN1, fig.cap="Retrospective analysis diagnostics for Scenario SC1 under prior configuration RUN1.",      out.width="\\textwidth"} -->
 <!-- knitr::include_graphics("../figs/retro/RETRO_SC1_RUN1.png") -->
 <!-- ``` -->
