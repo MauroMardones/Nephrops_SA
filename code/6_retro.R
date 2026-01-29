@@ -15,34 +15,22 @@
 # # plot
 # plotspict.retro(retrosc1r1)
 
-
-run_spict_retro_simple <- function(fit,
-                                   scenario,
-                                   run,
-                                   nretroyear = 5,
-                                   fig_dir = "figs/retro",
-                                   out_dir = "outputs/retro") {
+run_spict_retro_light <- function(fit,
+                                  scenario,
+                                  run,
+                                  nretroyear = 5,
+                                  fig_dir = "figs/retro") {
 
   dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
-  dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
-  # Retro
+  # correr retro (objeto temporal)
   res_retro <- retro(
     fit,
     nretroyear = nretroyear,
     mc.cores = 1
   )
 
-  # Guardar objeto
-  saveRDS(
-    res_retro,
-    file = file.path(
-      out_dir,
-      paste0("RETRO_", scenario, "_", run, ".rds")
-    )
-  )
-
-  # Guardar plot
+  ## ---- Plot estándar retro ----
   png(
     filename = file.path(
       fig_dir,
@@ -55,23 +43,63 @@ run_spict_retro_simple <- function(fit,
   plotspict.retro(res_retro)
   dev.off()
 
-  return(res_retro)
-}
-# Run retrospectives for all scenarios and runs
+  ## ---- Plot incertidumbre ----
+  png(
+    filename = file.path(
+      fig_dir,
+      paste0("RETRO_UNCERTAINTY_", scenario, "_", run, ".png")
+    ),
+    width = 2400,
+    height = 1800,
+    res = 300
+  )
+  plotspict.retro.fixed(res_retro)
+  dev.off()
 
-retro_results <- list()
+  ## ---- Extraer Mohn's rho ----
+  mr <- tryCatch(
+    mohns_rho(
+      rep = res_retro,
+      what = c("BBmsy", "FFmsy"),
+      annualfunc = mean
+    ),
+    error = function(e) NULL
+  )
+
+  ## limpiar memoria explícitamente
+  rm(res_retro)
+  gc(verbose = FALSE)
+
+  if (is.null(mr)) {
+    return(data.frame(
+      Scenario = scenario,
+      Run = run,
+      Mohn_BBmsy = NA_real_,
+      Mohn_FFmsy = NA_real_
+    ))
+  }
+
+  data.frame(
+    Scenario = scenario,
+    Run = run,
+    Mohn_BBmsy = unname(mr["BBmsy"]),
+    Mohn_FFmsy = unname(mr["FFmsy"])
+  )
+}
+
+
+mohn_table <- data.frame()
 
 for (sc in names(results_by_scenario)) {
 
   message("\n=== Scenario:", sc, "===")
-  retro_results[[sc]] <- list()
 
   for (run in names(results_by_scenario[[sc]])) {
 
     message("Running RETRO:", sc, run)
 
-    retro_results[[sc]][[run]] <- tryCatch(
-      run_spict_retro_simple(
+    res_row <- tryCatch(
+      run_spict_retro_light(
         fit = results_by_scenario[[sc]][[run]],
         scenario = sc,
         run = run,
@@ -79,94 +107,26 @@ for (sc in names(results_by_scenario)) {
       ),
       error = function(e) {
         message("❌ Error in ", sc, " ", run, ": ", e$message)
-        NULL
+        data.frame(
+          Scenario = sc,
+          Run = run,
+          Mohn_BBmsy = NA_real_,
+          Mohn_FFmsy = NA_real_
+        )
       }
     )
+
+    mohn_table <- rbind(mohn_table, res_row)
   }
 }
 
 
-### -------Extract rho parametrer by scenario--------
-#
-extract_mohn_spict <- function(retro_obj) {
+dir.create("outputs/retro", showWarnings = FALSE, recursive = TRUE)
 
-  if (is.null(retro_obj)) {
-    return(data.frame(
-      Mohn_BBmsy = NA_real_,
-      Mohn_FFmsy = NA_real_
-    ))
-  }
-
-  mr <- tryCatch(
-    mohns_rho(
-      rep = retro_obj,
-      what = c("BBmsy", "FFmsy"),
-      annualfunc = mean
-    ),
-    error = function(e) NULL
-  )
-
-  if (is.null(mr)) {
-    return(data.frame(
-      Mohn_BBmsy = NA_real_,
-      Mohn_FFmsy = NA_real_
-    ))
-  }
-
-  data.frame(
-    Mohn_BBmsy = mr["BBmsy"],
-    Mohn_FFmsy = mr["FFmsy"]
-  )
-}
-
-# Extraer rho
-mohn_table <- data.frame()
-
-for (sc in names(retro_results)) {
-  for (run in names(retro_results[[sc]])) {
-
-    mohn_vals <- extract_mohn_spict(retro_results[[sc]][[run]])
-
-    mohn_table <- rbind(
-      mohn_table,
-      data.frame(
-        Scenario = sc,
-        Run = run,
-        Mohn_BBmsy = mohn_vals$Mohn_BBmsy,
-        Mohn_FFmsy = mohn_vals$Mohn_FFmsy
-      )
-    )
-  }
-}
-
-mohn_table
-# guaerda la tabla en outputs/retro
 write.csv(
   mohn_table,
   file = "outputs/retro/mohns_rho_by_scenario_5_9.csv",
   row.names = FALSE
 )
 
-
-# plot de uncertantainty
-# using this plotspict.retro.fixed(retro_results$SC6$RUN11)
-
-for (sc in names(retro_results)) {
-  for (run in names(retro_results[[sc]])) {
-
-    png(
-      filename = file.path(
-        "figs/retro",
-        paste0("RETRO_UNCERTAINTY_", sc, "_", run, ".png")
-      ),
-      width = 2400,
-      height = 1800,
-      res = 300
-    )
-
-    plotspict.retro.fixed(retro_results[[sc]][[run]])
-
-    dev.off()
-  }
-}
-
+mohn_table

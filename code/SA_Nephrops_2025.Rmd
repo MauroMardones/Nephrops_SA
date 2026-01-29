@@ -897,7 +897,6 @@ kable(
 
 
 
-
 ```{r mohnsrho, results='asis'}
 mohns_rho_by_scenario <- read_csv(here("outputs",
                                        "retro",
