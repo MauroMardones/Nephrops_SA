@@ -53,6 +53,12 @@ write.csv(
   row.names = FALSE
 )
 
+
+## ------------ plots comparision --------------
+
+#He sacado algunos priors que no convergen o q  generan
+#problemas con los ejes daddo que son magnitudes inverosimiles
+
 # compare with spict compare function
 png(
   filename = "figs/SPiCT_Comparison_SC5_all_RUN.png",

@@ -120,6 +120,7 @@ for (sc in names(results_by_scenario)) {
   }
 }
 
+## ------------- Guarda resultados  de Mohn-----------------
 
 dir.create("outputs/retro", showWarnings = FALSE, recursive = TRUE)
 

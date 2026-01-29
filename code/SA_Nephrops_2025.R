@@ -119,35 +119,37 @@ plot_index <- function(var_name, panel_title){
 
 
 #Índices ARSA (completos)
-p1 <- plot_index("arsabio", "ARSA biomass index")
-p2 <- plot_index("arsarendi", "ARSA productivity index")
-p3 <- plot_index("arsarendistand_grh", "ARSA standardized productivity (GRH)")
-p4 <- plot_index("arsarendistand_Kgh", "ARSA standardized productivity (Kgh)")
+#p1 <- plot_index("arsabio", "ARSA biomass index")
+#p2 <- plot_index("arsarendi", "ARSA productivity index")
+#p3 <- plot_index("arsarendistand_grh", "ARSA standardized productivity (GRH)")
+#p4 <- plot_index("arsarendistand_Kgh", "ARSA standardized productivity (Kgh)")
 p5 <- plot_index("arsa_std_nor", "ARSA standardized index (normalized)")
 p6 <- plot_index("arsa_CV_std_nor", "ARSA CV (standardized)")
 
 # Índices ISUNEPCA (UWTV)
-p7  <- plot_index("isunep_bio1", "ISUNEPCA UWTV biomass index")
-p8  <- plot_index("isunep_bio1_nor", "ISUNEPCA biomass (normalized)")
+
+p8  <- plot_index("CV_isunep_abun", " CV ISUNEPCA Abundance")
 p9  <- plot_index("isunep_abun", "ISUNEPCA UWTV abundance index")
 p10 <- plot_index("CV_isunep_abun", "ISUNEPCA CV")
-
+p7  <- plot_index("isunep_bio1", "ISUNEPCA UWTV biomass index")
 # Índices dependientes de la pesquería
-p11 <- plot_index("LPUE_10%nep", "Commercial LPUE (≥10% Nephrops)")
-p12 <- plot_index("LPUE_std_target_year", "Standardized LPUE (target year)") # Modificar
-p13 <- plot_index("LPUE_std_Vessel_RE", "Standardized LPUE (Vessel_RE)") # Modificar
-p14 <- plot_index("Effort_10%nep", "Directed fishing effort (≥10% Nephrops)")
+#p11 <- plot_index("LPUE_10%nep", "Commercial LPUE (≥10% Nephrops)")
+#p12 <- plot_index("LPUE_std_target_year", "Standardized LPUE (target year)") # Modificar
+p13 <- plot_index("LPUE_std_DCP", "Standardized LPUE (DCP)") # Modificar
+p14 <- plot_index("CV_LPUE_std_DCP", "CV Standardized LPUE (DCP)")
 p15 <- plot_index("Total_Effort", "Total fishing effort")
 
 # combinar y guuardar en "figs"
 fig_indices <- ggarrange(
-  p1,  p2,  p3,
-  p4,  p5,  p6,
-  p7,  p8,  p9,
-  p10, p11, p12,
-  p13, p14, p15,
-  ncol = 3,
-  nrow = 5,
+  # p1,  p2,  p3,
+  # p4,
+  p5,  p6,
+    p8,  p9, p7,
+  # p10, p11, p12,
+  p13, p14,
+  p15,
+  ncol = 2,
+  nrow = 4,
   font.label = list(size = 10)
 )
 

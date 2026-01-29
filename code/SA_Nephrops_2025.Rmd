@@ -2,7 +2,7 @@
 title: "![](../figs/IEO-logo2.png){width=8cm}"
 
 output:
-  bookdown::pdf_document2:
+  bookdown::word_document2:
     latex_engine: xelatex
     includes:
       before_body: ../bib/titulo.sty
@@ -117,12 +117,15 @@ where:
 In a graphical  inspection, a surplus production curve typically has a dome-shaped form, indicating that production increases with biomass up to a certain point (the maximum sustainable yield, MSY), after which it declines due to density-dependent effects. The shape of curve dependes on the specific functional form chosen for \( P(B) \), such as the Schaefer model, Pella-Tomlinson model, or others. (Figure \@ref(fig:surplusplot)).
 
 The SPiCT model extends traditional surplus production models by incorporating stochastic elements and continuous-time dynamics. This allows for a more realistic representation of the uncertainties inherent in fish stock assessments, such as environmental variability and observation errors. The key features of the SPiCT model include:
-- **Stochasticity**: The model incorporates process and observation errors, allowing for the quantification of uncertainty in biomass estimates and reference points.
-- **Continuous-time framework**: Unlike discrete-time models, SPiCT operates in continuous time, providing a more flexible and accurate representation of stock dynamics.
-- **Multiple data sources**: SPiCT can integrate various types of data, including catch data, abundance indices from surveys, and fishery-dependent indices such as CPUE and fishing effort.
-- **Bayesian inference**: The model employs Bayesian methods for parameter estimation, enabling the incorporation of prior knowledge and the derivation of posterior distributions for model parameters and stock status indicators.
 
-### SPICT Explorations
+* **Stochasticity**: The model incorporates process and observation errors, allowing for the quantification of uncertainty in biomass estimates and reference points.
+
+* **Continuous-time framework**: Unlike discrete-time models, SPiCT operates in continuous time, providing a more flexible and accurate representation of stock dynamics.
+
+* **Multiple data sources**: SPiCT can integrate various types of data, including catch data, abundance indices from surveys, and fishery-dependent indices such as CPUE and fishing effort.
+
+* **Bayesian inference**: The model employs Bayesian methods for parameter estimation, enabling the incorporation of prior knowledge and the derivation of posterior distributions for model parameters and stock status indicators.
+
 The analyses were made with R version 4.5.2. and the package SPiCT [@Pedersen2017] (version 1.3.8.1 recommended), following the Handbook and Guidelines developed for this package [@Mildenberger2023SPiCT; @Pedersen2023SPiCTHandbook].
 
 
@@ -155,16 +158,23 @@ bac <- read_csv(here("data",
 bac_tab <- bac %>%
   transmute(
     Year = year,
-    CATC = catch,        # Catches
-    ARSB = arsabio,      # ARSA biomass index
+    CATC = catch,                 # Catches
+    ARSB = arsabio,               # ARSA biomass index
     ARSP = arsarendistand_Kgh,    # ARSA productivity index
-    ARSS = arsa_std_nor, # ARSA standardised index
-    ARCV = arsa_CV_std_nor, # ARSA coefficient of variation
-    ISUB = isunep_bio1,   # ISUNEPCA biomass index
-    ISUA = isunep_abun,      # ISUNEPCA abundance index
-    EFRT = Effort,          # Fishing effort (days)
-    CPUE = LPUE_std_DCP        # Standardised CPUE
+    ARSS = arsa_std_nor,          # ARSA standardised index
+    ARCV = arsa_CV_std_nor,       # ARSA coefficient of variation
+    ISUB = isunep_bio1,           # ISUNEPCA biomass index
+    ISUA = isunep_abun,           # ISUNEPCA abundance index
+    EFRT = Effort,                # Fishing effort (days)
+    CPUE = LPUE_std_DCP           # Standardised CPUE
+  ) %>%
+  mutate(
+    across(
+      where(is.numeric),
+      ~ round(.x, 3)
+    )
   )
+
 kable(
   bac_tab,
   format = "latex",
@@ -187,7 +197,7 @@ EFRT = fishing effort (days); and CPUE = standardised landings per unit of effor
 
 \quad
 
-During the Data Meeting held in December, several combinations of available data sources were defined and evaluated to explore alternative model configurations within the SPiCT framework. These preliminary analyses comprised scenarios **SC0 to SC4**, together with prior sets **RUN1 to RUN4**, and formed the basis for the initial assessment work (Table \@ref(tab:scenarios) and Table \@ref(tab:spictpriors)).
+During the Data Meeting held in December, several combinations of available data sources were defined and evaluated to explore alternative model configurations within the SPiCT framework. These preliminary analyses comprised scenarios **SC0 to SC4** (Table \@ref(tab:scenarios)), together with prior sets **RUN1 to RUN4** (Table \@ref(tab:spictpriors)), and formed the basis for the initial assessment work.
 
 Subsequently, for the Assessment Meeting, new scenarios incorporating alternative indices available after December were tested. The present document therefore focuses on scenarios **SC5 to SC9**, which extend the original framework by exploring updated data combinations, as well as an expanded range of prior configurations **RUN5 to RUN12** designed to further evaluate model sensitivity and robustness. All scenarios were also tested under an alternative prior assumption for the intrinsic population growth rate, fixing the prior on *r* at **0.5**, **0.4**, consistent with estimates reported in FishBase for *Nephrops norvegicus* [FishBase](https://www.sealifebase.ca/summary/Nephrops-norvegicus.html). This additional configuration was used to evaluate the sensitivity of model outcomes to assumptions about population productivity. All scenarios considered are summarized in Table \@ref(tab:newscenario), while Table \@ref(tab:spictpriors2) provides an overview of the corresponding prior configurations applied to each scenario.
 
@@ -532,7 +542,7 @@ priors_df2 <- data.frame(
     "logn fixed",
     "logn (tighter Schaefer), logr",
     "logn, logr, logbkfrac",
-    "logn, logr (no process error)",
+    "logn, logr, logalpha, logbeta, (no process error)",
     "Flexible production with process error",
     "Flexible production with process error and lower catch uncertainty"
   ),
@@ -543,9 +553,9 @@ priors_df2 <- data.frame(
     "logn fixed at log(2)",
     "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2",
     "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2; logbkfrac ~ log(0.5), SD = 0.5",
-    "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2",
-    "logalpha, logbeta, logn, logr with process error priors on biomass, catch and fishing mortality",
-    "logalpha, logbeta, logn, logr with reduced catch process uncertainty"
+    "logn ~ log(2), SD = 0.5; logr ~ log(0.4), SD = 0.2, logalpha, logbeta disable",
+    "logalpha, logbeta active, logn, logr with process error priors on biomass, catch and fishing mortality",
+    "logalpha, logbeta disable, logn, logr with reduced catch process uncertainty"
   ),
 
   Purpose = c(
@@ -594,45 +604,41 @@ To ensure consistency and comparability across scenarios, all new configurations
 
 ## Results
 
-### Overview of scenarios and model performance
 
-This report focuses on the results obtained from the additional scenarios (**SC5–SC9**), which explore alternative combinations of corrected abundance indices and fishery-dependent information within the SPiCT framework for *Nephrops norvegicus* in Functional Unit 30. To ensure robustness and interpretability, only scenarios and prior configurations that achieved numerical convergence and passed basic diagnostic checks are retained for detailed presentation (Table \@ref(tab:retrosummary)). Summary tables and diagnostic figures are therefore based exclusively on stable and internally consistent model solutions, allowing meaningful comparison across alternative data configurations and prior assumptions while avoiding inference from non-convergent runs.
-
-Estimated biomass trajectories across scenarios **SC5–SC9** are presented in Figures 7–8.
-
-### Convergence and diagnostic patterns
-
-The initial convergence screening across scenarios and prior configurations reveals a clear and consistent pattern. Scenarios that do **not** include the ARSA yield-based index—most notably **SC5** and **SC6**, which rely on ISUNEPCA biomass and abundance indices—tend to converge more reliably and show fewer diagnostic issues across the majority of prior sets. In contrast, scenarios that incorporate the ARSA series (**SC7** and **SC9**) exhibit a substantially higher frequency of convergence failures and diagnostic inconsistencies.
-
-These issues are most likely driven by the limited informativeness of the ARSA series, combined with its temporal discontinuity and mismatch with other data sources, which complicates parameter estimation and increases sensitivity to prior assumptions.
-
-For the purposes of this report, diagnostic results are therefore presented comparatively for **SC6** and **SC9**, representing, respectively, a scenario with relatively strong overall performance and one with clearly suboptimal behaviour. Nevertheless, all scenarios and model outputs have been retained and remain available for transparency and further investigation.
-
-
-### Data relationships
+### Index relationships
 
 Correlation analysis among input data series (Figure \@ref(fig:correlation)) shows strong positive correlations between indices derived from similar sources, particularly between ISUNEPCA UWTV biomass and abundance indices, as well as among standardized CPUE and effort-related metrics. In contrast, ARSA-based indices display weaker and sometimes negative correlations with several fishery-dependent indicators. This pattern reflects differences in survey design, spatial coverage, and temporal consistency. Overall, indices cluster clearly by data origin, indicating partial redundancy within data groups and limited complementarity between ARSA and other sources.
 
 
+### Overview of scenarios and model performance
 
-### Population dynamics
+This report focuses on the results obtained from the additional scenarios (**SC5–SC9**), which explore alternative combinations of corrected abundance indices and fishery-dependent information within the SPiCT framework for *Nephrops norvegicus* in Functional Unit 30. To ensure interpretability, only scenarios and prior configurations that achieved numerical convergence and passed basic diagnostic checks are retained for detailed presentation (Table \@ref(tab:retrosummary)). Summary tables and diagnostic figures are therefore based exclusively on stable and internally consistent model solutions, allowing meaningful comparison across alternative data configurations and prior assumptions while avoiding inference from non-convergent runs.
 
-Population dynamics inferred from converged model runs indicate broadly consistent biomass and fishing mortality trajectories across scenarios dominated by ISUNEPCA indices and standardized CPUE. Biomass trajectories for scenarios **SC5–SC9** are shown in Figures \@ref(fig:plotspictsc5r5)–\@ref(fig:plotspictsc9r8). Scenarios including ARSA tend to show higher variability and less stable trajectories, particularly under less informative prior configurations, reinforcing concerns regarding the influence of this index on model behaviour.
+Principal SPiCT biomass trajectories across scenarios SC5–SC9 are presented in Figures \@ref(fig:plotspictsc6r11) and \@ref(fig:plotspictsc9r11), which illustrate representative biomass dynamics obtained under contrasting scenario assumptions.
 
+Population dynamics inferred from converged model runs indicate broadly consistent biomass and fishing mortality trajectories across scenarios dominated by ISUNEPCA indices and standardized CPUE. These scenarios are more plausible given the known stock trends and fishery dynamics in FU30. In contrast, scenarios incorporating ARSA indices exhibit greater variability and uncertainty in biomass estimates, reflecting the limited informativeness and potential inconsistencies of this data source.
+
+### Convergence and diagnostic patterns
+
+The initial convergence screening across scenarios and prior configurations reveals a clear and consistent pattern. Scenarios that do **not** include the ARSA yield-based index—most notably **SC5** and **SC6**, which rely on ISUNEPCA biomass and abundance indices—tend to converge more reliably and show fewer diagnostic issues across the majority of prior sets. In contrast, scenarios that incorporate the ARSA series (**SC7** and **SC9**) exhibit a substantially higher frequency of convergence failures and diagnostic inconsistencies (Figures \@ref(fig:diagspictsc6r11) and \@ref(fig:diagspictsc9r11)).
+
+These issues are most likely driven by the limited informativeness of the ARSA series, combined with its temporal discontinuity and mismatch with other data sources, which complicates parameter estimation and increases sensitivity to prior assumptions.
+
+
+
+### Retrospective patter
+
+Retrospective analyses were conducted for all converged scenarios under alternative prior configurations. Mohn’s rho estimates for acceptable runs generally fall within commonly applied thresholds for short-lived species, although performance deteriorates markedly in ARSA-based configurations. Scenarios **SC5** and **SC6** consistently yield Mohn’s rho values below 0.2 for both biomass and fishing mortality, indicating stable retrospective patterns. In contrast, scenarios incorporating ARSA indices (**SC7** and **SC9**) frequently exhibit Mohn’s rho values exceeding 0.3, reflecting significant retrospective bias and instability (Figures \@ref(fig:retroSC6RUN11) and \@ref(fig:retroSC9RUN11)). These findings underscore the challenges associated with integrating less informative or inconsistent data sources into the SPiCT framework for FU30.
 
 ### Predictive performance
 
-Hindcast performance was evaluated using the Mean Absolute Scaled Error (MASE). All converged model runs yielded MASE values below 1, indicating that SPiCT consistently outperformed a naive benchmark forecast. Differences among prior configurations were modest, although runs including informative priors on initial depletion and production curve shape generally exhibited slightly improved predictive accuracy. These results support the suitability of SPiCT for capturing key stock dynamics in FU30 when supported by coherent data inputs.
+Hindcast performance was evaluated using the Mean Absolute Scaled Error (MASE). All converged model runs yielded MASE values below 1, indicating that SPiCT consistently outperformed a naive benchmark forecast. Differences among prior configurations were modest, although runs including informative priors on initial depletion and production curve shape generally exhibited slightly improved predictive accuracy. These results support the suitability of SPiCT for capturing key stock dynamics in FU30 when supported by coherent data inputs (Figures \@ref(fig:hindcastsc6run11) and \@ref(fig:hindcastsc9run11)).
 
-
-### Retrospective consistency
-
-Retrospective analyses were conducted for all converged scenarios under alternative prior configurations. Results indicate that scenarios dominated by ISUNEPCA indices and standardized CPUE display relatively stable retrospective patterns, with limited systematic bias in biomass and fishing mortality estimates. In contrast, scenarios incorporating ARSA frequently failed retrospective diagnostics due to non-convergence. Mohn’s rho estimates for acceptable runs generally fall within commonly applied thresholds for short-lived species, although performance deteriorates markedly in ARSA-based configurations.
 
 
 ### Reference points 
 
-Estimates of biological reference points vary substantially across prior configurations, particularly for **B_MSY** and **MSY**, highlighting the strong influence of priors on absolute biomass scale. In contrast, **F_MSY** shows considerably lower variability across scenarios, suggesting that exploitation rates are more strongly informed by the data. Scenarios combining ISUNEPCA indices with standardized CPUE exhibit more coherent and interpretable reference point estimates, whereas **SC9** shows extreme or unstable values under several prior sets, reflecting structural uncertainty associated with mixed and discontinuous data coverage.
+Estimates of biological reference points vary substantially across prior configurations, particularly for **B_MSY** and **MSY**, highlighting the strong influence of priors on absolute biomass scale. In contrast, **F_MSY** shows considerably lower variability across scenarios, suggesting that exploitation rates are more strongly informed by the data. Scenarios combining ISUNEPCA indices with standardized CPUE exhibit more coherent and interpretable reference point estimates, whereas **SC9** shows extreme or unstable values under several prior sets, reflecting structural uncertainty associated with mixed and discontinuous data coverage (Figures \@ref(fig:brps) and Table \@ref(tab:bprstable)).
 
 \newpage
 
@@ -647,8 +653,6 @@ From a management and benchmarking perspective, scenarios dominated by ISUNEPCA 
 \newpage
 
 ## Code Repositories
-
-All this work has been developed using R language. The code and data used for the SPiCT explorations for Nephrops FU30 can be found in the following GitHub repository:
 
 All updates and improvements can be followed and obtained at the [SPiCT GitHub repository](https://github.com/DTUAqua/spict/commits/master). Bugs and issues can be reported via the [SPiCT Releases page](https://github.com/DTUAqua/spict/releases).
 

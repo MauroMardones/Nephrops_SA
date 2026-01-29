@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  28 JAN 2026 17:34
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2024.9.23)  29 JAN 2026 13:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -971,30 +971,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [4]
-Overfull \hbox (15.99496pt too wide) in alignment at lines 278--286
- [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (15.99496pt too wide) in alignment at lines 286--291
- [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (15.99496pt too wide) in alignment at lines 291--293
- [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (15.99496pt too wide) in alignment at lines 293--295
- [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (15.99496pt too wide) in alignment at lines 295--342
- [] [] [] [] [] [] [] [] [] [] 
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1027,7 +1003,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [8]
-Underfull \hbox (badness 2512) in paragraph at lines 423--423
+Underfull \hbox (badness 2512) in paragraph at lines 428--428
 []|\TU/lmr/m/n/8 Default (package de-
  []
 
@@ -1039,43 +1015,43 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [9]
-Overfull \hbox (5.03629pt too wide) in alignment at lines 434--439
- [] [] [] [] 
- []
-
-
 Overfull \hbox (5.03629pt too wide) in alignment at lines 439--444
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.03629pt too wide) in alignment at lines 444--446
+Overfull \hbox (5.03629pt too wide) in alignment at lines 444--449
  [] [] [] [] 
  []
 
 
-Overfull \hbox (5.03629pt too wide) in alignment at lines 446--448
+Overfull \hbox (5.03629pt too wide) in alignment at lines 449--451
  [] [] [] [] 
  []
 
 
-Overfull \vbox (12.41pt too high) detected at line 459
+Overfull \hbox (5.03629pt too wide) in alignment at lines 451--453
+ [] [] [] [] 
  []
 
 
-Overfull \vbox (12.41002pt too high) detected at line 467
+Overfull \vbox (12.41pt too high) detected at line 464
  []
 
 
-Overfull \vbox (12.41pt too high) detected at line 473
+Overfull \vbox (12.41002pt too high) detected at line 472
  []
 
 
-Overfull \vbox (12.41002pt too high) detected at line 481
+Overfull \vbox (12.41pt too high) detected at line 478
  []
 
 
-Overfull \hbox (5.03629pt too wide) in alignment at lines 448--482
+Overfull \vbox (12.41002pt too high) detected at line 486
+ []
+
+
+Overfull \hbox (5.03629pt too wide) in alignment at lines 453--487
  [] [] [] [] 
  []
 
@@ -1087,42 +1063,47 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [10]
-Overfull \hbox (3.83154pt too wide) in alignment at lines 489--494
- [] [] [] [] 
- []
-
-
 Overfull \hbox (3.83154pt too wide) in alignment at lines 494--499
  [] [] [] [] 
  []
 
 
-Overfull \hbox (3.83154pt too wide) in alignment at lines 499--501
+Overfull \hbox (3.83154pt too wide) in alignment at lines 499--504
  [] [] [] [] 
  []
 
 
-Overfull \hbox (3.83154pt too wide) in alignment at lines 501--503
+Overfull \hbox (3.83154pt too wide) in alignment at lines 504--506
  [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 2512) in paragraph at lines 504--504
+Overfull \hbox (3.83154pt too wide) in alignment at lines 506--508
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 2512) in paragraph at lines 509--509
 []|\TU/lmr/m/n/8 Default (package de-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--511
+Underfull \hbox (badness 3623) in paragraph at lines 515--515
+[]|\TU/lmr/m/n/8 logn, logr, logalpha,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 516--516
 []|\TU/lmr/m/n/8 Flexible production
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 512--512
+Underfull \hbox (badness 10000) in paragraph at lines 517--517
 []|\TU/lmr/m/n/8 Flexible production
  []
 
 
-Overfull \hbox (3.83154pt too wide) in alignment at lines 503--513
+Overfull \hbox (3.83154pt too wide) in alignment at lines 508--518
  [] [] [] [] 
  []
 
@@ -1142,12 +1123,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-22.65004pt}.
 
 [12]
-
-LaTeX Warning: Reference `fig:plotspictsc5r5' on page 13 undefined on input line 542.
-
-
-LaTeX Warning: Reference `fig:plotspictsc9r8' on page 13 undefined on input line 542.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1421,17 +1396,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [40]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 806.
+(Font)              scaled to size 8.0pt on input line 805.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 806.
+(Font)              scaled to size 5.0pt on input line 805.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 806.
+(Font)              scaled to size 8.00073pt on input line 805.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 806.
+(Font)              scaled to size 5.00046pt on input line 805.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 806.
+(Font)              scaled to size 7.99915pt on input line 805.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 806.
+(Font)              scaled to size 4.99947pt on input line 805.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 34.65004pt, for example:
@@ -1485,17 +1460,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ] (./SA_Nephrops_2025.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22920 strings out of 478761
- 436688 string characters out of 5848546
- 1891991 words of memory out of 5000000
- 42559 multiletter control sequences out of 15000+600000
+ 22914 strings out of 478761
+ 436591 string characters out of 5848546
+ 1890991 words of memory out of 5000000
+ 42553 multiletter control sequences out of 15000+600000
  520765 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,13n,121p,1444b,537s stack positions out of 10000i,1000n,20000p,200000b,200000s

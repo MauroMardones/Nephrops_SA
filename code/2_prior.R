@@ -97,8 +97,8 @@ priors_run9 <- list(
 priors_run10<- list(
   name = "RUN10_uncertan_catch",
   priors = list(
-    logalpha = c(1, 1, 1), # disable
-    logbeta  = c(1, 1, 1), # disable , to activate, change to (0,0,0)
+    logalpha = c(1, 1, 0), # disable
+    logbeta  = c(1, 1, 0), # disable , to activate, change to (0,0,0)
     logn  = c(log(2), 0.5, 1),  # prior on n only (Schaefer-type)
     logr  = c(log(0.4), 0.2, 1)
     # logsdb = c(log(0.2), 0.5), # prior on catch process uncertainty
