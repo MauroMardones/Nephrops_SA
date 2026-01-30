@@ -1,6 +1,6 @@
-# **Nephrops Stock Assessment and Exploratory Data Analysis (ICES Division 9A)**
+# **Nephrops Stock Assessment and Exploratory Data Analysis FU 30 (ICES Division 9A)**
 
-This repository contains the full analytical workflow, data structures, and documentation used for the exploratory data analysis (EDA) and stock assessment of *Nephrops norvegicus* in ICES Division 9A (Functional Unit 30).
+This repository contains the full analytical workflow, data structures, and documentation used for the exploratory data analysis (EDA) and stock assessment of *Nephrops norvegicus* in ICES Division 9A (FU 30).
 The project integrates fishery-dependent and fishery-independent data sources, applies standardized data processing and modelling procedures, and provides fully reproducible scripts for visualization, indicator development, and assessment model exploration.
 
 The repository is designed to support transparency, traceability, and reproducibility, in line with current practices within ICES working groups and benchmark processes.
@@ -57,7 +57,7 @@ R scripts covering:
 
 Key assessment documents are produced from R Markdown files (e.g. `SA_Nephrops_2025.Rmd`).
 
-The `code/` directory contains all scripts used to prepare data, configure model settings, run SPiCT models, and generate diagnostics and outputs for the assessment of *Nephrops norvegicus* in Functional Unit 30. The scripts are designed to be executed sequentially, as each step builds on objects created in previous stages.
+The `code/` directory contains all scripts used to prepare data, configure model settings, run SPiCT models, and generate diagnostics and outputs for the assessment of *Nephrops norvegicus* in FU 30. The scripts are designed to be executed sequentially, as each step builds on objects created in previous stages.
 
 The recommended execution order is as follows:
 
