@@ -23,19 +23,24 @@ header-includes:
   - \usepackage{fontspec}
   - \usepackage{setspace}
   - \setstretch{1.2}
+
   - \usepackage{fancyhdr}
   - \pagestyle{fancy}
   - \fancyhf{}
-  - \rhead{\footnotesize Working Document Nº4. Benchmark WKMSYSPiCT Meeting \\ Februery 2026 \\ Copenhagen (Denmark)}
+  - \rhead{\footnotesize Working Document Nº4. Benchmark WKMSYSPiCT Meeting \\ February 2026 \\ Copenhagen (Denmark)}
   - \renewcommand{\headrulewidth}{0pt}
-  - \lfoot[\thepage]{}
-  - \rfoot[]{\thepage}
+  - \rfoot{\thepage}
+
   - \usepackage{caption}
   - \captionsetup{
       justification=raggedright,
       singlelinecheck=false,
       width=\textwidth
     }
+
+  # --- TOC EN PAGINA NUEVA ---
+  - \usepackage{etoolbox}
+  - \pretocmd{\tableofcontents}{\newpage}{}{}
 ---
 
 
@@ -338,7 +343,7 @@ knitr::include_graphics("../figs/hindcast/hindcast_SC6_RUN11.png")
 knitr::include_graphics("../figs/hindcast/hindcast_SC9_RUN11.png")
 ```
 
-```{r brps, out.width='60%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) and current catch (Cp) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN12) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
+```{r brps, out.width='60%', fig.cap="Comparison of stochastic biological reference points (Bmsy, Fmsy, MSY) across SPiCT Scenarios SC5–SC9 and prior configurations (RUN5–RUN12) for Nephrops FU30. Points represent scenario–prior combinations, illustrating the sensitivity of stock productivity and exploitation reference points to alternative data configurations and prior assumptions."}
 knitr::include_graphics("../figs/SPiCT_BRP_scenario_5_9_RUN_comparison.png")
 ```
 
