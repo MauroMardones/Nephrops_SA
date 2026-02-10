@@ -42,10 +42,10 @@ library(here)
 library(pheatmap)
 # definir un directorio para guardar plott "figs"
 
-fig.path <- here("figs")
-lapply(c("figs", "outputs"),
-       function(x) if(!dir.exists(x))
-         dir.create(x, recursive = TRUE))
+# fig.path <- here("figs")
+# lapply(c("figs", "outputs"),
+#        function(x) if(!dir.exists(x))
+#          dir.create(x, recursive = TRUE))
 
 
 
