@@ -1,9 +1,10 @@
 
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
-# Table and plots
-results_by_scenario#<-readRDS("outputs/SPiCT_SC8_SC9_RUN8_results.rds")
 
+# Table and plots
+#results_by_scenario<-readRDS("outputs/SPiCT_SC8_SC9_RUN8_results.rds")
+results_by_scenario
 ## --------------Function to extract diagnostics from a spict fit object------------------------------------------
 
 # Table and plots
